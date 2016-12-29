@@ -8,7 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/titleRed"
+        android:background="@color/mineRed"
         android:paddingTop="@dimen/padding_top"
         android:theme="@style/AppTheme.AppBarOverlay">
 

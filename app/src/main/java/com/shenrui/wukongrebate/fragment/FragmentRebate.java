@@ -30,8 +30,9 @@ import static android.R.attr.button;
 
 @EFragment(R.layout.rebate_fragment_page)
 public class FragmentRebate extends Fragment {
-     TextView tv_toolbar_left;
-     ImageView iv_toolbar_left;
+    TextView tv_toolbar_left;
+    ImageView iv_toolbar_left;
+    ImageView iv_toolbar_right;
      View view;
 
     @Override
@@ -44,6 +45,9 @@ public class FragmentRebate extends Fragment {
     void init(){
         tv_toolbar_left = (TextView) view.findViewById(R.id.toolbar_left_text);
         iv_toolbar_left = (ImageView) view.findViewById(R.id.toolbar_left_image);
+        iv_toolbar_right = (ImageView) view.findViewById(R.id.toolbar_right_image);
+
+        iv_toolbar_right.setVisibility(View.GONE);
         ((TextView)view.findViewById(R.id.toolbar_title)).setText("悟空返利");
         iv_toolbar_left.setImageResource(R.drawable.index_btn_city_n);
     }

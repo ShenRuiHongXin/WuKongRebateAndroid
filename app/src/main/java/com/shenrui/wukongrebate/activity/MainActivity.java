@@ -65,19 +65,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         vp_content.addOnPageChangeListener(this);
 
-//        View page_rebate = View.inflate(MainActivity.this, R.layout.rebate_fragment_page, null);
-//        View page_food = View.inflate(MainActivity.this, R.layout.food_fragment_page, null);
-//        View page_circle = View.inflate(MainActivity.this, R.layout.circle_fragment_page, null);
-//        View page_haitao = View.inflate(MainActivity.this, R.layout.haitao_fragment_page, null);
-//        View page_mine = View.inflate(MainActivity.this, R.layout.mine_fragment_page, null);
-//
-//        views = new ArrayList<View>();
-//        views.add(page_rebate);
-//        views.add(page_food);
-//        views.add(page_circle);
-//        views.add(page_haitao);
-//        views.add(page_mine);
-
         fragmentList   = new ArrayList<Fragment>();
 
         fragmentList.add(new FragmentRebate());
@@ -114,6 +101,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         selectPage(tmpPosition);
     }
 
+    //重置界面
     private void resetView() {
         //
         ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_hot_n);
@@ -129,6 +117,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         ((TextView)tv_list.get(4)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
     }
 
+    //设置选中页
     private void selectPage(int position){
         switch (position) {
             case 0:
