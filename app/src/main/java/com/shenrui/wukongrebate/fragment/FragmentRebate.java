@@ -45,7 +45,6 @@ public class FragmentRebate extends Fragment {
         tv_toolbar_left = (TextView) view.findViewById(R.id.toolbar_left_text);
         iv_toolbar_left = (ImageView) view.findViewById(R.id.toolbar_left_image);
         ((TextView)view.findViewById(R.id.toolbar_title)).setText("悟空返利");
-        Log.i("heikki","iv_toolbar_left: " + iv_toolbar_left);
         iv_toolbar_left.setImageResource(R.drawable.index_btn_city_n);
     }
 }
