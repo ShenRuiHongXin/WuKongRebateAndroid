@@ -1,5 +1,6 @@
 package com.shenrui.wukongrebate.fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
+import com.shenrui.wukongrebate.utils.PhotoPop;
 
 import org.androidannotations.annotations.EFragment;
 
@@ -35,6 +37,8 @@ public class FragmentMine extends Fragment implements View.OnClickListener{
     TextView tv_money;
     TextView tv_withdraw;
     TextView tv_all_order;
+
+    PhotoPop photoPop;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_fragment_page, container, false);
@@ -79,7 +83,7 @@ public class FragmentMine extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_avatar://修改头像
-
+                photoPop = new PhotoPop(getActivity(),R.layout.activity_main);
                 break;
             case R.id.tv_userName:
 
@@ -94,5 +98,11 @@ public class FragmentMine extends Fragment implements View.OnClickListener{
 
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        photoPop.setPhoto(requestCode,resultCode,data,iv_avatar);
     }
 }
