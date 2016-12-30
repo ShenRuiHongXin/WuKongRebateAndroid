@@ -32,7 +32,7 @@ public class ActivityView extends LinearLayout {
     public ActivityView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // 加载布局
-//        LayoutInflater.from(context).inflate(R.layout.activity_view, this);
+        LayoutInflater.from(context).inflate(R.layout.activity_view, this);
 
         // 获取控件
         tv_left_title = (TextView) findViewById(R.id.tv_left_title);

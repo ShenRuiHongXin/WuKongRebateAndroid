@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@color/category_bg"></android.support.design.widget.TabLayout>
+                android:background="@color/category_bg"/>
 
             //广告轮播栏
 
