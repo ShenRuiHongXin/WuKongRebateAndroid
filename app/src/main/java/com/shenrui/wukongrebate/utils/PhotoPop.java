@@ -3,9 +3,11 @@ package com.shenrui.wukongrebate.utils;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,11 +17,12 @@ import android.widget.PopupWindow;
 import com.shenrui.wukongrebate.R;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Created by Administrator on 2016/12/29.
  */
-/**本框架的功能：
+/**
  *   1.用PopupWindow显示悬浮窗口：包含拍照和从相册选取图片两个按钮
  *   2.启动系统的拍照Activity
  *   3.启动系统的从相册选取图片的Activity
@@ -57,12 +60,19 @@ public class PhotoPop {
                 choosePhoto();
             }
         });
+        //取消按钮的监听
+        layout.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.dismiss();
+            }
+        });
     }
 
     private View initPop(View parent) {
         View layout = View.inflate(context, R.layout.photo_pop_up, null);
         float density = context.getResources().getDisplayMetrics().density;
-        popupWindow = new PopupWindow(layout, LinearLayout.LayoutParams.MATCH_PARENT, (int) density * 95);
+        popupWindow = new PopupWindow(layout, LinearLayout.LayoutParams.MATCH_PARENT, (int) density * 145);
         popupWindow.setFocusable(true);
         popupWindow.setTouchable(true);
         popupWindow.setOutsideTouchable(true);
@@ -104,7 +114,13 @@ public class PhotoPop {
     }
 
     private void showPhoto(Intent data, ImageView imageView) {
-        Bitmap bitmap = data.getParcelableExtra("data");
+        //Bitmap bitmap = data.getParcelableExtra("data");
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(data.getData()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         if(bitmap!=null){
             imageView.setImageBitmap(bitmap);
         }
@@ -114,8 +130,8 @@ public class PhotoPop {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(data, "image/*");
 
-        intent.putExtra("outputX", outputX);
-        intent.putExtra("outputY", outputY);
+        //intent.putExtra("outputX", outputX);
+        //intent.putExtra("outputY", outputY);
 
 
         intent.putExtra("outputFormintent.putExtra(\"return-data\", true);at", Bitmap.CompressFormat.PNG.toString());

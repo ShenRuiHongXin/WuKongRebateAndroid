@@ -48,7 +48,7 @@
             android:layout_toRightOf="@id/iv_avatar"
             android:layout_marginLeft="10dp"
             android:layout_below="@id/tv_userName"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="35dp"/>
         <TextView
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
             android:textColor="@color/white"
             android:layout_alignBottom="@id/tv"
             android:layout_toRightOf="@id/tv"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="10dp"/>
         <TextView
             android:id="@+id/tv_withdraw"
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:text="我的订单"
             android:layout_gravity="center_vertical"
-            android:textSize="18dp"
+            android:textSize="20sp"
             android:layout_marginLeft="10dp"/>
         <View
             android:layout_width="0dp"
@@ -91,15 +91,19 @@
         <TextView
             android:id="@+id/tv_all_order"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="查看全部订单"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="@color/mainGrey"
-            android:drawableRight="@drawable/right"
             android:drawablePadding="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mainGrey"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
