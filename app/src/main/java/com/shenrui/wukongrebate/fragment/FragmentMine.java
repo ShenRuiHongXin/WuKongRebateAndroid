@@ -53,6 +53,7 @@ public class FragmentMine extends Fragment implements View.OnClickListener{
         iv_avatar.setOnClickListener(this);
         iv_sex.setOnClickListener(this);
         tv_user_name.setOnClickListener(this);
+        iv_toolbar_left.setOnClickListener(this);
         tv_withdraw.setOnClickListener(this);
     }
 
@@ -85,12 +86,9 @@ public class FragmentMine extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_avatar:
-                startActivity(new Intent(context, SettingsActivity.class));
-                break;
             case R.id.tv_userName:
-                startActivity(new Intent(context, SettingsActivity.class));
-                break;
             case R.id.iv_sex:
+            case R.id.toolbar_left_image:
                 startActivity(new Intent(context, SettingsActivity.class));
                 break;
             case R.id.tv_withdraw://提现
