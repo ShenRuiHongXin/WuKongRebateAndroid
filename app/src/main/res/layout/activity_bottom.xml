@@ -21,7 +21,7 @@
                 android:id="@+id/iv_rebate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tab_hot_background" />
+                android:src="@drawable/common_icon_hot_s" />
 
             <TextView
                 android:id="@+id/tv_rebate"
@@ -47,7 +47,7 @@
                 android:id="@+id/iv_food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tab_food_background" />
+                android:src="@drawable/common_icon_cate_n" />
 
             <TextView
                 android:id="@+id/tv_food"
@@ -73,7 +73,7 @@
                 android:id="@+id/iv_circle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tab_health_background" />
+                android:src="@drawable/common_icon_health_n" />
 
             <TextView
                 android:id="@+id/tv_circle"
@@ -99,7 +99,7 @@
                 android:id="@+id/iv_haitao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tab_rebate_background" />
+                android:src="@drawable/common_icon_wash_n" />
 
             <TextView
                 android:id="@+id/tv_haitao"
@@ -126,7 +126,7 @@
                 android:id="@+id/iv_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tab_mine_background" />
+                android:src="@drawable/common_icon_monkey_n" />
 
             <TextView
                 android:id="@+id/tv_mine"
