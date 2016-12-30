@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,9 +16,6 @@ import android.widget.TextView;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SettingsActivity;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
-import com.shenrui.wukongrebate.utils.PhotoPop;
-
-import org.androidannotations.annotations.EFragment;
 
 /**
  * Created by heikki on 2016/12/28.

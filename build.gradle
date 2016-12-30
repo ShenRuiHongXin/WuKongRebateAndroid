@@ -15,8 +15,11 @@ buildscript {
 
 allprojects {
     repositories {
+        /*集成百川电商SDK3.1加入仓库地址*/
         jcenter()
+        maven { url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/" }
     }
+
 }
 
 task clean(type: Delete) {
