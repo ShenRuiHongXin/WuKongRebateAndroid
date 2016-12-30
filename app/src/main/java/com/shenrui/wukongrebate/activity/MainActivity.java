@@ -19,7 +19,6 @@ import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
-import com.shenrui.wukongrebate.fragment.FragmentMine_;
 import com.shenrui.wukongrebate.fragment.FragmentRebate;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
 
@@ -77,7 +76,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         fragmentList.add(new FragmentFood_());
         fragmentList.add(new FragmentCircle_());
         fragmentList.add(new FragmentHaitao_());
-        fragmentList.add(new FragmentMine_());
+        fragmentList.add(new FragmentMine());
 
         this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp_content.setAdapter(adapter);
