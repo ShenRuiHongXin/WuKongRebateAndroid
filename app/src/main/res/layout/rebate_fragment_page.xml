@@ -1,16 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/index_bg_color">
+
     <include
+        android:id="@+id/include"
         layout="@layout/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="wrap_content"
+
+    //搜索栏
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="悟空返利"
-        android:textSize="30dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/include"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_margin="10dp"
+            android:background="@drawable/index_btn_scanning_n" />
+
+        <com.shenrui.wukongrebate.view.SearchView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_search">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            //分类栏
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tl_goods_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/category_bg"></android.support.design.widget.TabLayout>
+
+            //广告轮播栏
+
+            <com.shenrui.wukongrebate.view.CycleRotationView
+                android:id="@+id/cyclerotationview"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_below="@+id/tl_goods_category" />
+
+            //超级返
+
+            <LinearLayout
+                android:id="@+id/ll_activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cyclerotationview"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/index_icon_supper_n"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:text="超级返"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/index_icon_nine_n"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:text="9块9"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/index_icon_award_n"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:text="悟空抽奖"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/index_icon_wash_n"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:text="悟空海淘"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/index_icon_n"
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:text="悟空团购"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            //签到栏
+
+            <com.shenrui.wukongrebate.view.MyGridView
+                android:id="@+id/mgv_sign"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_activity"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:horizontalSpacing="0.0dip"
+                android:listSelector="@null"
+                android:numColumns="2"
+                android:paddingTop="5dp"
+                android:scrollbars="none"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="0.0dip" />
+
+            //活动栏
+
+            <com.shenrui.wukongrebate.view.ActivityView
+                android:id="@+id/activity_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/mgv_sign"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" />
+
+            //分割线
+            <com.shenrui.wukongrebate.view.IndexSplitline
+            android:id="@+id/index_splitline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/activity_view"
+            android:layout_marginTop="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+
+            //10点上新商品
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/ten_new_goods_recy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/index_splitline"/>
+        </RelativeLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

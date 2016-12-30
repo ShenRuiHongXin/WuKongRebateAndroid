@@ -13,14 +13,21 @@ import android.widget.TextView;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
 import com.shenrui.wukongrebate.fragment.FragmentCircle;
+import com.shenrui.wukongrebate.fragment.FragmentCircle_;
 import com.shenrui.wukongrebate.fragment.FragmentFood;
+import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao;
+import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
+import com.shenrui.wukongrebate.fragment.FragmentMine_;
 import com.shenrui.wukongrebate.fragment.FragmentRebate;
+import com.shenrui.wukongrebate.fragment.FragmentRebate_;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
 
@@ -46,7 +53,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @ViewsById({R.id.tv_rebate, R.id.tv_food, R.id.tv_circle, R.id.tv_haitao, R.id.tv_mine})
     List tv_list;
 
-
     private List<View> views;
     private List<Fragment> fragmentList;
 
@@ -67,11 +73,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         fragmentList   = new ArrayList<Fragment>();
 
-        fragmentList.add(new FragmentRebate());
-        fragmentList.add(new FragmentFood());
-        fragmentList.add(new FragmentCircle());
-        fragmentList.add(new FragmentHaitao());
-        fragmentList.add(new FragmentMine());
+        fragmentList.add(new FragmentRebate_());
+        fragmentList.add(new FragmentFood_());
+        fragmentList.add(new FragmentCircle_());
+        fragmentList.add(new FragmentHaitao_());
+        fragmentList.add(new FragmentMine_());
 
         this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp_content.setAdapter(adapter);
