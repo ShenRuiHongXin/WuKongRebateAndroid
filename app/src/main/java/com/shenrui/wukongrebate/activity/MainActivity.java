@@ -4,29 +4,24 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
-import com.shenrui.wukongrebate.fragment.FragmentCircle;
 import com.shenrui.wukongrebate.fragment.FragmentCircle_;
-import com.shenrui.wukongrebate.fragment.FragmentFood;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
-import com.shenrui.wukongrebate.fragment.FragmentHaitao;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
-import com.shenrui.wukongrebate.fragment.FragmentRebate;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
+import com.shenrui.wukongrebate.utils.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.FragmentById;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
 
@@ -65,6 +60,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @AfterViews
     void init() {
+        LogUtil.i("Mainactivity oncreate");
 //        mToolbar.setTitle("");
 //        setSupportActionBar(mToolbar);
 
@@ -151,6 +147,23 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 vp_content.setCurrentItem(4);
                 break;
         }
+    }
+
+
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 1000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

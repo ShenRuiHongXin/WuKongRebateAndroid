@@ -3,6 +3,7 @@ package com.shenrui.wukongrebate.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -29,4 +30,8 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         return fragmentList.get(arg0);
     }
 
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+//        super.destroyItem(container, position, object);
+    }
 }

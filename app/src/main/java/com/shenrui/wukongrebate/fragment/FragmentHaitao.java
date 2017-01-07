@@ -1,14 +1,10 @@
 package com.shenrui.wukongrebate.fragment;
 
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -21,7 +17,7 @@ import java.util.List;
  */
 
 @EFragment(R.layout.haitao_fragment_page)
-public class FragmentHaitao extends Fragment {
+public class FragmentHaitao extends BaseFragment {
     //标题栏
     @ViewsById({R.id.toolbar_left_text,R.id.toolbar_left_image,R.id.toolbar_title,R.id.toolbar_right_image})
     List<View> listTitleView;
@@ -32,5 +28,6 @@ public class FragmentHaitao extends Fragment {
         listTitleView.get(1).setVisibility(View.GONE);
         ((TextView)listTitleView.get(2)).setText("海淘");
         listTitleView.get(3).setVisibility(View.GONE);
+        LogUtil.i("FragmentHaitao created");
     }
 }

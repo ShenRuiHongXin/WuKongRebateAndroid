@@ -2,25 +2,25 @@ package com.shenrui.wukongrebate.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 
+import org.androidannotations.annotations.EViewGroup;
+import org.androidannotations.annotations.ViewById;
+
 /**
  * Created by heikki on 2016/12/30.
  */
 
+@EViewGroup(R.layout.index_splitline)
 public class IndexSplitline extends RelativeLayout {
-    private TextView tv_splitline_content;
+    @ViewById
+    TextView tv_splitline_content;
 
     public IndexSplitline(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // 加载布局
-        LayoutInflater.from(context).inflate(R.layout.index_splitline, this);
-        // 获取控件
-        tv_splitline_content = (TextView) findViewById(R.id.tv_splitline_content);
     }
 
     public void setSplitlineContent(String content){

@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.entities.TenGoodsData;
+import com.shenrui.wukongrebate.utils.ScreenUtils;
 
 import java.util.List;
 
@@ -33,8 +36,29 @@ public class RecyTenNewGoodsAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        final MyViewHolder myViewHolder = (MyViewHolder) holder;
 
+        TenGoodsData tenGoodsDataTmp = (TenGoodsData)listData.get(position);
+        Glide.with(context)
+                .load(tenGoodsDataTmp.getPict_url())
+                .into(myViewHolder.iv_goods);
+
+        myViewHolder.tv_goods_price.setText("价格："+tenGoodsDataTmp.getZk_final_price()+"¥");
+        myViewHolder.tv_goods_info.setText(tenGoodsDataTmp.getTitle());
+
+        if (mOnItemClickLitener != null)
+        {
+            holder.itemView.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    int pos = myViewHolder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+                }
+            });
+        }
     }
 
     @Override
@@ -42,18 +66,37 @@ public class RecyTenNewGoodsAdapter extends RecyclerView.Adapter {
         return listData.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder
-    {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_goods;
-        TextView tv_goods_name;
+        TextView tv_goods_price;
         TextView tv_goods_info;
 
         public MyViewHolder(View view)
         {
             super(view);
+
+
             iv_goods = (ImageView) view.findViewById(R.id.iv_10_new_goods);
-            tv_goods_name = (TextView) view.findViewById(R.id.tv_10_new_goods_name);
+            ViewGroup.LayoutParams layoutParams = iv_goods.getLayoutParams();
+            layoutParams.width = (ScreenUtils.getScreenWidth(context)-ScreenUtils.dip2px(context,10)*2)/2;
+            layoutParams.height = (int) (layoutParams.width/1.75);
+            iv_goods.setLayoutParams(layoutParams);
+            tv_goods_price = (TextView) view.findViewById(R.id.tv_10_new_goods_price);
             tv_goods_info = (TextView) view.findViewById(R.id.tv_10_new_goods_info);
         }
     }
+
+    public interface OnItemClickLitener
+    {
+        void onItemClick(View view, int position);
+//        void onItemLongClick(View view , int position);
+    }
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener)
+    {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
 }

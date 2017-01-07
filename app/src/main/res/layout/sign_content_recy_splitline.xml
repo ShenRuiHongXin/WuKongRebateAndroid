@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/sign_splitline_bg"/>
+
+    <TextView
+        android:text="官方任务"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/line"
+        android:layout_alignLeft="@+id/line"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tv_sign_recy_slitline_type"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:text="今日没有更多任务喽，明天再来~"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="40dp"
+        android:layout_below="@+id/line"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_sign_task_nomore" />
+</RelativeLayout>

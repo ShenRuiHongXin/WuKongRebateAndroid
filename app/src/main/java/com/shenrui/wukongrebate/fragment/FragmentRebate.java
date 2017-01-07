@@ -1,125 +1,187 @@
 package com.shenrui.wukongrebate.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.ActivityRecyAdapter;
-import com.shenrui.wukongrebate.adapter.MyGridAdapter;
 import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
-import com.shenrui.wukongrebate.view.ActivityView;
-import com.shenrui.wukongrebate.view.CycleRotationView;
-import com.shenrui.wukongrebate.view.MyGridView;
+import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
+import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
+import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.CatsItemLocal;
+import com.shenrui.wukongrebate.entities.RecyItemIndexData;
+import com.shenrui.wukongrebate.entities.SignRecyItemData;
+import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.utils.Utils;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.attr.button;
-
 /**
  * Created by heikki on 2016/12/28.
+ * 待优化：
+ * 1.每次加载界面都会重新请求网络，影响速度。解决思路：APP启动时请求网络数据，并将获得的数据用sharedpreferences或SQLite等技术缓存，
+ * 若在不退出的APP的情况下重新加载FragmentRebate，则直接取缓存的数据；用户刷新数据的时候则请求网络更新数据，并更新缓存；若APP退
+ * 出，则清空缓存，下次启动再次请求网络数据并缓存；
  */
 
 @EFragment(R.layout.rebate_fragment_page)
-public class FragmentRebate extends Fragment {
+public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelectedListener{
 
     //标题栏
-    @ViewsById({R.id.toolbar_left_text,R.id.toolbar_left_image,R.id.toolbar_title,R.id.toolbar_right_image})
+    @ViewsById({R.id.toolbar_left_text, R.id.toolbar_left_image, R.id.toolbar_title, R.id.toolbar_right_image})
     List<View> listTitleView;
-    //商品分类
+
+    //ScrollView
+//    @ViewById(R.id.sv_content)
+//    ScrollView sv_content;
+
+    //分类栏
     @ViewById(R.id.tl_goods_category)
-    TabLayout tl_googs_category;
-    //广告轮播栏
-    @ViewById(R.id.cyclerotationview)
-    CycleRotationView cycleRotationView;
-    //签到
-    @ViewById(R.id.mgv_sign)
-    MyGridView myGridView;
-    //活动
-    @ViewById(R.id.activity_view)
-    ActivityView activityView;
-    //10点早上新
-    @ViewById(R.id.ten_new_goods_recy)
-    RecyclerView rv_ten_new;
+    TabLayout tl_goods_category;
 
+    //首页内容
+    @ViewById(R.id.recy_main)
+    RecyclerView recyMain;
+
+    //进度条
+    @ViewById(R.id.ll_progressBar)
+    LinearLayout ll_progressBar;
+
+    //首页数据
+    RecyItemIndexData recyItemIndexData;
+    List<SignRecyItemData> listData;
+
+    //界面初始化
     @AfterViews
-    void init(){
-        //标题栏
+    void init() {
+        ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
+        ((TextView) listTitleView.get(2)).setText("美食馆");
         listTitleView.get(3).setVisibility(View.GONE);
-        ((TextView)listTitleView.get(2)).setText("悟空返利");
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
 
-        //商品分类
-        tl_googs_category.setTabMode(TabLayout.MODE_SCROLLABLE);
-        for(int i = 0;i<10;i++){
-            tl_googs_category.addTab(tl_googs_category.newTab().setText("类目"+i));
-        }
+        showProgressBar();
 
-        //广告轮播栏
-        String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
-        cycleRotationView.setUrls(urls);
-            // 点击事件
-        cycleRotationView.setOnItemClickListener(new CycleRotationView.OnItemClickListener() {
+        recyMain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false){
             @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(getActivity(), "Click = " + position, Toast.LENGTH_SHORT).show();
+            public boolean canScrollVertically() {
+                return true;
             }
         });
 
-        //签到
-        myGridView.setAdapter(new MyGridAdapter(getActivity()));
-
-        //活动
-        List<String> listTitle   = new ArrayList<String>();
-        List<String> listContent = new ArrayList<String>();
-        List<Integer> listIcon = new ArrayList<Integer>();
-        listTitle.add("活动主题1");
-        listTitle.add("热销品牌1");
-        listTitle.add("标题1");
-        listTitle.add("标题2");
-        listContent.add("活动简介内容1");
-        listContent.add("");
-        listContent.add("宣传内容1");
-        listContent.add("宣传内容2");
-        listIcon.add(R.drawable.index_img_activity_n);
-        listIcon.add(R.drawable.index_img_activity1_n);
-        listIcon.add(R.drawable.index_img_activity2_n);
-        listIcon.add(R.drawable.index_img_activity2_n);
-
-
-        //10点早上新
-        int spanCount = 2;
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), spanCount){
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        };
-        rv_ten_new.setLayoutManager(gridLayoutManager);
-        List listGoods = new ArrayList();
-        for (int i = 0 ;i<10; i++) {
-            listGoods.add(""+i);
+        //商品分类
+        tl_goods_category.setTabMode(TabLayout.MODE_SCROLLABLE);
+        for (CatsItemLocal cats : Constants.Itemcats) {
+            TabLayout.Tab tab = tl_goods_category.newTab();
+            tab.setText(cats.getName());
+            tab.setTag(cats.getCids());
+            tl_goods_category.addTab(tab);
         }
-        rv_ten_new.setAdapter(new RecyTenNewGoodsAdapter(getActivity(),listGoods));
+        tl_goods_category.setOnTabSelectedListener(this);
+
+        initDatas();
+
+    }
+
+    //首页数据加载
+    @Background
+    void initDatas() {
+        if (Utils.isNetworkConnected(getActivity())){
+            recyItemIndexData = new RecyItemIndexData();
+
+            String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
+            recyItemIndexData.setCycleList(urls);//轮播图
+            recyItemIndexData.setCjfanList(new ArrayList());//超级返
+            recyItemIndexData.setSignList(new ArrayList());//签到
+            recyItemIndexData.setActiviList(new ArrayList());//活动
+            List listTmp = GetNetWorkDatas.getTenNewGoods();
+            if(listTmp == null){
+                initDatas();
+            }
+            recyItemIndexData.setTenList(listTmp);//早10点上新
+            listData = new ArrayList<>();
+            listData.add(new SignRecyItemData(recyItemIndexData, SignRecyItemData.MAIN_ITEM));
+            updataUi();
+        }else{
+            initDatas();
+        }
+
+    }
+    @UiThread
+    void updataUi() {
+        recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData, this));
+
+        hideProgressBar();
+    }
+
+
+    //分类类目切换，处理数据
+    public void handleNewData(TabLayout.Tab tab) {
+        int p = tab.getPosition();
+        LogUtil.i("cats: " + p);
+        if(p == 0){
+            recyMain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData, this));
+        }else{
+            showProgressBar();
+            int spanCount2 = 2;
+            recyMain.setLayoutManager(new GridLayoutManager(getActivity(), spanCount2));
+
+            getCatsGoods((int[])(tab.getTag()));
+        }
+    }
+
+
+    //根据分类获取商品
+    @Background
+    void getCatsGoods(int[] cids){
+        updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(cids));
+    }
+    @UiThread
+    void updateCatsGoods(List list){
+        recyMain.setAdapter(new RecyTenNewGoodsAdapter(getActivity(), list));
+        hideProgressBar();
+    }
+
+
+    //分类点击事件监听
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        Toast.makeText(getActivity(), "分类: " + tab.getText(), Toast.LENGTH_SHORT).show();
+        handleNewData(tab);
+    }
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
+
+
+    //显示隐藏进度条
+    @UiThread
+    void showProgressBar(){
+        ll_progressBar.setVisibility(View.VISIBLE);
+        recyMain.setVisibility(View.INVISIBLE);
+    }
+    @UiThread
+    void hideProgressBar(){
+        ll_progressBar.setVisibility(View.GONE);
+        recyMain.setVisibility(View.VISIBLE);
     }
 }
