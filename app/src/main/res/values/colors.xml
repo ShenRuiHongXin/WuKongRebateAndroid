@@ -24,4 +24,5 @@
     <color name="activity_view_border_color">#CBDEFF</color>
     
     <color name="sign_splitline_color_center">#666666</color>
+    <color name="mineGrey">#FFD2CBCB</color>
 </resources>

@@ -13,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.SettingsActivity;
+import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
+import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
 
 /**
@@ -79,11 +80,13 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.toolbar_left_image:
+                startActivity(new Intent(context,SettingsActivity_.class));
+                break;
             case R.id.iv_avatar:
             case R.id.tv_userName:
             case R.id.iv_sex:
-            case R.id.toolbar_left_image:
-                startActivity(new Intent(context, SettingsActivity.class));
+                startActivity(new Intent(context, PersonalInfoActivity_.class));
                 break;
             case R.id.tv_withdraw://提现
 
