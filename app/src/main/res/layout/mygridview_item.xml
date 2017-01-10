@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_margin="0.0dip"
-    android:background="@color/category_bg" >
+    android:background="@color/category_bg"
+    android:transitionName="sharedView">
 
     <LinearLayout
         android:layout_width="match_parent"

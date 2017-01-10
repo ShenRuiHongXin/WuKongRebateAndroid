@@ -30,8 +30,11 @@
             android:background="@drawable/index_btn_scanning_n" />
 
         <com.shenrui.wukongrebate.view.SearchView
+            android:id="@+id/sv_searchView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:transitionName="sharedView"/>
     </LinearLayout>
 
     //分类栏

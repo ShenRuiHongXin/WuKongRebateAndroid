@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/main_layout">
+    android:id="@+id/sign_layout">
 
     <include
         layout="@layout/titlebar"
@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#ffffff"></android.support.v4.view.ViewPager>
+        android:background="#ffffff"
+        android:transitionName="sharedView"/>
 
     <include
         layout="@layout/sign_activity_bottom"

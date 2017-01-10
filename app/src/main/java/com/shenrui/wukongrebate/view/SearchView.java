@@ -40,6 +40,12 @@ public class SearchView extends LinearLayout implements TextWatcher, View.OnClic
         bt_clear.setOnClickListener(this);
     }
 
+    public void setEditTextOnlickListener(OnClickListener onlickListener){
+        et_search.setFocusable(false);
+        et_search.setClickable(true);
+        et_search.setOnClickListener(onlickListener);
+    }
+
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

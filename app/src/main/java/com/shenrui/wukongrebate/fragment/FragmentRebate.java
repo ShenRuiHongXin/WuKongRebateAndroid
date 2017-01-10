@@ -1,5 +1,8 @@
 package com.shenrui.wukongrebate.fragment;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,9 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
@@ -20,6 +23,7 @@ import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.Utils;
+import com.shenrui.wukongrebate.view.SearchView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -46,9 +50,9 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     @ViewsById({R.id.toolbar_left_text, R.id.toolbar_left_image, R.id.toolbar_title, R.id.toolbar_right_image})
     List<View> listTitleView;
 
-    //ScrollView
-//    @ViewById(R.id.sv_content)
-//    ScrollView sv_content;
+    //搜索栏
+    @ViewById(R.id.sv_searchView)
+    SearchView searchView;
 
     //分类栏
     @ViewById(R.id.tl_goods_category)
@@ -70,7 +74,7 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     @AfterViews
     void init() {
         ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
-        ((TextView) listTitleView.get(2)).setText("美食馆");
+        ((TextView) listTitleView.get(2)).setText("悟空返利");
         listTitleView.get(3).setVisibility(View.GONE);
 
         showProgressBar();
@@ -87,13 +91,24 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
         for (CatsItemLocal cats : Constants.Itemcats) {
             TabLayout.Tab tab = tl_goods_category.newTab();
             tab.setText(cats.getName());
-            tab.setTag(cats.getCids());
+            tab.setTag(cats);
             tl_goods_category.addTab(tab);
         }
         tl_goods_category.setOnTabSelectedListener(this);
 
-        initDatas();
+        searchView.setEditTextOnlickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity_.class);
+                if(Build.VERSION.SDK_INT >= 21){
+                    getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), searchView, "sharedView").toBundle());
+                }else{
+                    getActivity().startActivity(intent);
+                }
+            }
+        });
 
+        initDatas();
     }
 
     //首页数据加载
@@ -140,15 +155,15 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
             int spanCount2 = 2;
             recyMain.setLayoutManager(new GridLayoutManager(getActivity(), spanCount2));
 
-            getCatsGoods((int[])(tab.getTag()));
+            getCatsGoods((CatsItemLocal)(tab.getTag()));
         }
     }
 
 
     //根据分类获取商品
     @Background
-    void getCatsGoods(int[] cids){
-        updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(cids));
+    void getCatsGoods(CatsItemLocal catsItemLocal){
+        updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(catsItemLocal));
     }
     @UiThread
     void updateCatsGoods(List list){
@@ -160,7 +175,6 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     //分类点击事件监听
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        Toast.makeText(getActivity(), "分类: " + tab.getText(), Toast.LENGTH_SHORT).show();
         handleNewData(tab);
     }
     @Override
@@ -173,7 +187,7 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     }
 
 
-    //显示隐藏进度条
+    //显示/隐藏进度条
     @UiThread
     void showProgressBar(){
         ll_progressBar.setVisibility(View.VISIBLE);

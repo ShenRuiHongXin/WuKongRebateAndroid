@@ -30,7 +30,8 @@
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.SettingsActivity"></activity>
         <activity android:name=".activity.SignActivity_"></activity>
-        <activity android:name="com.taobao.api.AliSdkWebViewProxyActivity"></activity>
+        <activity android:name="com.taobao.api.AliSdkWebViewProxyActivity_"></activity>
+        <activity android:name=".activity.SearchActivity_"></activity>
     </application>
 
 </manifest>

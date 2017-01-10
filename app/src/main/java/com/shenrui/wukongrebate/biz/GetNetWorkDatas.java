@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.TaobaoReqUtil;
@@ -66,11 +67,11 @@ public class GetNetWorkDatas {
      * 根据分类获取商品
      * @return
      */
-    public static List getCatsGoodsFromTaobao(int[] cids){
+    public static List getCatsGoodsFromTaobao(CatsItemLocal catsItemLocal){
         Map map = new HashMap<String, String>();
         map.put("fields", "num_iid,pict_url,title,zk_final_price");
         String cidString = "";
-        for (int integer : cids){
+        for (int integer : catsItemLocal.getCids()){
             if(cidString.equals("")){
                 cidString += integer;
             }else{
@@ -80,8 +81,6 @@ public class GetNetWorkDatas {
         }
         LogUtil.i("cidString: " + cidString);
         map.put("cat", cidString);
-        map.put("page_size", "20");
-
         String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
         LogUtil.i("main url: " + url);
 

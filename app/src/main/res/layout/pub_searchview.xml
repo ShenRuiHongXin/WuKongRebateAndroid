@@ -13,9 +13,7 @@
         android:layout_marginBottom="5dp"
         android:background="@drawable/search_bg"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:gravity="center_vertical">
 
         <!--<Button-->
             <!--android:layout_width="20dp"-->
@@ -36,7 +34,7 @@
             android:gravity="center_vertical"
             android:hint="搜索淘宝/京东宝贝 拿悟空返利"
             android:imeOptions="actionSearch"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textColor="#0e0e0e"
             android:textColorHint="@color/search_hint_color"
             android:textSize="12sp" />

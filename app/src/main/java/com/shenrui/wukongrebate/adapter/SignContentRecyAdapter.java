@@ -1,7 +1,10 @@
 package com.shenrui.wukongrebate.adapter;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +28,7 @@ import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.view.ActivityView;
 import com.shenrui.wukongrebate.view.CycleRotationView;
 import com.shenrui.wukongrebate.view.MyGridView;
-import com.taobao.api.AliSdkWebViewProxyActivity;
+import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import java.util.List;
 
@@ -108,7 +111,14 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         switch (position){
                             case 0:
-                                context.startActivity(new Intent(context,SignActivity_.class));
+                                Intent intent = new Intent(context, SignActivity_.class);
+                                if(Build.VERSION.SDK_INT >= 21){
+                                    //动画效果
+                                    context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, "sharedView").toBundle());
+                                }else{
+                                    context.startActivity(intent);
+                                }
+//                                context.startActivity(new Intent(context,SignActivity_.class));
                                 break;
                         }
                     }
@@ -131,7 +141,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                     @Override
                     public void onItemClick(View view, int position) {
                         LogUtil.d(((TenGoodsData)listTen.get(position)).getNum_iid());
-                        Intent intent = new Intent(context, AliSdkWebViewProxyActivity.class);
+                        Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
                         intent.putExtra("cid",((TenGoodsData)listTen.get(position)).getNum_iid());
                         context.startActivity(intent);
                     }

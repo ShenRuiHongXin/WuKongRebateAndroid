@@ -1,8 +1,10 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -86,7 +88,12 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
                 tmpPosition = 2;
                 break;
             case R.id.toolbar_left_image:
-                finish();
+                if (Build.VERSION.SDK_INT >= 21){
+                    vp_sign_content.setBackgroundColor(ContextCompat.getColor(this,R.color.category_bg));
+                    finishAfterTransition();
+                }else{
+                    finish();
+                }
                 return;
         }
         selectPage(tmpPosition);
@@ -144,5 +151,13 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            vp_sign_content.setBackgroundColor(ContextCompat.getColor(this,R.color.category_bg));
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

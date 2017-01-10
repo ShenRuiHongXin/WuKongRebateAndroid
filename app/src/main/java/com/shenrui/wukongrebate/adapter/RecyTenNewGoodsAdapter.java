@@ -79,7 +79,8 @@ public class RecyTenNewGoodsAdapter extends RecyclerView.Adapter {
             iv_goods = (ImageView) view.findViewById(R.id.iv_10_new_goods);
             ViewGroup.LayoutParams layoutParams = iv_goods.getLayoutParams();
             layoutParams.width = (ScreenUtils.getScreenWidth(context)-ScreenUtils.dip2px(context,10)*2)/2;
-            layoutParams.height = (int) (layoutParams.width/1.75);
+//            layoutParams.height = (int) (layoutParams.width/1.75);
+            layoutParams.height = layoutParams.width;
             iv_goods.setLayoutParams(layoutParams);
             tv_goods_price = (TextView) view.findViewById(R.id.tv_10_new_goods_price);
             tv_goods_info = (TextView) view.findViewById(R.id.tv_10_new_goods_info);
