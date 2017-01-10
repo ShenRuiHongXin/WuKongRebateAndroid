@@ -1,7 +1,6 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -68,7 +67,7 @@ public class SettingsActivity extends BaseActivity{
                 break;
             //账户与安全
             case R.id.security:
-
+                startActivity(new Intent(this,SecurityActivity_.class));
                 break;
             //隐私
             case R.id.secret:
@@ -80,7 +79,7 @@ public class SettingsActivity extends BaseActivity{
                 break;
             //通用
             case R.id.common:
-
+                startActivity(new Intent(this,CommonActivity_.class));
                 break;
             //地区
             case R.id.area:
@@ -88,7 +87,7 @@ public class SettingsActivity extends BaseActivity{
                 break;
             //关于悟空返利
             case R.id.about:
-
+                startActivity(new Intent(this,AboutActivity_.class));
                 break;
         }
     }

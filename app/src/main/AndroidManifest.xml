@@ -30,11 +30,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.SettingsActivity_"/>
+        <activity android:name=".activity.SettingsActivity_" />
         <activity android:name=".activity.SignActivity_" />
         <activity android:name="com.taobao.api.AliSdkWebViewProxyActivity_" />
         <activity android:name=".activity.SearchActivity_" />
-        <activity android:name=".activity.PersonalInfoActivity_"/>
+        <activity android:name=".activity.PersonalInfoActivity_" />
+        <activity android:name=".activity.UserNameActivity_" />
+        <activity android:name=".activity.AboutActivity_" />
+        <activity android:name=".activity.SecurityActivity_" />
+        <activity android:name=".activity.CommonActivity_"/>
     </application>
 
 </manifest>

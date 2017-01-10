@@ -1,6 +1,7 @@
 package com.shenrui.wukongrebate.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.SignActivity_;
 
 /**
  * Created by Administrator on 2016/12/29.
@@ -40,7 +42,7 @@ public class MineGridAdapter extends RecyclerView.Adapter<MineGridAdapter.MyHold
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();
+                        context.startActivity(new Intent(context, SignActivity_.class).putExtra("fromMine",1));
                         break;
                     case 3:
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();

@@ -2,10 +2,13 @@ package com.shenrui.wukongrebate.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.utils.PhotoPop;
@@ -55,15 +58,38 @@ public class PersonalInfoActivity extends BaseActivity {
                 photoPop = new PhotoPop(this,R.layout.activity_personal_info);
                 break;
             case R.id.userName:
-
+                startActivity(new Intent(this,UserNameActivity_.class));
                 break;
             case R.id.userSex:
-
+                //修改性别
+                updateSex();
                 break;
             case R.id.shippingAddress:
 
                 break;
         }
+    }
+
+    private void updateSex() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View layout = LayoutInflater.from(this).inflate(R.layout.dialog_update_sex, null);
+        builder.setView(layout);
+        TextView men = (TextView) layout.findViewById(R.id.tv_men);
+        TextView women = (TextView) layout.findViewById(R.id.tv_women);
+        men.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PersonalInfoActivity.this, "男", Toast.LENGTH_SHORT).show();
+            }
+        });
+        women.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PersonalInfoActivity.this, "女", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
