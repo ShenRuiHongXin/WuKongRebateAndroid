@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.SearchActivity;
 import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;

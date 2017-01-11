@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="left">
+    android:gravity="left"
+    android:id="@+id/layout_goods">
     <ImageView
         android:id="@+id/iv_10_new_goods"
         android:layout_width="wrap_content"

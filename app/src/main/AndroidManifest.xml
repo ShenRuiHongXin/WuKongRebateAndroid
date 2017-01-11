@@ -38,7 +38,9 @@
         <activity android:name=".activity.UserNameActivity_" />
         <activity android:name=".activity.AboutActivity_" />
         <activity android:name=".activity.SecurityActivity_" />
-        <activity android:name=".activity.CommonActivity_"/>
+        <activity android:name=".activity.CommonActivity_" />
+        <activity android:name="com.taobao.api.AliSdkOrderActivity_" />
+        <activity android:name="com.taobao.api.AliSdkMyCartActivity_"/>
     </application>
 
 </manifest>

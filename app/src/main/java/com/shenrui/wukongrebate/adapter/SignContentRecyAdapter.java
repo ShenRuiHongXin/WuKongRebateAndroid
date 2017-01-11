@@ -116,7 +116,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                                     //动画效果
                                     context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, "sharedView").toBundle());
                                 }else{
-                                    context.startActivity(intent);
+                                context.startActivity(intent);
                                 }
 //                                context.startActivity(new Intent(context,SignActivity_.class));
                                 break;
