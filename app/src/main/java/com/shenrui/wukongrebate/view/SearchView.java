@@ -17,15 +17,15 @@ import com.shenrui.wukongrebate.R;
  * Created by yuandl  
  */
 
-public class SearchView extends LinearLayout implements TextWatcher, View.OnClickListener {
+public class SearchView extends LinearLayout implements TextWatcher {
     /**
      * 输入框 
      */
     private EditText et_search;
     /**
-     * 输入框后面的那个清除按钮 
+     * 输入框后面的那个搜索按钮
      */
-    private Button bt_clear;
+    private Button bt_find;
 
 
     public SearchView(Context context, AttributeSet attrs) {
@@ -34,10 +34,10 @@ public class SearchView extends LinearLayout implements TextWatcher, View.OnClic
         LayoutInflater.from(context).inflate(R.layout.pub_searchview, this, true);
         /***找出控件*/
         et_search = (EditText) findViewById(R.id.et_search);
-        bt_clear = (Button) findViewById(R.id.bt_clear);
+        bt_find = (Button) findViewById(R.id.bt_find);
 //        bt_clear.setVisibility(GONE);
         et_search.addTextChangedListener(this);
-        bt_clear.setOnClickListener(this);
+        //bt_find.setOnClickListener(this);
     }
 
     public void setEditTextOnlickListener(OnClickListener onlickListener){
@@ -45,8 +45,12 @@ public class SearchView extends LinearLayout implements TextWatcher, View.OnClic
         et_search.setClickable(true);
         et_search.setOnClickListener(onlickListener);
     }
-
-
+    public void setFindOnClickListener(OnClickListener onlickListener){
+        bt_find.setOnClickListener(onlickListener);
+    }
+    public String getEditText(){
+        return et_search.getText().toString().trim();
+    }
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -73,8 +77,4 @@ public class SearchView extends LinearLayout implements TextWatcher, View.OnClic
 //        }
     }
 
-    @Override
-    public void onClick(View view) {
-        et_search.setText("");
-    }
 }

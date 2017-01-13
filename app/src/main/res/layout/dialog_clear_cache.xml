@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:text="确认要清除缓存吗?"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:paddingLeft="10dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:background="@color/mainGrey"
+            android:layout_margin="12dp"/>
+        <Button
+            android:id="@+id/btnSure"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:background="@color/mainRed"
+            android:layout_margin="12dp"/>
+    </LinearLayout>
+</LinearLayout>

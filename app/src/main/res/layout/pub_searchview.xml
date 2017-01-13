@@ -32,7 +32,7 @@
             android:layout_weight="4"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="搜索淘宝/京东宝贝 拿悟空返利"
+            android:hint="搜索淘宝/天猫宝贝 拿悟空返利"
             android:imeOptions="actionSearch"
             android:maxLines="1"
             android:textColor="#0e0e0e"
@@ -41,7 +41,7 @@
 
 
         <Button
-            android:id="@+id/bt_clear"
+            android:id="@+id/bt_find"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_gravity="right|center_vertical"

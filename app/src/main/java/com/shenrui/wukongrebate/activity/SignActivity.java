@@ -71,6 +71,10 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
         this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp_sign_content.setAdapter(adapter);
         selectPage(1);
+
+        if(getIntent().getIntExtra("fromMine",0)==1){
+            selectPage(2);
+        }
     }
 
     @Click({R.id.ll_exchange,R.id.ll_sign,R.id.ll_award,R.id.toolbar_left_image})

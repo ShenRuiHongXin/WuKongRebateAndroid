@@ -7,11 +7,12 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
-
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>  //访问网络
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission> //缓存需用到
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>    //缓存需用到
-
+    <uses-permission android:name="android.permission.INTERNET" />
+    //访问网络
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    //缓存需用到
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    //缓存需用到
     <application
         android:name=".contents.MyApplication"
         android:allowBackup="false"
@@ -24,14 +25,24 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.SettingsActivity"></activity>
-        <activity android:name=".activity.SignActivity_"></activity>
-        <activity android:name="com.taobao.api.AliSdkWebViewProxyActivity_"></activity>
-        <activity android:name=".activity.SearchActivity_"></activity>
+        <activity android:name=".activity.SettingsActivity_" />
+        <activity android:name=".activity.SignActivity_" />
+        <activity android:name="com.taobao.api.AliSdkWebViewProxyActivity_" />
+        <activity android:name=".activity.SearchActivity_" />
+        <activity android:name=".activity.PersonalInfoActivity_" />
+        <activity android:name=".activity.UserNameActivity_" />
+        <activity android:name=".activity.AboutActivity_" />
+        <activity android:name=".activity.SecurityActivity_" />
+        <activity android:name=".activity.CommonActivity_" />
+        <activity android:name="com.taobao.api.AliSdkOrderActivity_" />
+        <activity android:name="com.taobao.api.AliSdkMyCartActivity_" />
+        <activity android:name=".activity.NineBlockNineActivity_" />
+        <activity android:name=".activity.WKLuckDrawActivity_"/>
     </application>
 
 </manifest>

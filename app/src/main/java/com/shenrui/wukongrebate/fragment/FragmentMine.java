@@ -11,10 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.SettingsActivity;
+import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
+import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
+import com.taobao.api.AliSdkOrderActivity;
+import com.taobao.api.AliSdkOrderActivity_;
 
 /**
  * Created by heikki on 2016/12/28.
@@ -49,6 +53,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
         tv_user_name.setOnClickListener(this);
         iv_toolbar_left.setOnClickListener(this);
         tv_withdraw.setOnClickListener(this);
+        tv_all_order.setOnClickListener(this);
     }
 
     void init(){
@@ -79,17 +84,19 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.toolbar_left_image:
+                startActivity(new Intent(context,SettingsActivity_.class));
+                break;
             case R.id.iv_avatar:
             case R.id.tv_userName:
             case R.id.iv_sex:
-            case R.id.toolbar_left_image:
-                startActivity(new Intent(context, SettingsActivity.class));
+                startActivity(new Intent(context, PersonalInfoActivity_.class));
                 break;
             case R.id.tv_withdraw://提现
 
                 break;
             case R.id.tv_all_order://查看全部订单
-
+                startActivity(new Intent(context, AliSdkOrderActivity_.class));
                 break;
         }
     }

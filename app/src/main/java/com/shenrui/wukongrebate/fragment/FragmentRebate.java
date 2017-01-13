@@ -1,13 +1,16 @@
 package com.shenrui.wukongrebate.fragment;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,9 +24,11 @@ import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
+import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.Utils;
 import com.shenrui.wukongrebate.view.SearchView;
+import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -45,7 +50,9 @@ import java.util.List;
 
 @EFragment(R.layout.rebate_fragment_page)
 public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelectedListener{
-
+    //扫一扫按钮
+    @ViewById(R.id.btn_scan)
+    Button btnScan;
     //标题栏
     @ViewsById({R.id.toolbar_left_text, R.id.toolbar_left_image, R.id.toolbar_title, R.id.toolbar_right_image})
     List<View> listTitleView;
@@ -70,9 +77,11 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     RecyItemIndexData recyItemIndexData;
     List<SignRecyItemData> listData;
 
+    Context context;
     //界面初始化
     @AfterViews
     void init() {
+        context = getContext();
         ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
         ((TextView) listTitleView.get(2)).setText("悟空返利");
         listTitleView.get(3).setVisibility(View.GONE);
@@ -107,7 +116,7 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
                 }
             }
         });
-
+        
         initDatas();
     }
 
@@ -166,8 +175,18 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
         updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(catsItemLocal));
     }
     @UiThread
-    void updateCatsGoods(List list){
-        recyMain.setAdapter(new RecyTenNewGoodsAdapter(getActivity(), list));
+    void updateCatsGoods(final List list){
+        RecyTenNewGoodsAdapter adapter = new RecyTenNewGoodsAdapter(getActivity(), list);
+        //点击列表项进入商品详情
+        adapter.setOnItemClickLitener(new RecyTenNewGoodsAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
+                intent.putExtra("cid",((TenGoodsData)list.get(position)).getNum_iid());
+                context.startActivity(intent);
+            }
+        });
+        recyMain.setAdapter(adapter);
         hideProgressBar();
     }
 
