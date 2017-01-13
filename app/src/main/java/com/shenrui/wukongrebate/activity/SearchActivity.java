@@ -1,10 +1,13 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.Intent;
+
 import com.ali.auth.third.core.model.Session;
 import com.ali.auth.third.login.callback.LogoutCallback;
 import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.utils.LogUtil;
+import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -35,5 +38,12 @@ public class SearchActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Click(R.id.btn_buy_test)
+    void buyTest(){
+        Intent intent = new Intent(this, AliSdkWebViewProxyActivity_.class);
+        intent.putExtra("num_iid","AAEUIoxbAD0bHYrQFRWgBvM9");
+        startActivity(intent);
     }
 }

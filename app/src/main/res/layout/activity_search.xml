@@ -28,5 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_taobao_out" />
+    <Button
+        android:text="洗面奶测试"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_buy_test" />
 
 </LinearLayout>

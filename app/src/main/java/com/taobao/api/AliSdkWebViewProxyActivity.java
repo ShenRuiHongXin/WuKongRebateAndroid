@@ -87,7 +87,8 @@ public class AliSdkWebViewProxyActivity extends BaseActivity {
         exParams.put(AlibcConstants.ISV_CODE, "appisvcode");
         exParams.put("alibaba", "阿里巴巴");//自定义参数部分，可任意增删改
 
-        String cid = getIntent().getStringExtra("cid");
+        //商品ID
+        String cid = getIntent().getStringExtra("num_iid");
         AlibcTaokeParams alibcTaokeParams = new AlibcTaokeParams("mm_120715455_0_0", "mm_120715455_0_0", null); // 若非淘客taokeParams设置为null即可
 //        AlibcBasePage alibcBasePage = new AlibcDetailPage("532128520567");
         AlibcBasePage alibcBasePage = new AlibcDetailPage(cid);

@@ -142,7 +142,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                     public void onItemClick(View view, int position) {
                         LogUtil.d(((TenGoodsData)listTen.get(position)).getNum_iid());
                         Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
-                        intent.putExtra("cid",((TenGoodsData)listTen.get(position)).getNum_iid());
+                        intent.putExtra("num_iid",((TenGoodsData)listTen.get(position)).getNum_iid());
                         context.startActivity(intent);
                     }
                 });
