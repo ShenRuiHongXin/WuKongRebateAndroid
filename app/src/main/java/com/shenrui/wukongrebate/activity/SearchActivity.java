@@ -67,7 +67,7 @@ public class SearchActivity extends BaseActivity {
 
     @Background
     void download(int pageNo, int action) {
-        List<TenGoodsData> goodsList = GetNetWorkDatas.getSearchGoods(q, pageNo);
+        List<TenGoodsData> goodsList = GetNetWorkDatas.getSearchGoods(q,pageNo);
         updateUi(goodsList,action);
     }
     @UiThread

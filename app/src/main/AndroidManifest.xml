@@ -40,7 +40,9 @@
         <activity android:name=".activity.SecurityActivity_" />
         <activity android:name=".activity.CommonActivity_" />
         <activity android:name="com.taobao.api.AliSdkOrderActivity_" />
-        <activity android:name="com.taobao.api.AliSdkMyCartActivity_"/>
+        <activity android:name="com.taobao.api.AliSdkMyCartActivity_" />
+        <activity android:name=".activity.NineBlockNineActivity_" />
+        <activity android:name=".activity.WKLuckDrawActivity_"/>
     </application>
 
 </manifest>

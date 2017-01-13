@@ -66,4 +66,17 @@ public class Constants {
             new CatsItemLocal("家居饰品",new int[]{HOME_DECOR,HOME_FABRIC,HOME_DAILY,home_Arrange}),
             new CatsItemLocal("床上用品",new int[]{BEDDING})
     };
+
+    //9块9分类条目
+    public static final CatsItemLocal[] ItemNineCats = {
+            new CatsItemLocal("全部",new int[]{}),
+            new CatsItemLocal("女装",new int[]{WOMEN_CLOTHES}),
+            new CatsItemLocal("男装",new int[]{MEN_CLOTHES}),
+            new CatsItemLocal("3C产品",new int[]{PHONE,PAD,LAPTOP,CAMERA}),
+            new CatsItemLocal("鞋包配饰",new int[]{MAN_SHOSE,WOMEN_SHOSE,BAG,CLOTHES_PARTS}),
+            new CatsItemLocal("家居饰品",new int[]{HOME_DECOR,HOME_FABRIC,HOME_DAILY,home_Arrange}),
+            new CatsItemLocal("化妆品",new int[]{COSMETITICS}),
+            new CatsItemLocal("流行首饰",new int[]{ORNAMENT}),
+            new CatsItemLocal("床上用品",new int[]{BEDDING})
+    };
 }

@@ -10,6 +10,7 @@ import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.TaobaoReqUtil;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -123,7 +124,7 @@ public class GetNetWorkDatas {
         map.put("page_size", "20");
 
         String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
-        LogUtil.i("main getSearchGoods url: " + url);
+        LogUtil.i("main url: " + url);
 
 
         OkHttpClient okHttpClient = new OkHttpClient();

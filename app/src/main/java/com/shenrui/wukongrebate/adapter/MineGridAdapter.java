@@ -45,6 +45,7 @@ public class MineGridAdapter extends RecyclerView.Adapter<MineGridAdapter.MyHold
                     case 1:
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();
                         break;
+                    //悟空积分
                     case 2:
                         context.startActivity(new Intent(context, SignActivity_.class).putExtra("fromMine",1));
                         break;

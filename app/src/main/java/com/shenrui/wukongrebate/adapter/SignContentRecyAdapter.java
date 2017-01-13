@@ -18,7 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.NineBlockNineActivity;
+import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
 import com.shenrui.wukongrebate.activity.SignActivity_;
+import com.shenrui.wukongrebate.activity.WKLuckDrawActivity;
+import com.shenrui.wukongrebate.activity.WKLuckDrawActivity_;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
 import com.shenrui.wukongrebate.entities.SplitlineItem;
@@ -110,6 +114,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         switch (position){
+                            //签到积分
                             case 0:
                                 Intent intent = new Intent(context, SignActivity_.class);
                                 if(Build.VERSION.SDK_INT >= 21){
@@ -209,7 +214,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return listDatas.size();
+        return listDatas==null?0:listDatas.size();
     }
 
     @Override
@@ -303,13 +308,14 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
     /**
      * 悟空返利, APP首页ViewHolder
      */
-    class MyViewHolderMainRecyIndex extends RecyclerView.ViewHolder{
+    class MyViewHolderMainRecyIndex extends RecyclerView.ViewHolder implements View.OnClickListener{
 //        TabLayout tl_goods_category;
         CycleRotationView cyclerotationview;
         LinearLayout ll_activity;
         MyGridView mgv_sign;
         ActivityView activity_view;
         RecyclerView ten_new_goods_recy;
+        TextView tv_one,tv_two,tv_three,tv_four,tv_five;
 
         public MyViewHolderMainRecyIndex(View view) {
             super(view);
@@ -319,6 +325,42 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
             mgv_sign = (MyGridView) view.findViewById(R.id.mgv_sign);
             activity_view = (ActivityView) view.findViewById(R.id.activity_view);
             ten_new_goods_recy = (RecyclerView) view.findViewById(R.id.ten_new_goods_recy);
+            tv_one = (TextView) view.findViewById(R.id.tv_one);
+            tv_two = (TextView) view.findViewById(R.id.tv_two);
+            tv_three = (TextView) view.findViewById(R.id.tv_three);
+            tv_four = (TextView) view.findViewById(R.id.tv_four);
+            tv_five = (TextView) view.findViewById(R.id.tv_five);
+            tv_one.setOnClickListener(this);
+            tv_two.setOnClickListener(this);
+            tv_three.setOnClickListener(this);
+            tv_four.setOnClickListener(this);
+            tv_five.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                //超级返
+                case R.id.tv_one:
+
+                    break;
+                //9块9
+                case R.id.tv_two:
+                    context.startActivity(new Intent(context, NineBlockNineActivity_.class));
+                    break;
+                //悟空抽奖
+                case R.id.tv_three:
+                    context.startActivity(new Intent(context, WKLuckDrawActivity_.class));
+                    break;
+                //悟空海淘
+                case R.id.tv_four:
+
+                    break;
+                //悟空团购
+                case R.id.tv_five:
+
+                    break;
+            }
         }
     }
 
