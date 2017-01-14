@@ -20,6 +20,11 @@ android {
         }
     }
 }
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -72,6 +77,10 @@ dependencies {
         * */
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.google.code.gson:gson:2.8.0'
+
+    //SMS
+    compile name:'SMSSDK-2.1.3',ext:'aar'
+    compile name:'SMSSDKGUI-2.1.3',ext:'aar'
 }
 
 /*

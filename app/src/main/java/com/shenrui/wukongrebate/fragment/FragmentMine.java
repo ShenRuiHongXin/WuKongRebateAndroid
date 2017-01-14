@@ -54,7 +54,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
         if(userName!=null){
             tv_user_name.setText(userName);
         }else{//当前无用户
-            tv_user_name.setText("登录");
+            tv_user_name.setText("登录/注册");
             tv_user_name.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -24,15 +24,15 @@ public class LoginActivity extends BaseActivity {
     TextView toolbar_title;
     @ViewById(R.id.toolbar_right_image)
     ImageView toolbar_right_image;
-    @ViewById(R.id.toolbar_right_text)
-    TextView toolbar_right_text;
+
     @ViewById(R.id.et_userNumber)
     EditText etUserName;
     @ViewById(R.id.et_userPassword)
     EditText etPassword;
     @ViewById(R.id.btn_login)
     Button btnLogin;
-
+    @ViewById(R.id.btn_register)
+    Button btnRegister;
     String userName,password;
     @AfterViews
     void init(){
@@ -40,15 +40,14 @@ public class LoginActivity extends BaseActivity {
         toolbar_left_text.setText("关闭");
         toolbar_title.setText("登录");
         toolbar_right_image.setVisibility(View.GONE);
-        toolbar_right_text.setText("注册");
     }
-    @Click({R.id.toolbar_left_text,R.id.toolbar_right_text,R.id.btn_login})
+    @Click({R.id.toolbar_left_text,R.id.btn_register,R.id.btn_login})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_text:
                 finish();
                 break;
-            case R.id.toolbar_right_text:
+            case R.id.btn_register:
                 //进入注册界面
                 startActivity(new Intent(this,RegisterActivity_.class));
                 finish();
