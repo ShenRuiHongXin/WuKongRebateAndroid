@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
 import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
-import com.taobao.api.AliSdkOrderActivity;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkOrderActivity_;
 
 /**
@@ -42,9 +42,26 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_fragment_page, container, false);
         context = getContext();
+        SharedPreferenceUtils.getInstance().removeUserName();
         init();
         setListener();
+        getUser();
         return view;
+    }
+
+    private void getUser() {
+        String userName = SharedPreferenceUtils.getInstance().getUserName();
+        if(userName!=null){
+            tv_user_name.setText(userName);
+        }else{//当前无用户
+            tv_user_name.setText("登录");
+            tv_user_name.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(context, LoginActivity_.class));
+                }
+            });
+        }
     }
 
     private void setListener() {

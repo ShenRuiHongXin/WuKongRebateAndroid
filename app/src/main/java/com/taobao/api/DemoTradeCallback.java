@@ -2,6 +2,8 @@ package com.taobao.api;
 
 import android.widget.Toast;
 
+import com.ali.auth.third.core.model.Session;
+import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeCallback;
 import com.alibaba.baichuan.android.trade.model.ResultType;
 import com.alibaba.baichuan.android.trade.model.TradeResult;
@@ -25,6 +27,14 @@ public class DemoTradeCallback implements AlibcTradeCallback {
             //支付成功
             Toast.makeText(MyApplication.application, "支付成功,成功订单号为"+tradeResult.payResult.paySuccessOrders, Toast.LENGTH_SHORT).show();
             LogUtil.d("支付成功,成功订单号为"+tradeResult.payResult.paySuccessOrders);
+            //支付成功后将订单信息上传服务器
+            Session session = AlibcLogin.getInstance().getSession();
+            String taobaoUserInfo = session.toString();
+            //淘宝用户id
+            String tb_account_id = taobaoUserInfo.substring(taobaoUserInfo.indexOf("openId")+7, taobaoUserInfo.indexOf("openSid") - 2);
+            //app用户id
+            int user_id = 110;
+
         }
     }
 
@@ -33,4 +43,5 @@ public class DemoTradeCallback implements AlibcTradeCallback {
         Toast.makeText(MyApplication.application, "电商SDK出错,错误码="+errCode+" / 错误消息="+errMsg, Toast.LENGTH_SHORT).show();
         LogUtil.d("电商SDK出错,错误码="+errCode+" / 错误消息="+errMsg);
     }
+
 }
