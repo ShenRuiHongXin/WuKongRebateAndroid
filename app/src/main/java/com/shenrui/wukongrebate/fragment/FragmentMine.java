@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
 import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
+import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkOrderActivity_;
 
@@ -42,25 +44,26 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_fragment_page, container, false);
         context = getContext();
-        SharedPreferenceUtils.getInstance().removeUserName();
         init();
         setListener();
-        getUser();
+        initUserData();
         return view;
     }
-
-    private void getUser() {
-        String userName = SharedPreferenceUtils.getInstance().getUserName();
-        if(userName!=null){
-            tv_user_name.setText(userName);
+    boolean isLogined;
+    private void initUserData() {
+        UserInfo userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
+        if(userInfo!=null){
+            isLogined = true;
+            //用户已登录,设置用户昵称，性别，头像,可用余额
+            tv_user_name.setText(userInfo.getNick_name());
+            tv_money.setText(userInfo.getBalance()+"元");
+            iv_sex.setImageResource(userInfo.getSex() == 2?R.drawable.mine_sex_woman:R.drawable.mine_sex_man);
+            if(userInfo.getAvatar()!=null){
+                Glide.with(this).load(userInfo.getAvatar()).into(iv_avatar);
+            }
         }else{//当前无用户
+            isLogined = false;
             tv_user_name.setText("登录/注册");
-            tv_user_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(context, LoginActivity_.class));
-                }
-            });
         }
     }
 
@@ -107,7 +110,11 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
             case R.id.iv_avatar:
             case R.id.tv_userName:
             case R.id.iv_sex:
-                startActivity(new Intent(context, PersonalInfoActivity_.class));
+                if(isLogined){
+                    startActivity(new Intent(context, PersonalInfoActivity_.class));
+                }else{
+                    startActivity(new Intent(context, LoginActivity_.class));
+                }
                 break;
             case R.id.tv_withdraw://提现
 
@@ -118,4 +125,9 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initUserData();
+    }
 }

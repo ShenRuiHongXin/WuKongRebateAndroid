@@ -244,21 +244,22 @@ public class OkHttpUtils<T> {
      * @param value：值
      */
     public OkHttpUtils<T> addParam(String key, String value) {
-        try {
+        //try {
             //post请求的request参数也要拼接到url中
             if (mFormBodyBuilder != null) {//post请求的参数添加方式
-                mFormBodyBuilder.add(key, URLEncoder.encode(value, UTF_8));
+                mFormBodyBuilder.add(key, value);
+                //URLEncoder.encode(value, UTF_8);
             } else {//get请求的参数添加方式
                 if (mUrl.indexOf("?") == -1) {
                     mUrl.append("?");
                 } else {
                     mUrl.append("&");
                 }
-                mUrl.append(key).append("=").append(URLEncoder.encode(value, UTF_8));
+                mUrl.append(key).append("=").append(value);
             }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        //} catch (UnsupportedEncodingException e) {
+        //    e.printStackTrace();
+        //}
         return this;
     }
 
@@ -419,7 +420,7 @@ public class OkHttpUtils<T> {
      * @param <T>
      * @return
      */
-    /*public <T> T parseJson(Result result, Class<?> clazz) {
+    /*public <T> T parseJson(TestBean result, Class<?> clazz) {
         if (result.getRetCode() == 0) {
             String json = result.getRetData().toString();
             T t = parseJson(json, clazz);

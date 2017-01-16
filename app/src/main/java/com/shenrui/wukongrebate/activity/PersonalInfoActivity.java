@@ -10,8 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.PhotoPop;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -47,7 +50,16 @@ public class PersonalInfoActivity extends BaseActivity {
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_right_image.setVisibility(View.GONE);
         toolbar_title.setText("个人资料");
+        initUserData();
     }
+
+    private void initUserData() {
+        UserInfo userInfo = SharedPreferenceUtils.getInstance(this).getUserInfo();
+        if(userInfo.getAvatar()!=null){
+            Glide.with(this).load(userInfo.getAvatar()).into(avatar);
+        }
+    }
+
     @Click({R.id.toolbar_left_image,R.id.avatar,R.id.userName,R.id.userSex,R.id.shippingAddress})
     void clickEvent(View view){
         switch (view.getId()){
@@ -96,5 +108,11 @@ public class PersonalInfoActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         photoPop.setPhoto(requestCode,resultCode,data,avatar);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initUserData();
     }
 }

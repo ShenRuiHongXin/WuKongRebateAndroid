@@ -79,4 +79,15 @@ public class Constants {
             new CatsItemLocal("流行首饰",new int[]{ORNAMENT}),
             new CatsItemLocal("床上用品",new int[]{BEDDING})
     };
+
+    //服务器根地址
+    public static final String SERVICE_URL = "http://192.168.0.4:8080/WukongServer/";
+    //注册/登录 成功的结果码
+    public static final int CODE_SUCCESS = 200;
+    //手机号已被注册
+    public static final int REGISTER_PHONE_HAVE_USED = 401;
+    //手机号还未注册
+    public static final int LOGIN_PHONE_NO_REGISTER = 402;
+    //密码错误
+    public static final int LOGIN_PASSWORD_ERROR = 403;
 }

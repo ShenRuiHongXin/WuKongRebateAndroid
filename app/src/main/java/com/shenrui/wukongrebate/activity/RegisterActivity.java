@@ -1,7 +1,7 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.Intent;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.biz.NetDao;
+import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -125,9 +129,25 @@ public class RegisterActivity extends BaseActivity {
                 phoneNumber = etPhoneNumber.getText().toString();
                 //获取短信验证码
                 if(!phoneNumber.isEmpty()){
-                    SMSSDK.getVerificationCode("86", phoneNumber);
-                    Toast.makeText(this, "短信已发送", Toast.LENGTH_SHORT).show();
-                    countTime();
+                    NetDao.phoneNumberRegistered(this, phoneNumber, new OkHttpUtils.OnCompleteListener<ResponseResult>() {
+                        @Override
+                        public void onSuccess(ResponseResult result) {
+                            if(result!=null){
+                                if(result.getResult().getCode() == Constants.REGISTER_PHONE_HAVE_USED){
+                                    Toast.makeText(RegisterActivity.this, "该用户已经注册，请直接登录", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    SMSSDK.getVerificationCode("86", phoneNumber);
+                                    Toast.makeText(RegisterActivity.this, "短信已发送", Toast.LENGTH_SHORT).show();
+                                    countTime();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onError(String error) {
+                            Log.e("error",error);
+                        }
+                    });
                 }
                 break;
             case R.id.btn_check:
@@ -140,10 +160,32 @@ public class RegisterActivity extends BaseActivity {
             case R.id.btn_register:
                 if(checkPassword()){
                     //注册操作
-
+                    userRegister();
                 }
                 break;
         }
+    }
+
+    private void userRegister() {
+        NetDao.register(this, nick, phoneNumber, password, new OkHttpUtils.OnCompleteListener<ResponseResult>() {
+            @Override
+            public void onSuccess(ResponseResult result) {
+                if(result!=null && result.getResult().getCode()== Constants.CODE_SUCCESS){
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    //注册成功后跳到登录界面
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity_.class);
+                    intent.putExtra("phoneNumber",result.getUserAuths().getIdentifier());
+                    startActivity(intent);
+                    finish();
+                }
+                Log.e("registerResult",result.toString());
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e("error",error);
+            }
+        });
     }
 
     //倒计时
@@ -174,6 +216,7 @@ public class RegisterActivity extends BaseActivity {
     private boolean checkPassword() {
         nick = etNick.getText().toString();
         password = etPassword.getText().toString();
+        phoneNumber = etPhoneNumber.getText().toString();
         String rePassword = etRePassword.getText().toString();
         if(nick.isEmpty()){
             etNick.setError("密码不能为空");
@@ -204,5 +247,6 @@ public class RegisterActivity extends BaseActivity {
         SMSSDK.unregisterAllEventHandler();
         handler = null;
         timeHandler = null;
+        OkHttpUtils.release();
     }
 }

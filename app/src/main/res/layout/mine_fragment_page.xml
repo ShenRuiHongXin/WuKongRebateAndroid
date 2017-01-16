@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@color/mineRed">
-        <ImageView
+        <com.shenrui.wukongrebate.view.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"

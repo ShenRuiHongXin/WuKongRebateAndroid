@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -36,7 +38,16 @@ public class UserNameActivity extends BaseActivity {
         toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
         toolbar_title.setText("会员名");
         toolbar_right_image.setVisibility(View.GONE);
+        initUserData();
     }
+
+    private void initUserData() {
+        UserInfo userInfo = SharedPreferenceUtils.getInstance(this).getUserInfo();
+        if(userInfo!=null){
+            etUserName.setText(userInfo.getNick_name());
+        }
+    }
+
     @Click({R.id.toolbar_left_image,R.id.iv_delete,R.id.btn_save})
     void clickEvent(View view){
         switch (view.getId()){
