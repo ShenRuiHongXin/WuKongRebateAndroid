@@ -185,7 +185,7 @@ public class OkHttpUtils<T> {
             return this;
         }
         RequestBody fileBody = RequestBody.create(MediaType.parse(guessMimeType(file.getName())), file);
-        mFileBody = new MultipartBody.Builder().addFormDataPart("filename", file.getName(), fileBody).build();
+        mFileBody = new MultipartBody.Builder().addFormDataPart("avatar", file.getName(), fileBody).build();
         return this;
     }
     private String guessMimeType(String path) {

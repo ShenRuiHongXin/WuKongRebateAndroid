@@ -1,5 +1,6 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,7 +63,7 @@ public class SecurityActivity extends BaseActivity {
                 break;
             //修改登录密码
             case R.id.updatePassword:
-
+                startActivity(new Intent(this,PasswordActivity_.class));
                 break;
         }
     }

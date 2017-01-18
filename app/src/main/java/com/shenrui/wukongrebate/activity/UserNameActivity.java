@@ -1,13 +1,19 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.biz.NetDao;
+import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -32,6 +38,7 @@ public class UserNameActivity extends BaseActivity {
     @ViewById(R.id.btn_save)
     Button btnSave;
 
+    UserInfo userInfo;
     @AfterViews
     void init(){
         toolbar_left_text.setVisibility(View.GONE);
@@ -42,7 +49,7 @@ public class UserNameActivity extends BaseActivity {
     }
 
     private void initUserData() {
-        UserInfo userInfo = SharedPreferenceUtils.getInstance(this).getUserInfo();
+        userInfo = SharedPreferenceUtils.getInstance(this).getUserInfo();
         if(userInfo!=null){
             etUserName.setText(userInfo.getNick_name());
         }
@@ -60,9 +67,33 @@ public class UserNameActivity extends BaseActivity {
                 }
                 break;
             case R.id.btn_save:
-                //修改数据库中用户名，并上传至服务器
-
+                //修改用户名，并上传至服务器
+                updateUserName();
                 break;
+        }
+    }
+
+    private void updateUserName() {
+        String newUserName = etUserName.getText().toString();
+        if(userInfo.getNick_name().equals(newUserName)){
+            Toast.makeText(this, "用户名未修改", Toast.LENGTH_SHORT).show();
+        }else{
+            userInfo.setNick_name(newUserName);
+            NetDao.updateUserInfo(this, userInfo, new OkHttpUtils.OnCompleteListener<ResponseResult>() {
+                @Override
+                public void onSuccess(ResponseResult result) {
+                    if(result!=null && result.getResult().getCode() == Constants.CODE_SUCCESS){
+                        Toast.makeText(UserNameActivity.this, "修改用户名成功", Toast.LENGTH_SHORT).show();
+                        SharedPreferenceUtils.getInstance(UserNameActivity.this).putUserInfo(result.getUserInfo());
+                    }
+                    Log.e("DeDiWang",result.toString());
+                }
+
+                @Override
+                public void onError(String error) {
+                    Log.e("error",error);
+                }
+            });
         }
     }
 }

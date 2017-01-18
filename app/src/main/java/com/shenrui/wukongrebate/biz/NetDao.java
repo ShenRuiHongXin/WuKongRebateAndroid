@@ -17,6 +17,7 @@ import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
+import java.io.File;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -24,6 +25,8 @@ import java.net.SocketException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
+
+import cn.smssdk.gui.layout.Res;
 
 import static android.content.Context.TELEPHONY_SERVICE;
 
@@ -136,4 +139,40 @@ public class NetDao {
         }
         return "";
     }
+
+    //修改用户基本信息
+    public static void updateUserInfo(Context context, UserInfo userInfo, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
+        Gson gson = new Gson();
+        String userInfoJson = gson.toJson(userInfo);
+        OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_URL+"user_update")
+                .post()
+                .addParam("userInfo",userInfoJson)
+                .targetClass(ResponseResult.class)
+                .execute(listener);
+    }
+    //修改用户认证信息
+    public static void updateUserAuths(Context context, UserAuths userAuths, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
+        Gson gson = new Gson();
+        String userAuthsJson = gson.toJson(userAuths);
+        OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_URL+"user_update")
+                .post()
+                .addParam("userAuths",userAuthsJson)
+                .targetClass(ResponseResult.class)
+                .execute(listener);
+    }
+
+    //更新用户头像
+    /*public static void updateUserAvatar(Context context, UserInfo userInfo, File avatarFile, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
+        Gson gson = new Gson();
+        String userInfoJson = gson.toJson(userInfo);
+        OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_URL+"user_update")
+                .post()
+                .addParam("userInfo",userInfoJson)
+                .addFile2(avatarFile)
+                .targetClass(ResponseResult.class)
+                .execute(listener);
+    }*/
 }

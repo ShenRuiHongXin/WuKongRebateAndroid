@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
 import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
+import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkOrderActivity_;
@@ -59,11 +60,16 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
             tv_money.setText(userInfo.getBalance()+"元");
             iv_sex.setImageResource(userInfo.getSex() == 2?R.drawable.mine_sex_woman:R.drawable.mine_sex_man);
             if(userInfo.getAvatar()!=null){
-                Glide.with(this).load(userInfo.getAvatar()).into(iv_avatar);
+                Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(iv_avatar);
+            }else{
+                iv_avatar.setImageResource(R.drawable.mine_avatar);
             }
         }else{//当前无用户
             isLogined = false;
             tv_user_name.setText("登录/注册");
+            iv_avatar.setImageResource(R.drawable.mine_avatar);
+            iv_sex.setImageResource(R.drawable.mine_sex_man);
+            tv_money.setText("xx元");
         }
     }
 

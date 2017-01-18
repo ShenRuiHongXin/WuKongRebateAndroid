@@ -37,7 +37,7 @@ public class SearchGoodsAdater extends RecyclerView.Adapter<RecyclerView.ViewHol
                 String cid = (String) v.getTag();
                 //进入商品详情页
                 Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
-                intent.putExtra("cid",cid);
+                intent.putExtra("num_iid",cid);
                 context.startActivity(intent);
             }
         };

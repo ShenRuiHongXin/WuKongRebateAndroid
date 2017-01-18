@@ -27,11 +27,11 @@
     <application
         android:name=".contents.MyApplication"
         android:allowBackup="false"
-        tools:replace="android:allowBackup"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
         <activity
             android:name=".activity.MainActivity_"
             android:launchMode="singleTask">
@@ -56,13 +56,15 @@
         <activity android:name=".activity.NineBlockNineActivity_" />
         <activity android:name=".activity.WKLuckDrawActivity_" />
         <activity android:name=".activity.LoginActivity_" />
-        <activity android:name=".activity.RegisterActivity_"/>
+        <activity android:name=".activity.RegisterActivity_" />
         //短信验证
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name=".activity.PasswordActivity_"/>
     </application>
 
 </manifest>

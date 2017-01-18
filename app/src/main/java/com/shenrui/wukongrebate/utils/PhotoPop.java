@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Created by Administrator on 2016/12/29.
@@ -36,6 +37,7 @@ public class PhotoPop {
     Activity context;
     PopupWindow popupWindow;
     File file;
+    File saveFile;//用于保存裁剪完的图片
 
     //需要pop窗弹出的父布局id
     public PhotoPop(Activity context, int parentId) {
@@ -95,47 +97,60 @@ public class PhotoPop {
         context.startActivityForResult(intent,ACTION_CHOOSE);
     }
 
-    public void setPhoto(int requestCode, int resultCode,Intent data ,ImageView imageView){
+    public void setPhoto(int requestCode, int resultCode,Intent data ,int userId){
         if(resultCode!=context.RESULT_OK){
             return;
         }
         switch (requestCode){
             case ACTION_CAPTURE:
-                startCropActivity(Uri.fromFile(file),300,300);
+                startCropActivity(Uri.fromFile(file),300,300,userId);
                 break;
             case ACTION_CHOOSE:
-                startCropActivity(data.getData(),300,300);
+                startCropActivity(data.getData(),300,300,userId);
                 break;
             case ACTION_CROP:
-                showPhoto(data, imageView);
+                //showPhoto(data, imageView);
                 popupWindow.dismiss();
                 break;
         }
     }
 
     private void showPhoto(Intent data, ImageView imageView) {
-        //Bitmap bitmap = data.getParcelableExtra("data");
-        Bitmap bitmap = null;
+        Bitmap bitmap = data.getParcelableExtra("data");
+        /*Bitmap bitmap = null;
         try {
             bitmap = BitmapFactory.decodeStream(context.getContentResolver().openInputStream(data.getData()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
         if(bitmap!=null){
             imageView.setImageBitmap(bitmap);
         }
     }
     //裁剪图片
-    private void startCropActivity(Uri data, int outputX, int outputY) {
+    private void startCropActivity(Uri data, int outputX, int outputY,int userId) {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(data, "image/*");
 
         //intent.putExtra("outputX", outputX);
         //intent.putExtra("outputY", outputY);
 
+        File dir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        saveFile = new File(dir,userId+".jpg");
+        intent.putExtra("output",Uri.fromFile(saveFile));
 
-        intent.putExtra("outputFormintent.putExtra(\"return-data\", true);at", Bitmap.CompressFormat.PNG.toString());
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        intent.putExtra("outputFormintent.putExtra(\"return-data\", true);at", Bitmap.CompressFormat.JPEG.toString());
 
         context.startActivityForResult(intent,ACTION_CROP);
+    }
+
+    public File getLastFile(){
+        return saveFile;
     }
 }

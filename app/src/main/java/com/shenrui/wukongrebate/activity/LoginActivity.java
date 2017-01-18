@@ -116,4 +116,10 @@ public class LoginActivity extends BaseActivity {
         }
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        OkHttpUtils.release();
+    }
 }
