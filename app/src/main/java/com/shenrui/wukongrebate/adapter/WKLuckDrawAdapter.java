@@ -69,7 +69,7 @@ public class WKLuckDrawAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         CycleRotationView cycleRotationView;
         public CycleHolder(View itemView) {
             super(itemView);
-            cycleRotationView = (CycleRotationView) itemView.findViewById(R.id.nine_cycleRotationView);
+            cycleRotationView = (CycleRotationView) itemView.findViewById(R.id.nine_crv);
         }
     }
     class ItemHolder extends RecyclerView.ViewHolder{

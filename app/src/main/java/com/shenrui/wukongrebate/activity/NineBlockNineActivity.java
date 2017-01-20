@@ -72,6 +72,10 @@ public class NineBlockNineActivity extends BaseActivity implements TabLayout.OnT
         }
         setListener();
         //加载第一页“全部”的数据
+        initDatas();
+    }
+
+    private void initDatas() {
         datas = new RecyItemIndexData();
         String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
         datas.setCycleList(urls);
@@ -84,10 +88,6 @@ public class NineBlockNineActivity extends BaseActivity implements TabLayout.OnT
             }
         });
         nineRv.setAdapter(contentAdapter);
-        initDatas();
-    }
-
-    private void initDatas() {
         showProgressBar();
         downloadDatas("9.9", 1, ACTION_DOWNLOAD2);
     }

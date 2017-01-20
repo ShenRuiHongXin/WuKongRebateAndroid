@@ -182,8 +182,9 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
-                intent.putExtra("cid",((TenGoodsData)list.get(position)).getNum_iid());
+                intent.putExtra("num_iid",((TenGoodsData)list.get(position)).getNum_iid());
                 context.startActivity(intent);
+
             }
         });
         recyMain.setAdapter(adapter);

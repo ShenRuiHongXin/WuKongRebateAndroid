@@ -1,16 +1,21 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.ali.auth.third.core.model.Session;
 import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
@@ -19,6 +24,7 @@ import com.shenrui.wukongrebate.adapter.SearchGoodsAdater;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.shenrui.wukongrebate.view.SearchView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -51,7 +57,12 @@ public class SearchActivity extends BaseActivity {
     //搜索历史界面
     @ViewById(R.id.layout_search_history)
     LinearLayout layout_search_history;
+    @ViewById(R.id.rv_all_search)
+    RecyclerView rvAllSearch;
+    @ViewById(R.id.rv_history_search)
+    RecyclerView rvHistorySearch;
 
+    Context context;
     SearchGoodsAdater adater;
     GridLayoutManager gridLayoutManager;
     List<TenGoodsData> list;
@@ -61,6 +72,7 @@ public class SearchActivity extends BaseActivity {
     void init(){
         getUser();
         list = new ArrayList<>();
+        context = this;
         initView();
         setListener();
     }
@@ -86,12 +98,18 @@ public class SearchActivity extends BaseActivity {
         }
 
     }
-
+    List<String> searthHistory;
+    SearthHistoryAdapter historyAdapter;
     private void initView() {
         adater = new SearchGoodsAdater(this,list);
         rv.setAdapter(adater);
         gridLayoutManager = new GridLayoutManager(this, 2);
         rv.setLayoutManager(gridLayoutManager);
+
+        searthHistory = SharedPreferenceUtils.getInstance(this).getSearthHistory();
+        historyAdapter = new SearthHistoryAdapter(this);
+        rvHistorySearch.setAdapter(historyAdapter);
+        rvHistorySearch.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
     }
 
     private void setListener() {
@@ -106,6 +124,8 @@ public class SearchActivity extends BaseActivity {
 
                     q = searchView.getEditText();
                     download(pageNo,ACTION_DOWNLOAD);
+                    //将搜索词放入首选项
+                    SharedPreferenceUtils.getInstance(context).putSearthHistory(q);
                 }else{
                     //没有搜索条件，显示搜索历史界面
                     srl.setVisibility(View.GONE);
@@ -140,6 +160,50 @@ public class SearchActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+    //搜索历史适配器
+    class SearthHistoryAdapter extends RecyclerView.Adapter<SearthHistoryAdapter.MyHolder>{
+        Context context;
+        View.OnClickListener clickListener;
+        public SearthHistoryAdapter(Context context) {
+            this.context = context;
+            clickListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (int) v.getTag();
+                    searthHistory.remove(position);
+                    notifyDataSetChanged();
+                }
+            };
+        }
+        @Override
+        public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_searth_history, null);
+            return new MyHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MyHolder holder, int position) {
+            holder.tvShowHistory.setText(searthHistory.get(position));
+            holder.ivDeleteHistory.setTag(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return searthHistory==null?0:searthHistory.size();
+        }
+
+        class MyHolder extends RecyclerView.ViewHolder{
+            TextView tvShowHistory;
+            ImageView ivDeleteHistory;
+            public MyHolder(View itemView) {
+                super(itemView);
+                tvShowHistory = (TextView) itemView.findViewById(R.id.tv_show_history);
+                ivDeleteHistory = (ImageView) itemView.findViewById(R.id.iv_delete_history);
+                ivDeleteHistory.setOnClickListener(clickListener);
+            }
+        }
     }
 
     private void getUser(){

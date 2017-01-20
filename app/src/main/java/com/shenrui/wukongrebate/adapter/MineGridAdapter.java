@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SignActivity_;
+import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkMyCartActivity;
 import com.taobao.api.AliSdkMyCartActivity_;
 import com.taobao.api.AliSdkOrderActivity;
@@ -22,18 +24,21 @@ import com.taobao.api.AliSdkOrderActivity_;
  * Created by Administrator on 2016/12/29.
  */
 
-public class MineGridAdapter extends RecyclerView.Adapter<MineGridAdapter.MyHolder> {
+public class MineGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int TYPE_ITEM_ONE = 1;
+    private static final int TYPE_ITEM_TWO = 2;
     Context context;
-    Integer[] images = {R.drawable.mine_icon1,R.drawable.mine_icon1,R.drawable.mine_icon1,
+    Integer[] images = {0,R.drawable.mine_icon1,2,
                             R.drawable.mine_icon2,R.drawable.mine_icon3,R.drawable.mine_icon4,
                             R.drawable.mine_icon5,R.drawable.mine_icon6,R.drawable.mine_icon7,
                             R.drawable.mine_icon8,R.drawable.mine_icon9,R.drawable.mine_icon10};
     String[] texts = {"赠送余额","悟空券","悟空积分","余额提现","资金明细","购物车",
                                     "悟空抽奖","会员通","邀请有奖","0元礼物","客服","悟空团购"};
     View.OnClickListener onClickListener;
-
+    UserInfo userInfo;
     public MineGridAdapter(final Context context) {
         this.context = context;
+        userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
         onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,21 +88,57 @@ public class MineGridAdapter extends RecyclerView.Adapter<MineGridAdapter.MyHold
     }
 
     @Override
-    public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.mine_item_layout, null, false);
-        return new MyHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+        RecyclerView.ViewHolder holder = null;
+        switch (viewType){
+            case TYPE_ITEM_ONE:
+                View layout = inflater.inflate(R.layout.mine_item_layout, null, false);
+                holder = new MyHolder(layout);
+                break;
+            case TYPE_ITEM_TWO:
+                View layout2 = inflater.inflate(R.layout.mine_item2_layout, null, false);
+                holder = new TwoHolder(layout2);
+                break;
+        }
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, int position) {
-        holder.imageView.setImageResource(images[position]);
-        holder.textView.setText(texts[position]);
-        holder.itemLayout.setTag(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == TYPE_ITEM_ONE){
+            MyHolder myHolder = (MyHolder) holder;
+            myHolder.imageView.setImageResource(images[position]);
+            myHolder.textView.setText(texts[position]);
+            myHolder.itemLayout.setTag(position);
+        }else{
+            TwoHolder twoHolder = (TwoHolder) holder;
+            if(position == 0){
+                double balance = userInfo==null?0:userInfo.getBalance();
+                twoHolder.tvShow.setText(balance+"元");
+            }
+            if(position == 2){
+                int integral = userInfo==null?0:userInfo.getIntegral();
+                twoHolder.tvShow.setText(integral+"个");
+            }
+            twoHolder.textView.setText(texts[position]);
+            twoHolder.item2Layout.setTag(position);
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return texts.length;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0 || position == 2){
+            return TYPE_ITEM_TWO;
+        }else{
+            return TYPE_ITEM_ONE;
+        }
     }
 
     class MyHolder extends RecyclerView.ViewHolder{
@@ -111,6 +152,20 @@ public class MineGridAdapter extends RecyclerView.Adapter<MineGridAdapter.MyHold
             itemLayout = (LinearLayout) itemView.findViewById(R.id.item_layout);
 
             itemLayout.setOnClickListener(onClickListener);
+        }
+    }
+
+    class TwoHolder extends RecyclerView.ViewHolder{
+        TextView tvShow;
+        TextView textView;
+        LinearLayout item2Layout;
+        public TwoHolder(View itemView) {
+            super(itemView);
+            tvShow = (TextView) itemView.findViewById(R.id.tv_show);
+            textView = (TextView) itemView.findViewById(R.id.tv_mine_item2);
+            item2Layout = (LinearLayout) itemView.findViewById(R.id.item2_layout);
+
+            item2Layout.setOnClickListener(onClickListener);
         }
     }
 }

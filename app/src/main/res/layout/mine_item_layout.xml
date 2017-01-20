@@ -3,11 +3,16 @@
     android:orientation="vertical"
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
     <ImageView
         android:id="@+id/iv_mine_item"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:src="@mipmap/ic_launcher"
         />
     <TextView
@@ -17,5 +22,5 @@
         android:gravity="center_horizontal"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="25dp"/>
+        android:layout_height="10dp"/>
 </LinearLayout>

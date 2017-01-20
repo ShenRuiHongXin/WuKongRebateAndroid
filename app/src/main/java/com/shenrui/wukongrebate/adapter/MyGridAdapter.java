@@ -21,7 +21,7 @@ public class MyGridAdapter extends BaseAdapter {
     private Context mContext;
 
     public String[] img_text = { "签到积分", "邀请奖励", "积分抽奖", "返利攻略" };
-    public int[] imgs = {R.drawable.index_icon_sign_n,R.drawable.index_icon_invite_n,R.drawable.index_icon_gift_n,R.drawable.index_icon_strategy_n};
+    public int[] imgs = {R.drawable.index_icon_sign_n,R.drawable.index_icon_money_n,R.drawable.index_icon_gift_n,R.drawable.index_icon_strategy_n};
 
     public MyGridAdapter(Context mContext) {
         super();

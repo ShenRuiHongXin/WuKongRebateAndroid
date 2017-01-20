@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -42,6 +43,7 @@ public class SettingsActivity extends BaseActivity{
     @ViewById(R.id.btn_exit)
     Button btnExit;
 
+    boolean isLogined;
     @AfterViews
     void initView() {
         toolbar_left_image.setVisibility(View.VISIBLE);
@@ -49,6 +51,18 @@ public class SettingsActivity extends BaseActivity{
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("设置");
         toolbar_right_image.setVisibility(View.GONE);
+
+        initUserData();
+    }
+
+    private void initUserData() {
+        if(SharedPreferenceUtils.getInstance(this).getUserInfo()!=null){
+            isLogined = true;
+            btnExit.setVisibility(View.VISIBLE);
+        }else{
+            isLogined = false;
+            btnExit.setVisibility(View.GONE);
+        }
     }
 
     @Click({R.id.btn_exit,R.id.toolbar_left_image,R.id.personalInfo,R.id.security,R.id.secret,R.id.message,R.id.common,R.id.area,R.id.about})
@@ -59,15 +73,24 @@ public class SettingsActivity extends BaseActivity{
                 break;
             //退出当前账户
             case R.id.btn_exit:
-
+                SharedPreferenceUtils.getInstance(this).clearAll();
+                finish();
                 break;
             //个人资料
             case R.id.personalInfo:
-                startActivity(new Intent(this,PersonalInfoActivity_.class));
+                if(isLogined){
+                    startActivity(new Intent(this,PersonalInfoActivity_.class));
+                }else{
+                    startActivity(new Intent(this,LoginActivity_.class));
+                }
                 break;
             //账户与安全
             case R.id.security:
-                startActivity(new Intent(this,SecurityActivity_.class));
+                if(isLogined){
+                    startActivity(new Intent(this,SecurityActivity_.class));
+                }else{
+                    startActivity(new Intent(this,LoginActivity_.class));
+                }
                 break;
             //隐私
             case R.id.secret:
@@ -90,5 +113,11 @@ public class SettingsActivity extends BaseActivity{
                 startActivity(new Intent(this,AboutActivity_.class));
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initUserData();
     }
 }

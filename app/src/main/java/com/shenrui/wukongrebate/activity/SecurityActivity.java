@@ -1,10 +1,14 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.entities.UserAuths;
+import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -33,7 +37,20 @@ public class SecurityActivity extends BaseActivity {
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("账户与安全");
         toolbar_right_image.setVisibility(View.GONE);
+        initUserData();
     }
+
+    private void initUserData() {
+        UserInfo userInfo = SharedPreferenceUtils.getInstance(this).getUserInfo();
+        if(userInfo!=null){
+            tvUserName.setText(userInfo.getNick_name());
+        }
+        UserAuths userAuths = SharedPreferenceUtils.getInstance(this).getUserAuths();
+        if(userAuths!=null){
+            tvShowNumber.setText(userAuths.getIdentifier());
+        }
+    }
+
     @Click({R.id.toolbar_left_image,R.id.updateNumber,R.id.updatePassword})
     void clickEvent(View view){
         switch (view.getId()){
@@ -46,7 +63,7 @@ public class SecurityActivity extends BaseActivity {
                 break;
             //修改登录密码
             case R.id.updatePassword:
-
+                startActivity(new Intent(this,PasswordActivity_.class));
                 break;
         }
     }
