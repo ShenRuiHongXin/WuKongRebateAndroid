@@ -8,6 +8,10 @@ import com.shenrui.wukongrebate.contents.MyApplication;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -19,7 +23,7 @@ public class SharedPreferenceUtils {
     private static SharedPreferenceUtils instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-
+    private List<String> searthHistory = new ArrayList<>();
     public static SharedPreferenceUtils getInstance(Context context){
         if(instance == null){
             instance = new SharedPreferenceUtils(context);
@@ -60,6 +64,22 @@ public class SharedPreferenceUtils {
         Gson gson = new Gson();
         UserAuths userAuths = gson.fromJson(userAuthsJson, UserAuths.class);
         return userAuths;
+    }
+
+    //保存用户搜索历史
+    public void putSearthHistory(String str){
+        searthHistory.add(str);
+        editor.putString("searthHistory",searthHistory.toString());
+        editor.commit();
+    }
+    public List<String> getSearthHistory(){
+        String searthHistory = sp.getString("searthHistory", null);
+        if(searthHistory!=null){
+            String[] strs = searthHistory.split(",");
+            List<String> list = Arrays.asList(strs);
+            return list;
+        }
+        return null;
     }
 
     //退出帐号时调用

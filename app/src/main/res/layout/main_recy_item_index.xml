@@ -69,20 +69,8 @@
                 android:paddingLeft="15dp"
                 android:text="悟空抽奖"
                 android:textSize="12sp" />
-
             <TextView
                 android:id="@+id/tv_four"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/index_icon_wash_n"
-                android:gravity="center"
-                android:paddingLeft="15dp"
-                android:text="悟空海淘"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tv_five"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

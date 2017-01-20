@@ -121,7 +121,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                                     //动画效果
                                     context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, "sharedView").toBundle());
                                 }else{
-                                context.startActivity(intent);
+                                    context.startActivity(intent);
                                 }
 //                                context.startActivity(new Intent(context,SignActivity_.class));
                                 break;
@@ -315,7 +315,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
         MyGridView mgv_sign;
         ActivityView activity_view;
         RecyclerView ten_new_goods_recy;
-        TextView tv_one,tv_two,tv_three,tv_four,tv_five;
+        TextView tv_one,tv_two,tv_three,tv_four;
 
         public MyViewHolderMainRecyIndex(View view) {
             super(view);
@@ -329,12 +329,10 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
             tv_two = (TextView) view.findViewById(R.id.tv_two);
             tv_three = (TextView) view.findViewById(R.id.tv_three);
             tv_four = (TextView) view.findViewById(R.id.tv_four);
-            tv_five = (TextView) view.findViewById(R.id.tv_five);
             tv_one.setOnClickListener(this);
             tv_two.setOnClickListener(this);
             tv_three.setOnClickListener(this);
             tv_four.setOnClickListener(this);
-            tv_five.setOnClickListener(this);
         }
 
         @Override
@@ -352,12 +350,8 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                 case R.id.tv_three:
                     context.startActivity(new Intent(context, WKLuckDrawActivity_.class));
                     break;
-                //悟空海淘
-                case R.id.tv_four:
-
-                    break;
                 //悟空团购
-                case R.id.tv_five:
+                case R.id.tv_four:
 
                     break;
             }

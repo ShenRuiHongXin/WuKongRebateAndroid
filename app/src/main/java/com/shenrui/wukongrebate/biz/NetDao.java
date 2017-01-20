@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.LoginInfo;
 import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.entities.SignResponseResult;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
@@ -151,6 +152,7 @@ public class NetDao {
                 .targetClass(ResponseResult.class)
                 .execute(listener);
     }
+
     //修改用户认证信息
     public static void updateUserAuths(Context context, UserAuths userAuths, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         Gson gson = new Gson();
@@ -175,4 +177,17 @@ public class NetDao {
                 .targetClass(ResponseResult.class)
                 .execute(listener);
     }*/
+
+    //用户签到
+    public static void sign(Context context,UserInfo userInfo,
+                            OkHttpUtils.OnCompleteListener<SignResponseResult> listener){
+        Gson gson = new Gson();
+        String userInfoJson = gson.toJson(userInfo);
+        OkHttpUtils<SignResponseResult> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_URL+"user_sign")
+                .post()
+                .addParam("userInfo",userInfoJson)
+                .targetClass(SignResponseResult.class)
+                .execute(listener);
+    }
 }

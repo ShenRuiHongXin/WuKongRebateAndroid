@@ -105,10 +105,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     //重置界面
     private void resetView() {
         //
-        ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_hot_n);
-        ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_cate_n);
-        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_health_n);
-        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.rebate);
+        ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_bag_n);
+        ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_tropical_n);
+        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_n);
+        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_earth_n);
         ((ImageView)iv_list.get(4)).setImageResource(R.drawable.common_icon_monkey_n);
         //
         ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
@@ -122,22 +122,22 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void selectPage(int position){
         switch (position) {
             case 0:
-                ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_hot_s);
+                ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_bag_s);
                 ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(0);
                 break;
             case 1:
-                ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_cate_s);
+                ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_tropical_s);
                 ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(1);
                 break;
             case 2:
-                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_health_s);
+                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_s);
                 ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(2);
                 break;
             case 3:
-                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.rebate_s);
+                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_earth_s);
                 ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(3);
                 break;
