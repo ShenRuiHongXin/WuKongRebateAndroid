@@ -53,6 +53,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     // ViewPager适配器MainViewPagerAdapter
     private MainViewPagerAdapter adapter;
 
+    public static List mainData = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

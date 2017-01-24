@@ -17,18 +17,4 @@
         android:text="美食馆"
         android:textSize="30dp" />
 
-    <Button
-        android:id="@+id/btn_user_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="登录"/>
-
-    <Button
-        android:id="@+id/btn_ip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btn_user_login"
-        android:text="IP"/>
-
 </RelativeLayout>

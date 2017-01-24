@@ -42,9 +42,13 @@ dependencies {
     compile 'com.android.support:design:25.1.0'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:22.0.0'
-    compile 'org.greenrobot:eventbus:3.0.0'
-
     //EventBus配置
+    compile 'org.greenrobot:eventbus:3.0.0'
+    //轮播图
+    compile 'com.jude:rollviewpager:1.4.6'
+    //百分比布局
+    compile 'com.zhy:percent-support-extends:1.1.1'
+
     /*
         百川电商
         */

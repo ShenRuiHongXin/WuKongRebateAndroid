@@ -18,10 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.NineBlockNineActivity;
+import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
 import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
+import com.shenrui.wukongrebate.activity.RebateInstructionsActivity_;
 import com.shenrui.wukongrebate.activity.SignActivity_;
-import com.shenrui.wukongrebate.activity.WKLuckDrawActivity;
 import com.shenrui.wukongrebate.activity.WKLuckDrawActivity_;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
@@ -108,6 +108,15 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                 MyViewHolderMainRecyIndex myViewHolderMainRecyIndex = (MyViewHolderMainRecyIndex) holder;
                 RecyItemIndexData recyItemIndexData = (RecyItemIndexData) listDatas.get(position).getT();
                 myViewHolderMainRecyIndex.cyclerotationview.setUrls(recyItemIndexData.getCycleList());
+                myViewHolderMainRecyIndex.cyclerotationview.setOnItemClickListener(new CycleRotationView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        LogUtil.d("click " + position);
+                    }
+                });
+
+//                myViewHolderMainRecyIndex.rollPagerView.setPlayDelay(3000);
+//                myViewHolderMainRecyIndex.rollPagerView.setAdapter(new RpvLoopAdapter(context,myViewHolderMainRecyIndex.rollPagerView,recyItemIndexData.getCycleList()));
 
                 myViewHolderMainRecyIndex.mgv_sign.setAdapter(new MyGridAdapter(context));
                 myViewHolderMainRecyIndex.mgv_sign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -124,6 +133,18 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                                     context.startActivity(intent);
                                 }
 //                                context.startActivity(new Intent(context,SignActivity_.class));
+                                break;
+                            case 1:
+//                                Intent intent1 = new Intent(context, NineTestActivity.class);
+//                                context.startActivity(intent1);
+                                break;
+                            case 2:
+                                Intent intent2 = new Intent(context, IntegralLuckDrawActivity_.class);
+                                context.startActivity(intent2);
+                                break;
+                            case 3:
+                                Intent intent3 = new Intent(context, RebateInstructionsActivity_.class);
+                                context.startActivity(intent3);
                                 break;
                         }
                     }
@@ -310,6 +331,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
      */
     class MyViewHolderMainRecyIndex extends RecyclerView.ViewHolder implements View.OnClickListener{
 //        TabLayout tl_goods_category;
+//        RollPagerView rollPagerView;
         CycleRotationView cyclerotationview;
         LinearLayout ll_activity;
         MyGridView mgv_sign;
@@ -320,6 +342,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
         public MyViewHolderMainRecyIndex(View view) {
             super(view);
 //            tl_goods_category = (TabLayout) view.findViewById(R.id.tl_goods_category);
+//            rollPagerView = (RollPagerView) view.findViewById(R.id.rpv_ads);
             cyclerotationview = (CycleRotationView) view.findViewById(R.id.cyclerotationview);
             ll_activity = (LinearLayout) view.findViewById(R.id.ll_activity);
             mgv_sign = (MyGridView) view.findViewById(R.id.mgv_sign);
