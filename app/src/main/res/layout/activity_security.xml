@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/mineGrey"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="会员名"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"/>
         <View
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="悟空返利"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="30dp"/>
@@ -39,15 +39,15 @@
     <LinearLayout
         android:id="@+id/updateNumber"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/mineGrey"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改手机号码"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"/>
         <View
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="180****6621"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:layout_gravity="center_vertical"/>
         <ImageView
             android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
     <LinearLayout
         android:id="@+id/updatePassword"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/mineGrey"
         android:layout_marginTop="8dp">
@@ -80,7 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改登录密码"
-            android:textSize="20dp"
+            android:textSize="15sp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"/>
         <View

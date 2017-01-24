@@ -1,50 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_nine_block_nine"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.shenrui.wukongrebate.activity.NineBlockNineActivity">
-    <include layout="@layout/titlebar"
+    android:id="@+id/coordinator_layout"
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/nine_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/mainRed"
-        app:tabIndicatorColor="@color/mainRed"
-        app:tabBackground="@color/titleRed"
-        app:tabMode="scrollable"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/nine_progressBar"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/nine_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
+            android:layout_height="70dp"
+            android:background="@color/mineRed"
+            android:paddingTop="@dimen/padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            >
+            <ImageView
+                android:id="@+id/iv_nine_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminateTint="@color/mainRed" />
-
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/common_btn_back_n" />
             <TextView
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="加载中" />
-        </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/nine_rv"
+                android:layout_gravity="center|center_vertical"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:text="9块9" />
+            <ImageView
+                android:id="@+id/iv_nine_find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_gravity="end|center_vertical"
+                android:src="@drawable/common_btn_search_n"
+                />
+        </android.support.v7.widget.Toolbar>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/nine_tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@color/mainRed"
+            app:tabIndicatorColor="@color/mainRed"
+            app:tabBackground="@color/category_bg"
+            app:tabMode="scrollable"
+            />
+    </android.support.design.widget.AppBarLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/nine_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

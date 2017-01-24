@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ali.auth.third.core.model.User;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SignActivity_;
 import com.shenrui.wukongrebate.entities.UserInfo;
@@ -36,9 +37,9 @@ public class MineGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                     "悟空抽奖","会员通","邀请有奖","0元礼物","客服","悟空团购"};
     View.OnClickListener onClickListener;
     UserInfo userInfo;
-    public MineGridAdapter(final Context context) {
+    public MineGridAdapter(final Context context,UserInfo userInfo) {
         this.context = context;
-        userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
+        this.userInfo = userInfo;
         onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,6 +140,11 @@ public class MineGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }else{
             return TYPE_ITEM_ONE;
         }
+    }
+
+    public void updateData() {
+        userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
+        notifyDataSetChanged();
     }
 
     class MyHolder extends RecyclerView.ViewHolder{

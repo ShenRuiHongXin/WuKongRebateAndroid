@@ -6,35 +6,51 @@
     <com.shenrui.wukongrebate.view.CycleRotationView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:id="@+id/nine_cycleRotationView"/>
+        android:id="@+id/nine_cycleRotationView"
+        android:layout_marginTop="5dp"/>
     <LinearLayout
         android:id="@+id/nine_linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:orientation="horizontal"
         android:layout_margin="10dp">
-        <TextView
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:src="@drawable/index_nine_bg1"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="畅销榜单"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="#a0000000"/>
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/index_nine_bg1"
-            android:text="畅销榜单"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:alpha="50"
-            android:layout_marginRight="8dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="9.9品牌团"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:alpha="50"
-            android:background="@drawable/index_nine_bg2"/>
+            android:layout_marginLeft="10dp">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:src="@drawable/index_nine_bg2"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="9.9品牌团"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="#a0000000"/>
+        </RelativeLayout>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/nine_rvContent"/>
+        android:id="@+id/nine_rvContent"
+        android:layout_margin="10dp"/>
 </LinearLayout>

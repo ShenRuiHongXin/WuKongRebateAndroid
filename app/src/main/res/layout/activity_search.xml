@@ -69,27 +69,35 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="历史搜索"
-                android:textSize="20dp"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="15dp"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_history_search"
+            <LinearLayout
+                android:id="@+id/layout_history"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"/>
-            <Button
-                android:id="@+id/btn_clear_search_history"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:text="清空所有搜索历史"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center_horizontal"/>
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="历史搜索"
+                    android:textSize="20dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="15dp"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_history_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="30dp"/>
+                <Button
+                    android:id="@+id/btn_clear_search_history"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:text="清空全部搜索历史"
+                    android:textSize="18sp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/search_bg"
+                    android:layout_gravity="center_horizontal"/>
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

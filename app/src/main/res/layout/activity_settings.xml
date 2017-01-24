@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="退出当前帐号"
+        android:textSize="18sp"
         android:background="@color/mineRed"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"/>
@@ -20,7 +21,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
         <include layout="@layout/titlebar"
             android:layout_width="match_parent"
@@ -30,11 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_personal"/>
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="个人资料"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View
@@ -61,11 +61,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_account"/>
@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="账户与安全"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View
@@ -92,11 +92,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_message"/>
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="消息与通知"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View
@@ -123,11 +123,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_privacy"/>
@@ -135,7 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="隐私"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View
@@ -154,11 +154,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_reneral"/>
@@ -166,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="通用"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View
@@ -185,11 +185,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_area"/>
@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="地区"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View
@@ -216,11 +216,11 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="5dp"
             android:background="@color/mineGrey">
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/mine_set_icon_about"/>
@@ -228,7 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="关于悟空返利"
-                android:textSize="20dp"
+                android:textSize="15sp"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"/>
             <View

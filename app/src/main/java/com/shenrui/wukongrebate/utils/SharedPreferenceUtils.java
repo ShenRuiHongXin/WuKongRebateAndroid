@@ -2,6 +2,7 @@ package com.shenrui.wukongrebate.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shenrui.wukongrebate.contents.MyApplication;
@@ -23,7 +24,8 @@ public class SharedPreferenceUtils {
     private static SharedPreferenceUtils instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private List<String> searthHistory = new ArrayList<>();
+    private static final String KEY_SEARTH_HISTORY = "searthHistory";
+
     public static SharedPreferenceUtils getInstance(Context context){
         if(instance == null){
             instance = new SharedPreferenceUtils(context);
@@ -67,21 +69,42 @@ public class SharedPreferenceUtils {
     }
 
     //保存用户搜索历史
-    public void putSearthHistory(String str){
-        searthHistory.add(str);
-        editor.putString("searthHistory",searthHistory.toString());
+    public void putSearthHistory(String newText){
+        String oldText = sp.getString(KEY_SEARTH_HISTORY, null);
+        if(oldText!=null && !oldText.contains(newText)){
+            editor.putString(KEY_SEARTH_HISTORY,newText.trim()+","+oldText.trim());
+        }else if (oldText==null){
+            editor.putString(KEY_SEARTH_HISTORY,newText.trim());
+        }
         editor.commit();
     }
     public List<String> getSearthHistory(){
-        String searthHistory = sp.getString("searthHistory", null);
+        String searthHistory = sp.getString(KEY_SEARTH_HISTORY, null);
         if(searthHistory!=null){
-            String[] strs = searthHistory.split(",");
-            List<String> list = Arrays.asList(strs);
-            return list;
+            List<String> strs = new ArrayList<>();
+            for(String str : searthHistory.split(",")){
+                strs.add(str);
+            }
+            return strs;
         }
         return null;
     }
-
+    //清除一条记录
+    public void clearOneHistory(String one){
+        String searthHistory = sp.getString(KEY_SEARTH_HISTORY, null);
+        if(searthHistory!=null){
+            clearAllHistory();
+            for(String str : searthHistory.split(",")){
+                if(!str.equals(one)){
+                    putSearthHistory(str);
+                }
+            }
+        }
+    }
+    public void clearAllHistory(){
+        editor.remove(KEY_SEARTH_HISTORY);
+        editor.commit();
+    }
     //退出帐号时调用
     public void clearAll(){
         editor.clear();
