@@ -57,6 +57,8 @@
         <activity android:name=".activity.WKLuckDrawActivity_" />
         <activity android:name=".activity.LoginActivity_" />
         <activity android:name=".activity.RegisterActivity_" />
+        <activity android:name=".activity.IntegralLuckDrawActivity_" />
+        <activity android:name=".activity.RebateInstructionsActivity_" />
         //短信验证
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -64,7 +66,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.PasswordActivity_" />
-        <activity android:name=".activity.FindPasswordActivity_"/>
     </application>
 
 </manifest>

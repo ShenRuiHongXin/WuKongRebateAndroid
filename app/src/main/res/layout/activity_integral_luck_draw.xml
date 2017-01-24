@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:transitionName="sharedView">
+    <include
+        android:id="@+id/include_titlebar"
+        layout="@layout/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.shenrui.wukongrebate.view.CycleRotationView
+        android:id="@+id/crv_luckdraw"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/include_titlebar"/>
+    <com.shenrui.wukongrebate.view.NineDrawView_
+        android:id="@+id/ndv_luck_draw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/crv_luckdraw"/>
+
+</RelativeLayout>

@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.MainActivity_;
 import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
@@ -81,6 +81,7 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     //界面初始化
     @AfterViews
     void init() {
+        LogUtil.i("FragmentRebate created");
         context = getContext();
         ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
         ((TextView) listTitleView.get(2)).setText("悟空返利");
@@ -116,36 +117,48 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
                 }
             }
         });
-        
         initDatas();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtil.d("FragmentRebate destroyed");
     }
 
     //首页数据加载
     @Background
     void initDatas() {
-        if (Utils.isNetworkConnected(getActivity())){
-            recyItemIndexData = new RecyItemIndexData();
+        LogUtil.d("mainActivity mainData: " + MainActivity_.mainData);
+        if (MainActivity_.mainData == null) {
+            if (Utils.isNetworkConnected(getActivity())){
+                recyItemIndexData = new RecyItemIndexData();
 
-            String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
-            recyItemIndexData.setCycleList(urls);//轮播图
-            recyItemIndexData.setCjfanList(new ArrayList());//超级返
-            recyItemIndexData.setSignList(new ArrayList());//签到
-            recyItemIndexData.setActiviList(new ArrayList());//活动
-            List listTmp = GetNetWorkDatas.getTenNewGoods();
-            if(listTmp == null){
+                String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
+                recyItemIndexData.setCycleList(urls);//轮播图
+                recyItemIndexData.setCjfanList(new ArrayList());//超级返
+                recyItemIndexData.setSignList(new ArrayList());//签到
+                recyItemIndexData.setActiviList(new ArrayList());//活动
+                List listTmp = GetNetWorkDatas.getTenNewGoods();
+                if(listTmp == null){
+                    initDatas();
+                }
+                recyItemIndexData.setTenList(listTmp);//早10点上新
+                listData = new ArrayList<>();
+                listData.add(new SignRecyItemData(recyItemIndexData, SignRecyItemData.MAIN_ITEM));
+                updataUi();
+            }else{
                 initDatas();
             }
-            recyItemIndexData.setTenList(listTmp);//早10点上新
-            listData = new ArrayList<>();
-            listData.add(new SignRecyItemData(recyItemIndexData, SignRecyItemData.MAIN_ITEM));
+        } else {
+            listData = MainActivity_.mainData;
             updataUi();
-        }else{
-            initDatas();
         }
 
     }
     @UiThread
     void updataUi() {
+        MainActivity_.mainData = listData;
         recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData, this));
 
         hideProgressBar();

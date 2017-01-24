@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.shenrui.wukongrebate.utils.LogUtil;
+
 import java.util.List;
 
 
@@ -32,6 +34,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-//        super.destroyItem(container, position, object);
+        LogUtil.d("main position: " + position);
+        if (position == 0) {
+            super.destroyItem(container, position, object);
+        }
     }
 }

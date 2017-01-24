@@ -27,6 +27,11 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_below="@+id/tl_goods_category" />
+        <!--<com.jude.rollviewpager.RollPagerView
+            android:id="@+id/rpv_ads"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/tl_goods_category"/>-->
 
         //超级返
 
