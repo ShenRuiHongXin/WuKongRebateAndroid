@@ -3,6 +3,7 @@ package com.shenrui.wukongrebate.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,8 +19,12 @@ import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
 import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.adapter.MineGridAdapter;
+import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkOrderActivity_;
 
@@ -40,6 +45,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     TextView tv_money;
     TextView tv_withdraw;
     TextView tv_all_order;
+    SwipeRefreshLayout srl;
     Context context;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,8 +57,13 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
         return view;
     }
     boolean isLogined;
+    UserInfo userInfo;
+    UserAuths userAuths;
+    MineGridAdapter adapter;
     private void initUserData() {
-        UserInfo userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
+        adapter.updateData();
+        userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
+        userAuths = SharedPreferenceUtils.getInstance(context).getUserAuths();
         if(userInfo!=null){
             isLogined = true;
             //用户已登录,设置用户昵称，性别，头像,可用余额
@@ -80,6 +91,32 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
         iv_toolbar_left.setOnClickListener(this);
         tv_withdraw.setOnClickListener(this);
         tv_all_order.setOnClickListener(this);
+
+        //刷新用户信息
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (isLogined){
+                    NetDao.login(context, userAuths.getIdentifier(), userAuths.getCredential(), new OkHttpUtils.OnCompleteListener<ResponseResult>() {
+                        @Override
+                        public void onSuccess(ResponseResult result) {
+                            if(result.getResult()!=null && result.getResult().getCode() == Constants.CODE_SUCCESS){
+                                SharedPreferenceUtils.getInstance(context).putUserInfo(result.getUserInfo());
+                                initUserData();
+                                srl.setRefreshing(false);
+                            }
+                        }
+
+                        @Override
+                        public void onError(String error) {
+
+                        }
+                    });
+                }else{
+                    srl.setRefreshing(false);
+                }
+            }
+        });
     }
 
     void init(){
@@ -93,16 +130,16 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
         tv_money = (TextView) view.findViewById(R.id.tv_money);
         tv_withdraw = (TextView) view.findViewById(R.id.tv_withdraw);
         tv_all_order = (TextView) view.findViewById(R.id.tv_all_order);
+        srl = (SwipeRefreshLayout) view.findViewById(R.id.mine_srl);
 
-//        mToolbar.setBackgroundColor(ContextCompat.getColor(getActivity(),R.color.mineRed));
         tv_toolbar_left.setVisibility(View.GONE);
-
         iv_toolbar_left.setImageResource(R.drawable.mine_set_n);
         iv_toolbar_right.setImageResource(R.drawable.mine_message);
         ((TextView)view.findViewById(R.id.toolbar_title)).setText("悟空");
 
+        userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
         recyclerView = (RecyclerView) view.findViewById(R.id.rv);
-        MineGridAdapter adapter = new MineGridAdapter(getContext());
+        adapter = new MineGridAdapter(getContext(),userInfo);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
     }

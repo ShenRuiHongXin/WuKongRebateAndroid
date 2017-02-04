@@ -12,10 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ali.auth.third.core.model.Session;
 import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
@@ -61,6 +63,10 @@ public class SearchActivity extends BaseActivity {
     RecyclerView rvAllSearch;
     @ViewById(R.id.rv_history_search)
     RecyclerView rvHistorySearch;
+    @ViewById(R.id.btn_clear_search_history)
+    Button btnClearAll;
+    @ViewById(R.id.layout_history)
+    LinearLayout layoutHistory;
 
     Context context;
     SearchGoodsAdater adater;
@@ -106,10 +112,19 @@ public class SearchActivity extends BaseActivity {
         gridLayoutManager = new GridLayoutManager(this, 2);
         rv.setLayoutManager(gridLayoutManager);
 
+        //获取历史搜索数据
         searthHistory = SharedPreferenceUtils.getInstance(this).getSearthHistory();
-        historyAdapter = new SearthHistoryAdapter(this);
-        rvHistorySearch.setAdapter(historyAdapter);
-        rvHistorySearch.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        if(searthHistory!=null){
+            Log.e("DeDiWang",searthHistory.toString());
+        }
+        if(searthHistory!=null){
+            layoutHistory.setVisibility(View.VISIBLE);
+            historyAdapter = new SearthHistoryAdapter(this);
+            rvHistorySearch.setAdapter(historyAdapter);
+            rvHistorySearch.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        }else{
+            layoutHistory.setVisibility(View.GONE);
+        }
     }
 
     private void setListener() {
@@ -160,20 +175,35 @@ public class SearchActivity extends BaseActivity {
                 finish();
             }
         });
+        //清空全部搜索记录
+        btnClearAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferenceUtils.getInstance(context).clearAllHistory();
+                searthHistory = null;
+                historyAdapter.notifyDataSetChanged();
+                layoutHistory.setVisibility(View.GONE);
+            }
+        });
     }
 
     //搜索历史适配器
     class SearthHistoryAdapter extends RecyclerView.Adapter<SearthHistoryAdapter.MyHolder>{
         Context context;
         View.OnClickListener clickListener;
-        public SearthHistoryAdapter(Context context) {
+        public SearthHistoryAdapter(final Context context) {
             this.context = context;
             clickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = (int) v.getTag();
+                    //删除单条搜索记录
+                    SharedPreferenceUtils.getInstance(context).clearOneHistory(searthHistory.get(position));
                     searthHistory.remove(position);
                     notifyDataSetChanged();
+                    if(SharedPreferenceUtils.getInstance(context).getSearthHistory()==null){
+                        layoutHistory.setVisibility(View.GONE);
+                    }
                 }
             };
         }

@@ -76,6 +76,9 @@ public class RegisterActivity extends BaseActivity {
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                     //提交验证码成功
                     Toast.makeText(RegisterActivity.this, "验证通过", Toast.LENGTH_SHORT).show();
+                    btnCheck.setBackgroundColor(getResources().getColor(R.color.mainGrey));
+                    btnCheck.setText("已验证");
+                    btnCheck.setClickable(false);
                     layout_type_two.setVisibility(View.VISIBLE);
                 }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                     //获取验证码成功

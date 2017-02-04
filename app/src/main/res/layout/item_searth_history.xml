@@ -13,7 +13,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="长款加绒秋冬针织打底衫"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:padding="5dp"
             android:layout_marginLeft="5dp"/>
         <ImageView

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="拍照"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@color/titleRed"/>
     <View
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="相册"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@color/titleRed"
         />
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="取消"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/white"
         android:background="@color/titleRed"/>
 </LinearLayout>

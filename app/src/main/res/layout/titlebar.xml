@@ -21,11 +21,11 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/toolbar_left_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left|center_vertical"
-                android:text="武汉" />
+            android:id="@+id/toolbar_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="武汉" />
 
             <ImageView
                 android:id="@+id/toolbar_left_image"
@@ -52,13 +52,20 @@
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="10dp"
             android:orientation="horizontal">
-
+            <TextView
+                android:id="@+id/toolbar_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:text="武汉"
+                android:visibility="gone"/>
             <ImageView
                 android:id="@+id/toolbar_right_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"
+                />
 
         </LinearLayout>
         <!--<Button-->

@@ -31,15 +31,18 @@ public class LoginActivity extends BaseActivity {
     TextView toolbar_title;
     @ViewById(R.id.toolbar_right_image)
     ImageView toolbar_right_image;
+    @ViewById(R.id.toolbar_right_text)
+    TextView tv_register;
 
+    @ViewById(R.id.tv_find_password)
+    TextView tvFindPassword;
     @ViewById(R.id.et_userNumber)
     EditText etUserName;
     @ViewById(R.id.et_userPassword)
     EditText etPassword;
     @ViewById(R.id.btn_login)
     Button btnLogin;
-    @ViewById(R.id.btn_register)
-    Button btnRegister;
+
     String userName,password;
     @AfterViews
     void init(){
@@ -47,19 +50,21 @@ public class LoginActivity extends BaseActivity {
         toolbar_left_text.setText("关闭");
         toolbar_title.setText("登录");
         toolbar_right_image.setVisibility(View.GONE);
+        tv_register.setVisibility(View.VISIBLE);
+        tv_register.setText("注册");
         //如果从注册界面跳转过来的
         String number = getIntent().getStringExtra("phoneNumber");
         if(number!=null){
             etUserName.setText(number);
         }
     }
-    @Click({R.id.toolbar_left_text,R.id.btn_register,R.id.btn_login})
+    @Click({R.id.toolbar_left_text,R.id.toolbar_right_text,R.id.btn_login,R.id.tv_find_password})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_text:
                 finish();
                 break;
-            case R.id.btn_register:
+            case R.id.toolbar_right_text:
                 //进入注册界面
                 startActivity(new Intent(this,RegisterActivity_.class));
                 finish();
@@ -69,6 +74,10 @@ public class LoginActivity extends BaseActivity {
                     //登录操作
                     login();
                 }
+                break;
+            case R.id.tv_find_password:
+                startActivity(new Intent(this,FindPasswordActivity_.class));
+                finish();
                 break;
         }
     }

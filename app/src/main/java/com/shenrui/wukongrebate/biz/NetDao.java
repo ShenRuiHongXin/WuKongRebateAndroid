@@ -17,6 +17,7 @@ import com.shenrui.wukongrebate.entities.SignResponseResult;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
+import com.shenrui.wukongrebate.utils.TaobaoReqUtil;
 
 import java.io.File;
 import java.net.Inet4Address;
@@ -26,6 +27,8 @@ import java.net.SocketException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.smssdk.gui.layout.Res;
 
@@ -188,6 +191,37 @@ public class NetDao {
                 .post()
                 .addParam("userInfo",userInfoJson)
                 .targetClass(SignResponseResult.class)
+                .execute(listener);
+    }
+
+    //下载九块九商品
+    //"http://gw.api.taobao.com/router/rest?app_key=23585348&cat=16&end_price=39&fields=num_iid,pict_url,title,zk_final_price" +
+    //"&format=json&method=taobao.tbk.item.get&page_no=1&page_size=10&sign=7A11E96A7A4F4FF061C468295D9F05DF" +
+    //        "&sign_method=md5&start_price=1&timestamp=2017-01-23 16:21:20&v=2.0"
+    public static void downloadNineGoods(Context context,int[] cids,int pageNo,OkHttpUtils.OnCompleteListener<String> listener){
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("fields", "num_iid,pict_url,title,zk_final_price");
+        if(cids.length!=0){
+            String cidString="";
+            for (int integer : cids){
+                if(cidString.equals("")){
+                    cidString += integer;
+                }else{
+                    cidString = cidString+","+integer;
+                }
+            }
+            map.put("cat", cidString);
+        }else{
+            map.put("q","9.9");
+        }
+        map.put("page_no",String.valueOf(pageNo));
+        map.put("page_size", "20");
+        map.put("start_price","1");
+        map.put("end_price","10");
+        String url = Constants.ROOT_URL + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
+        OkHttpUtils<String> utils = new OkHttpUtils<>(context);
+        utils.url(url)
+                .targetClass(String.class)
                 .execute(listener);
     }
 }

@@ -15,6 +15,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:hint="请输入手机号"
+        android:textSize="15sp"
         android:drawableLeft="@drawable/login_btn_user_n"
         android:drawablePadding="10dp"
         android:paddingLeft="10dp"
@@ -24,11 +25,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="请输入密码"
+        android:textSize="15sp"
         android:inputType="textPassword"
         android:layout_marginTop="3dp"
         android:drawableStart="@drawable/mine_set_icon_privacy"
-        android:drawablePadding="15dp"
-        android:paddingLeft="10dp"
+        android:drawablePadding="10dp"
+        android:paddingLeft="8dp"
         android:background="@drawable/red_edit"/>
     <Button
         android:id="@+id/btn_login"
@@ -40,16 +42,14 @@
         android:text="登录"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:background="@color/titleRed"/>
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
+        android:background="@drawable/radius_title_red"/>
+    <TextView
+        android:id="@+id/tv_find_password"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:text="注册"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:background="@color/titleRed"/>
+        android:text="找回密码"
+        android:textSize="15sp"
+        android:layout_gravity="right"
+        android:layout_marginEnd="25dp"
+        android:layout_marginTop="10dp"/>
 </LinearLayout>
