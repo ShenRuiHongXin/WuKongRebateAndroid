@@ -25,7 +25,7 @@ public class SharedPreferenceUtils {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private static final String KEY_SEARTH_HISTORY = "searthHistory";
-
+    private static final String CURRENT_CITY = "currentCity";
     public static SharedPreferenceUtils getInstance(Context context){
         if(instance == null){
             instance = new SharedPreferenceUtils(context);
@@ -104,6 +104,14 @@ public class SharedPreferenceUtils {
     public void clearAllHistory(){
         editor.remove(KEY_SEARTH_HISTORY);
         editor.commit();
+    }
+    //保存当前城市
+    public void putCurrentCity(String city){
+        editor.putString(CURRENT_CITY,city);
+        editor.commit();
+    }
+    public String getCurrentCity(){
+        return sp.getString(CURRENT_CITY,null);
     }
     //退出帐号时调用
     public void clearAll(){

@@ -15,23 +15,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.CityActivity;
+import com.shenrui.wukongrebate.activity.CityActivity_;
 import com.shenrui.wukongrebate.activity.MainActivity_;
 import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.contents.MyApplication;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.shenrui.wukongrebate.utils.Utils;
 import com.shenrui.wukongrebate.view.SearchView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -86,6 +91,8 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
         ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
         ((TextView) listTitleView.get(2)).setText("悟空返利");
         listTitleView.get(3).setVisibility(View.GONE);
+
+        ((TextView)listTitleView.get(0)).setText(SharedPreferenceUtils.getInstance(context).getCurrentCity());
 
         showProgressBar();
 
@@ -230,5 +237,16 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     void hideProgressBar(){
         ll_progressBar.setVisibility(View.GONE);
         recyMain.setVisibility(View.VISIBLE);
+    }
+
+    @Click({R.id.toolbar_left_text,R.id.toolbar_left_image})
+    void clickEvent(View view){
+        switch (view.getId()){
+            case R.id.toolbar_left_text:
+            case R.id.toolbar_left_image:
+                startActivity(new Intent(getContext(), CityActivity_.class));
+                break;
+        }
+
     }
 }
