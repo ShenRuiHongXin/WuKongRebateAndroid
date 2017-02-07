@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/index_bg_color">
+    android:background="@color/white">
 
     <include
         android:id="@+id/food_include"
@@ -10,11 +11,74 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="美食馆"
-        android:textSize="30dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:layout_below="@+id/food_include">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tl_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@color/category_bg"
+                app:tabSelectedTextColor="@color/mainRed" />
+            <com.shenrui.wukongrebate.view.CycleRotationView
+                android:id="@+id/crv_food"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/tl_food"/>
+            <com.shenrui.wukongrebate.view.FoodCatsView_
+                android:id="@+id/fcv_food_cats"
+                android:layout_below="@+id/crv_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.shenrui.wukongrebate.view.FoodArticleView_
+                android:id="@+id/fav_food_article"
+                android:layout_below="@+id/fcv_food_cats"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+            <com.shenrui.wukongrebate.view.FoodVideoView_
+                android:id="@+id/fvv_food_video"
+                android:layout_below="@+id/fav_food_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+            <com.shenrui.wukongrebate.view.FoodQuestionView_
+                android:id="@+id/fqv_food_question"
+                android:layout_below="@+id/fvv_food_video"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+            <com.shenrui.wukongrebate.view.FoodQuestionView_
+                android:id="@+id/fqv_food_question1"
+                android:layout_below="@+id/fqv_food_question"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_height="wrap_content"/>
+            <com.shenrui.wukongrebate.view.FoodQuestionView_
+                android:id="@+id/fqv_food_question2"
+                android:layout_below="@+id/fqv_food_question1"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+    </ScrollView>
+
 
 </RelativeLayout>

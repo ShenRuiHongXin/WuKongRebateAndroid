@@ -48,7 +48,7 @@ public class NineDrawView extends PercentLinearLayout {
     //当前亮灯位置,从0开始
     private int lightPosition = 0;
     //需要转多少圈
-    private int runCount = 10;
+    private int runCount = 5;
     //中奖的幸运位置,从0开始
     private int lunckyPosition = 4;
 
@@ -83,8 +83,8 @@ public class NineDrawView extends PercentLinearLayout {
                     ivStart.setClickable(false);
                     ivStart.setEnabled(false);
                     tvTimes.setText("今日剩余" + drawTimes +"次");
-                    runCount = 10;
-                    timeC = 100;
+//                    runCount = 10;
+//                    timeC = 100;
                     views.get(lunckyPosition).setBackgroundColor(Color.TRANSPARENT);
                     lunckyPosition = randomNum(0,7);
                     new TimeCount(timeC*9,timeC).start();

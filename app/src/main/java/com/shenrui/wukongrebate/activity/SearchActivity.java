@@ -1,9 +1,7 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.annotation.Nullable;
+import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ali.auth.third.core.model.Session;
 import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
@@ -31,7 +27,6 @@ import com.shenrui.wukongrebate.view.SearchView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -172,7 +167,11 @@ public class SearchActivity extends BaseActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (Build.VERSION.SDK_INT >= 21){
+                    finishAfterTransition();
+                }else{
+                    finish();
+                }
             }
         });
         //清空全部搜索记录

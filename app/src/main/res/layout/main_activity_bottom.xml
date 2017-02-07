@@ -60,31 +60,31 @@
                 android:textColor="#B3B3B3"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_circle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:paddingLeft="20dp">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_circle"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical"-->
+            <!--android:paddingLeft="20dp">-->
 
-            <ImageView
-                android:id="@+id/iv_circle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_circle_n" />
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_circle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:src="@drawable/common_icon_circle_n" />-->
 
-            <TextView
-                android:id="@+id/tv_circle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:singleLine="true"
-                android:text="圈子"
-                android:textSize="10sp"
-                android:textColor="#B3B3B3" />
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_circle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="3dp"-->
+                <!--android:singleLine="true"-->
+                <!--android:text="圈子"-->
+                <!--android:textSize="10sp"-->
+                <!--android:textColor="#B3B3B3" />-->
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/ll_haitao"

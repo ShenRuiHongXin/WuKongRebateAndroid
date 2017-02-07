@@ -59,6 +59,7 @@
         <activity android:name=".activity.RegisterActivity_" />
         <activity android:name=".activity.IntegralLuckDrawActivity_" />
         <activity android:name=".activity.RebateInstructionsActivity_" />
+        <activity android:name=".activity.FindPasswordActivity_"/>
         //短信验证
         <activity
             android:name="com.mob.tools.MobUIShell"

@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
-import com.shenrui.wukongrebate.fragment.FragmentCircle_;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
@@ -38,13 +37,13 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @ViewById(R.id.vp_content)
     ViewPager vp_content;
 
-    @ViewsById({R.id.ll_rebate, R.id.ll_food, R.id.ll_circle, R.id.ll_haitao, R.id.ll_mine})
+    @ViewsById({R.id.ll_rebate, R.id.ll_food, R.id.ll_haitao, R.id.ll_mine})
     List ll_list;
 
-    @ViewsById({R.id.iv_rebate, R.id.iv_food, R.id.iv_circle, R.id.iv_haitao, R.id.iv_mine})
+    @ViewsById({R.id.iv_rebate, R.id.iv_food, R.id.iv_haitao, R.id.iv_mine})
     List iv_list;
 
-    @ViewsById({R.id.tv_rebate, R.id.tv_food, R.id.tv_circle, R.id.tv_haitao, R.id.tv_mine})
+    @ViewsById({R.id.tv_rebate, R.id.tv_food, R.id.tv_haitao, R.id.tv_mine})
     List tv_list;
 
     private List<View> views;
@@ -72,7 +71,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         fragmentList.add(new FragmentRebate_());
         fragmentList.add(new FragmentFood_());
-        fragmentList.add(new FragmentCircle_());
+//        fragmentList.add(new FragmentCircle_());
         fragmentList.add(new FragmentHaitao_());
         fragmentList.add(new FragmentMine());
 
@@ -80,7 +79,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         vp_content.setAdapter(adapter);
     }
 
-    @Click({R.id.ll_rebate, R.id.ll_food, R.id.ll_circle, R.id.ll_haitao, R.id.ll_mine})
+    @Click({R.id.ll_rebate, R.id.ll_food, R.id.ll_haitao, R.id.ll_mine})
     void clickEvent(View view) {
         resetView();
         int tmpPosition = 0;
@@ -91,14 +90,14 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             case R.id.ll_food:
                 tmpPosition = 1;
                 break;
-            case R.id.ll_circle:
+//            case R.id.ll_circle:
+//                tmpPosition = 2;
+//                break;
+            case R.id.ll_haitao:
                 tmpPosition = 2;
                 break;
-            case R.id.ll_haitao:
-                tmpPosition = 3;
-                break;
             case R.id.ll_mine:
-                tmpPosition = 4;
+                tmpPosition = 3;
                 break;
         }
         selectPage(tmpPosition);
@@ -109,15 +108,15 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
         //
         ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_bag_n);
         ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_tropical_n);
-        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_n);
-        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_earth_n);
-        ((ImageView)iv_list.get(4)).setImageResource(R.drawable.common_icon_monkey_n);
+//        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_n);
+        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_earth_n);
+        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_monkey_n);
         //
         ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-        ((TextView)tv_list.get(4)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
+//        ((TextView)tv_list.get(4)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
     }
 
     //设置选中页
@@ -133,20 +132,20 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(1);
                 break;
+//            case 2:
+//                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_s);
+//                ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
+//                vp_content.setCurrentItem(2);
+//                break;
             case 2:
-                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_s);
+                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_earth_s);
                 ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(2);
                 break;
             case 3:
-                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_earth_s);
+                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_monkey_s);
                 ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(3);
-                break;
-            case 4:
-                ((ImageView)iv_list.get(4)).setImageResource(R.drawable.common_icon_monkey_s);
-                ((TextView)tv_list.get(4)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-                vp_content.setCurrentItem(4);
                 break;
         }
     }
