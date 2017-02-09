@@ -59,7 +59,7 @@
         <activity android:name=".activity.RegisterActivity_" />
         <activity android:name=".activity.IntegralLuckDrawActivity_" />
         <activity android:name=".activity.RebateInstructionsActivity_" />
-        <activity android:name=".activity.FindPasswordActivity_"/>
+        <activity android:name=".activity.FindPasswordActivity_" />
         //短信验证
         <activity
             android:name="com.mob.tools.MobUIShell"
@@ -67,6 +67,13 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.PasswordActivity_" />
+        <activity android:name=".activity.WkMenuActivity_"/>
+        <activity android:name=".activity.CityFoodActivity_"/>
+        <activity android:name=".activity.WordFoodActivity_"/>
+        <activity android:name=".activity.FoodMarketActivity_"/>
+        <activity android:name=".activity.FoodArticleActivity_"/>
+        <activity android:name=".activity.FoodVideoActivity_"/>
+
     </application>
 
 </manifest>

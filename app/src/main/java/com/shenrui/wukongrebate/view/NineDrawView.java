@@ -83,8 +83,8 @@ public class NineDrawView extends PercentLinearLayout {
                     ivStart.setClickable(false);
                     ivStart.setEnabled(false);
                     tvTimes.setText("今日剩余" + drawTimes +"次");
-//                    runCount = 10;
-//                    timeC = 100;
+                    runCount = 5;
+                    timeC = 50;
                     views.get(lunckyPosition).setBackgroundColor(Color.TRANSPARENT);
                     lunckyPosition = randomNum(0,7);
                     new TimeCount(timeC*9,timeC).start();

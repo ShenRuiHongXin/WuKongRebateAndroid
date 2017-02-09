@@ -6,6 +6,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
         <LinearLayout
+            android:id="@+id/ll_wk_menu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,6 +28,7 @@
                 android:textSize="10sp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_city_food"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -49,6 +51,7 @@
                 android:textSize="10sp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_word_food"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -71,6 +74,7 @@
                 android:textSize="10sp"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_food_market"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
