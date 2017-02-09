@@ -1,9 +1,14 @@
 package com.shenrui.wukongrebate.contents;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.shenrui.wukongrebate.utils.LogUtil;
 
 import cn.smssdk.SMSSDK;
@@ -14,6 +19,7 @@ import cn.smssdk.SMSSDK;
 
 public class MyApplication extends Application {
     public static MyApplication application = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -35,6 +41,7 @@ public class MyApplication extends Application {
 
         //短信验证sdk初始化
         SMSSDK.initSDK(application, "1ace16e599126", "9123070f01ccf5f000012f1402658596");
+
     }
 
 }

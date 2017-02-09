@@ -19,6 +19,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 repositories{
     flatDir{
@@ -48,10 +53,9 @@ dependencies {
     compile 'com.jude:rollviewpager:1.4.6'
     //百分比布局
     compile 'com.zhy:percent-support-extends:1.1.1'
-
     /*
-        百川电商
-        */
+            百川电商
+            */
     //fastjson
     compile 'com.alibaba:fastjson:1.2.9'
     //支付
@@ -77,14 +81,16 @@ dependencies {
     //电商SDK
     compile 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
     /*
-        *okHttp
-        * */
+            *okHttp
+            * */
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.google.code.gson:gson:2.8.0'
-
     //SMS
-    compile name:'SMSSDK-2.1.3',ext:'aar'
-    compile name:'SMSSDKGUI-2.1.3',ext:'aar'
+    compile name: 'SMSSDK-2.1.3', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.3', ext: 'aar'
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/MobCommons-2016.1201.1839.jar')
+    compile files('libs/MobTools-2016.1201.1839.jar')
 }
 
 /*
