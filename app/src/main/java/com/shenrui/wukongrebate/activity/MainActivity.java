@@ -18,8 +18,6 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
-import com.shenrui.wukongrebate.contents.MyApplication;
-import com.shenrui.wukongrebate.fragment.FragmentCircle_;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
@@ -40,9 +38,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
-    //git dev
-//    @ViewById(R.id.toolbar)
-//    Toolbar mToolbar;
+
     Context context;
     @ViewById(R.id.vp_content)
     ViewPager vp_content;

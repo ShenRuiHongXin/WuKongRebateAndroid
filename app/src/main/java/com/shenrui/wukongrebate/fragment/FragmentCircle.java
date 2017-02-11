@@ -31,4 +31,5 @@ public class FragmentCircle extends BaseFragment {
         LogUtil.i("FragmentCircle created");
     }
 
+
 }

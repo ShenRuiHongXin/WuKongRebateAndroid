@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mineGrey"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E6E6E6">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_rebate"
@@ -15,7 +19,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="20dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/iv_rebate"
@@ -41,7 +46,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="20dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/iv_food"
@@ -93,7 +99,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="20dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/iv_haitao"
@@ -119,8 +126,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp">
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
 
             <ImageView
                 android:id="@+id/iv_mine"

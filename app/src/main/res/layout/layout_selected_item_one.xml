@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.shenrui.wukongrebate.view.MyGridView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:numColumns="4"
+        android:verticalSpacing="5dp"
+        android:horizontalSpacing="8dp"
+        android:id="@+id/gridView_selected"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mineGrey"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="在抢品牌"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:padding="10dp" />
+</LinearLayout>
