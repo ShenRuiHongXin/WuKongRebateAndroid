@@ -18,8 +18,6 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
-import com.shenrui.wukongrebate.contents.MyApplication;
-import com.shenrui.wukongrebate.fragment.FragmentCircle_;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
@@ -188,9 +186,9 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        resetView();
-        //
-        selectPage(position);
+//        resetView();
+//        //
+//        selectPage(position);
     }
 
     @Override

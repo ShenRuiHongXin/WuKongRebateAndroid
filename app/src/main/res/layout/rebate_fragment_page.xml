@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/index_bg_color">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/titlebar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <!--<include-->
+        <!--android:id="@+id/include"-->
+        <!--layout="@layout/titlebar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
     //搜索栏
 
@@ -55,31 +55,31 @@
             android:text="加载中" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:layout_below="@+id/include"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_search"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_below="@+id/include"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentStart="true">-->
 
-        <Button
-            android:id="@+id/btn_scan"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="right|center_vertical"
-            android:layout_margin="10dp"
-            android:background="@drawable/index_btn_scanning_n" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_scan"-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_gravity="right|center_vertical"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:background="@drawable/index_btn_scanning_n" />-->
 
-        <com.shenrui.wukongrebate.view.SearchView
-            android:id="@+id/sv_searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:transitionName="sharedView"/>
-    </LinearLayout>
+        <!--<com.shenrui.wukongrebate.view.SearchView-->
+            <!--android:id="@+id/sv_searchView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:transitionName="sharedView"/>-->
+    <!--</LinearLayout>-->
 
 
 </RelativeLayout>

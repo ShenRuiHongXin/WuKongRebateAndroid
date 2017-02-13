@@ -1,37 +1,28 @@
 package com.shenrui.wukongrebate.fragment;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.CityActivity;
 import com.shenrui.wukongrebate.activity.CityActivity_;
 import com.shenrui.wukongrebate.activity.MainActivity_;
-import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.contents.Constants;
-import com.shenrui.wukongrebate.contents.MyApplication;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
-import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.shenrui.wukongrebate.utils.Utils;
-import com.shenrui.wukongrebate.view.SearchView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import org.androidannotations.annotations.AfterViews;
@@ -40,7 +31,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.ViewsById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,12 +49,12 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     @ViewById(R.id.btn_scan)
     Button btnScan;
     //标题栏
-    @ViewsById({R.id.toolbar_left_text, R.id.toolbar_left_image, R.id.toolbar_title, R.id.toolbar_right_image})
-    List<View> listTitleView;
+//    @ViewsById({R.id.toolbar_left_text, R.id.toolbar_left_image, R.id.toolbar_title, R.id.toolbar_right_image})
+//    List<View> listTitleView;
 
     //搜索栏
-    @ViewById(R.id.sv_searchView)
-    SearchView searchView;
+//    @ViewById(R.id.sv_searchView)
+//    SearchView searchView;
 
     //分类栏
     @ViewById(R.id.tl_goods_category)
@@ -88,11 +78,11 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     void init() {
         LogUtil.i("FragmentRebate created");
         context = getContext();
-        ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
-        ((TextView) listTitleView.get(2)).setText("悟空返利");
-        listTitleView.get(3).setVisibility(View.GONE);
-
-        ((TextView)listTitleView.get(0)).setText(SharedPreferenceUtils.getInstance(context).getCurrentCity());
+//        ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
+//        ((TextView) listTitleView.get(2)).setText("悟空返利");
+//        listTitleView.get(3).setVisibility(View.GONE);
+//
+//        ((TextView)listTitleView.get(0)).setText(SharedPreferenceUtils.getInstance(context).getCurrentCity());
 
         showProgressBar();
 
@@ -112,18 +102,19 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
             tl_goods_category.addTab(tab);
         }
         tl_goods_category.setOnTabSelectedListener(this);
+        tl_goods_category.setVisibility(View.GONE);
 
-        searchView.setEditTextOnlickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchActivity_.class);
-                if(Build.VERSION.SDK_INT >= 21){
-                    getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), searchView, "sharedView").toBundle());
-                }else{
-                    getActivity().startActivity(intent);
-                }
-            }
-        });
+//        searchView.setEditTextOnlickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), SearchActivity_.class);
+//                if(Build.VERSION.SDK_INT >= 21){
+//                    getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), searchView, "sharedView").toBundle());
+//                }else{
+//                    getActivity().startActivity(intent);
+//                }
+//            }
+//        });
         initDatas();
     }
 

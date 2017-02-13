@@ -92,6 +92,12 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.PasswordActivity_" />
+        <activity android:name=".activity.CityFoodActivity_"/>
+        <activity android:name=".activity.FoodArticleActivity_"/>
+        <activity android:name=".activity.FoodMarketActivity_"/>
+        <activity android:name=".activity.FoodVideoActivity_"/>
+        <activity android:name=".activity.WkMenuActivity_"/>
+        <activity android:name=".activity.WordFoodActivity_"/>
     </application>
 
 </manifest>

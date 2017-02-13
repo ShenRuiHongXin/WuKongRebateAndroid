@@ -20,12 +20,13 @@
             <!--android:background="@color/category_bg"-->
             <!--app:tabSelectedTextColor="@color/mainRed"/>-->
 
+
         //广告轮播栏
 
         <com.shenrui.wukongrebate.view.CycleRotationView
             android:id="@+id/cyclerotationview"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tl_goods_category" />
         <!--<com.jude.rollviewpager.RollPagerView
             android:id="@+id/rpv_ads"
@@ -136,5 +137,29 @@
             android:layout_marginRight="10dp"
             android:layout_below="@+id/index_splitline"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_margin="10dp"
+            android:background="@drawable/index_btn_scanning_n" />
+
+        <com.shenrui.wukongrebate.view.SearchView
+            android:id="@+id/sv_searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:transitionName="sharedView"/>
+    </LinearLayout>
 
 </RelativeLayout>

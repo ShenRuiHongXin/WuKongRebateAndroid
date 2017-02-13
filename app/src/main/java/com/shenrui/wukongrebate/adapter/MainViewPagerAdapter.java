@@ -36,7 +36,7 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         LogUtil.d("main position: " + position);
         if (position == 0) {
-            super.destroyItem(container, position, object);
+//            super.destroyItem(container, position, object);
         }
     }
 }
