@@ -27,4 +27,5 @@
     <color name="mineGrey">#ece8e8</color>
     <color name="green">#008000</color>
     <color name="award_color">#FFF2EADB</color>
+    <color name="category_item_color">#a0000000</color>
 </resources>

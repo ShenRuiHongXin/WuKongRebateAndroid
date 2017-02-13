@@ -83,6 +83,12 @@
         <activity android:name=".activity.RebateInstructionsActivity_" />
         <activity android:name=".activity.FindPasswordActivity_" />
         <activity android:name=".activity.CityActivity_"/>
+        <activity android:name=".activity.CityFoodActivity_"/>
+        <activity android:name=".activity.FoodArticleActivity_"/>
+        <activity android:name=".activity.FoodMarketActivity_"/>
+        <activity android:name=".activity.FoodVideoActivity_"/>
+        <activity android:name=".activity.WkMenuActivity_"/>
+        <activity android:name=".activity.WordFoodActivity_"/>
         //百度地图定位
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"/>
         //短信验证

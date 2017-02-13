@@ -7,8 +7,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-
-import com.google.gson.Gson;
 import com.shenrui.wukongrebate.R;
 
 /**
@@ -83,7 +81,7 @@ public class MyLetterView extends View {
                             mTvDialog.setText(letter[position]);
                         }
                     }
-                    invalidate();
+                    //invalidate();
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -97,7 +95,7 @@ public class MyLetterView extends View {
                             mTvDialog.setText(letter[position]);
                         }
                     }
-                    invalidate();
+                    //invalidate();
                 }
                 break;
             case MotionEvent.ACTION_UP:
@@ -106,7 +104,7 @@ public class MyLetterView extends View {
                 if(mTvDialog!=null){
                     mTvDialog.setVisibility(GONE);
                 }
-                invalidate();
+                //invalidate();
                 break;
         }
         return true;

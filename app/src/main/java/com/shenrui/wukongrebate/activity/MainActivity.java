@@ -38,9 +38,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
-    //git dev
-//    @ViewById(R.id.toolbar)
-//    Toolbar mToolbar;
+
     Context context;
     @ViewById(R.id.vp_content)
     ViewPager vp_content;

@@ -12,7 +12,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="圈子"
         android:textSize="30dp" />
-
 </RelativeLayout>
