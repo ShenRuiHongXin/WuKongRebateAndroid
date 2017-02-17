@@ -1,56 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/coordinator_layout"
     android:orientation="vertical">
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/nine_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/nine_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/mineRed"
-            android:paddingTop="@dimen/padding_top"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            >
-            <ImageView
-                android:id="@+id/iv_nine_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/common_btn_back_n" />
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:text="9块9" />
-            <ImageView
-                android:id="@+id/iv_nine_find"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:layout_gravity="end|center_vertical"
-                android:src="@drawable/common_btn_search_n"
-                />
-        </android.support.v7.widget.Toolbar>
+        android:layout_height="65dp"
+        android:background="@color/mineRed"
+        android:paddingTop="@dimen/padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <ImageView
+            android:id="@+id/iv_nine_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/common_btn_back_n" />
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:text="9块9" />
+        <ImageView
+            android:id="@+id/iv_nine_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/common_btn_search_n" />
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mineGrey"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
         <android.support.design.widget.TabLayout
             android:id="@+id/nine_tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabSelectedTextColor="@color/mainRed"
-            app:tabIndicatorColor="@color/mainRed"
-            app:tabBackground="@color/category_bg"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            app:tabSelectedTextColor="@color/green"
+            app:tabTextColor="@color/black"
+            app:tabIndicatorColor="@color/green"
             app:tabMode="scrollable"
-            />
-    </android.support.design.widget.AppBarLayout>
+            android:layout_marginStart="8dp"
+            app:tabMaxWidth="80dp"
+            app:tabMinWidth="50dp"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="@color/mineGrey"
+            android:layout_gravity="center_vertical"/>
+        <ImageView
+            android:id="@+id/iv_expand_nine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/common_btn_down_n"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mineGrey"/>
     <android.support.v4.view.ViewPager
         android:id="@+id/nine_vp"
         android:layout_width="match_parent"

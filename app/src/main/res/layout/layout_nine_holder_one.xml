@@ -6,18 +6,17 @@
     <com.shenrui.wukongrebate.view.CycleRotationView
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:id="@+id/nine_cycleRotationView"
-        android:layout_marginTop="5dp"/>
+        android:id="@+id/nine_cycleRotationView" />
     <LinearLayout
-        android:id="@+id/nine_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_margin="5dp">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:id="@+id/layout_scale_rank">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
@@ -34,7 +33,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="5dp"
+            android:id="@+id/layout_nine_team">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
@@ -48,9 +48,8 @@
                 android:background="#a0000000"/>
         </RelativeLayout>
     </LinearLayout>
-    <android.support.v7.widget.RecyclerView
+    <!--<android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/nine_rvContent"
-        android:layout_margin="10dp"/>
+        android:id="@+id/nine_rvContent" />-->
 </LinearLayout>

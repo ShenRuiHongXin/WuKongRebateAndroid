@@ -1,6 +1,7 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -72,8 +73,6 @@ public class SearchActivity extends BaseActivity {
     @AfterViews
     void init(){
         getUser();
-        list = new ArrayList<>();
-        context = this;
         initView();
         setListener();
     }
@@ -102,6 +101,8 @@ public class SearchActivity extends BaseActivity {
     List<String> searthHistory;
     SearthHistoryAdapter historyAdapter;
     private void initView() {
+        list = new ArrayList<>();
+        context = this;
         adater = new SearchGoodsAdater(this,list);
         rv.setAdapter(adater);
         gridLayoutManager = new GridLayoutManager(this, 2);
@@ -110,13 +111,16 @@ public class SearchActivity extends BaseActivity {
         //获取历史搜索数据
         searthHistory = SharedPreferenceUtils.getInstance(this).getSearthHistory();
         if(searthHistory!=null){
-            Log.e("DeDiWang",searthHistory.toString());
-        }
-        if(searthHistory!=null){
             layoutHistory.setVisibility(View.VISIBLE);
             historyAdapter = new SearthHistoryAdapter(this);
             rvHistorySearch.setAdapter(historyAdapter);
             rvHistorySearch.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+            rvHistorySearch.addItemDecoration(new RecyclerView.ItemDecoration() {
+                @Override
+                public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                    outRect.set(0,5,0,5);
+                }
+            });
         }else{
             layoutHistory.setVisibility(View.GONE);
         }
@@ -132,7 +136,7 @@ public class SearchActivity extends BaseActivity {
                     layout_search_history.setVisibility(View.GONE);
                     srl.setVisibility(View.VISIBLE);
 
-                    q = searchView.getEditText();
+                    q = searchView.getEditText().trim();
                     download(pageNo,ACTION_DOWNLOAD);
                     //将搜索词放入首选项
                     SharedPreferenceUtils.getInstance(context).putSearthHistory(q);
@@ -196,13 +200,24 @@ public class SearchActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     int position = (int) v.getTag();
-                    //删除单条搜索记录
-                    SharedPreferenceUtils.getInstance(context).clearOneHistory(searthHistory.get(position));
-                    searthHistory.remove(position);
-                    notifyDataSetChanged();
-                    if(SharedPreferenceUtils.getInstance(context).getSearthHistory()==null){
-                        layoutHistory.setVisibility(View.GONE);
+                    switch (v.getId()){
+                        case R.id.iv_delete_history:
+                            //删除单条搜索记录
+                            SharedPreferenceUtils.getInstance(context).clearOneHistory(searthHistory.get(position));
+                            searthHistory.remove(position);
+                            notifyDataSetChanged();
+                            if(SharedPreferenceUtils.getInstance(context).getSearthHistory()==null){
+                                layoutHistory.setVisibility(View.GONE);
+                            }
+                            break;
+                        case R.id.tv_show_history:
+                            q = searthHistory.get(position);
+                            download(pageNo,ACTION_DOWNLOAD);
+                            layout_search_history.setVisibility(View.GONE);
+                            srl.setVisibility(View.VISIBLE);
+                            break;
                     }
+
                 }
             };
         }
@@ -216,6 +231,7 @@ public class SearchActivity extends BaseActivity {
         public void onBindViewHolder(MyHolder holder, int position) {
             holder.tvShowHistory.setText(searthHistory.get(position));
             holder.ivDeleteHistory.setTag(position);
+            holder.tvShowHistory.setTag(position);
         }
 
         @Override
@@ -231,6 +247,7 @@ public class SearchActivity extends BaseActivity {
                 tvShowHistory = (TextView) itemView.findViewById(R.id.tv_show_history);
                 ivDeleteHistory = (ImageView) itemView.findViewById(R.id.iv_delete_history);
                 ivDeleteHistory.setOnClickListener(clickListener);
+                tvShowHistory.setOnClickListener(clickListener);
             }
         }
     }

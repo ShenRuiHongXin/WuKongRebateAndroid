@@ -1,19 +1,31 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
+import com.shenrui.wukongrebate.fragment.FragmentHaitao;
 import com.shenrui.wukongrebate.fragment.FragmentNineAll;
 import com.shenrui.wukongrebate.fragment.FragmentNineItem;
+import com.shenrui.wukongrebate.view.MyGridView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -33,9 +45,19 @@ public class NineBlockNineActivity extends BaseActivity{
     TabLayout tabs;
     @ViewById(R.id.nine_vp)
     ViewPager vp;
+    @ViewById(R.id.iv_expand_nine)
+    ImageView ivExpand;
+
+    List<String> titles;//分类标签
+    PopupWindow pop;//分类窗口
+    boolean isExpand = false;//分类窗是否展开
 
     @AfterViews
     void init(){
+        initTabs();
+    }
+
+    private void initTabs() {
         //分类栏
         for(CatsItemLocal cats: Constants.ItemNineCats){
             TabLayout.Tab tab = tabs.newTab();
@@ -44,7 +66,7 @@ public class NineBlockNineActivity extends BaseActivity{
             tabs.addTab(tab);
         }
         List<Fragment> fragments = new ArrayList<>();
-        List<String> titles = new ArrayList<>();
+        titles = new ArrayList<>();
         for(CatsItemLocal cats : Constants.ItemNineCats){
             Fragment fragment;
             if(cats.getName().equals("全部")){
@@ -58,27 +80,89 @@ public class NineBlockNineActivity extends BaseActivity{
             fragments.add(fragment);
             titles.add(cats.getName());
         }
-        MyPageAdater adater = new MyPageAdater(getSupportFragmentManager(),fragments,titles);
-        vp.setAdapter(adater);
+        MyPageAdapter adapter = new MyPageAdapter(getSupportFragmentManager(),fragments,titles);
+        vp.setAdapter(adapter);
         tabs.setupWithViewPager(vp);
     }
 
-    @Click({R.id.iv_nine_back,R.id.iv_nine_find})
+    //弹出分类窗
+    private void initPop(){
+        View layout = View.inflate(this, R.layout.layout_category, null);
+        MyGridView gridView = (MyGridView) layout.findViewById(R.id.gridView_category);
+        View outView = layout.findViewById(R.id.outView);
+        final CategoryAdapter adapter = new CategoryAdapter(this,titles);
+        gridView.setAdapter(adapter);
+        pop = new PopupWindow(layout, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //分类标签项点击事件
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (vp.getCurrentItem()!=position){
+                    vp.setCurrentItem(position);
+                    //切换item背景和字体颜色
+                    adapter.notifyDataSetInvalidated();
+                    if(pop!=null){
+                        pop.dismiss();
+                        isExpand = !isExpand;
+                        checkExpandStatus();
+                    }
+                }
+            }
+        });
+        outView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (pop!=null){
+                    pop.dismiss();
+                    isExpand = !isExpand;
+                    checkExpandStatus();
+                }
+            }
+        });
+        //设置点击外面pop窗销毁
+        pop.setOutsideTouchable(true);
+        pop.setBackgroundDrawable(new BitmapDrawable());
+        pop.showAsDropDown(tabs,0,0);
+    }
+
+    //切换分类箭头方向
+    private void checkExpandStatus() {
+        if (isExpand){
+            ivExpand.setImageResource(R.drawable.common_btn_back_n);
+        }else{
+            ivExpand.setImageResource(R.drawable.common_btn_down_n);
+        }
+    }
+
+    @Click({R.id.iv_nine_back,R.id.iv_nine_find,R.id.iv_expand_nine})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_nine_back:
                 finish();
                 break;
             case R.id.iv_nine_find:
-
+                startActivity(new Intent(this,NineSearchActivity_.class));
+                break;
+            case R.id.iv_expand_nine:
+                if(pop == null){
+                    initPop();
+                }else{
+                    if(isExpand){
+                        pop.dismiss();
+                    }else{
+                        pop.showAsDropDown(tabs,0,0);
+                    }
+                }
+                isExpand = !isExpand;
+                checkExpandStatus();
                 break;
         }
     }
 
-    class MyPageAdater extends FragmentPagerAdapter{
+    class MyPageAdapter extends FragmentPagerAdapter{
         List<Fragment> fragments;
         List<String> titles;
-        public MyPageAdater(FragmentManager fm,List<Fragment> fragmentList,List<String> titleList) {
+        public MyPageAdapter(FragmentManager fm,List<Fragment> fragmentList,List<String> titleList) {
             super(fm);
             this.fragments = fragmentList;
             this.titles = titleList;
@@ -96,6 +180,64 @@ public class NineBlockNineActivity extends BaseActivity{
         @Override
         public CharSequence getPageTitle(int position) {
             return titles.get(position);
+        }
+
+        @Override
+        public void destroyItem(View container, int position, Object object) {
+            //super.destroyItem(container, position, object);
+        }
+
+    }
+
+    //分类pop窗的适配器
+    class CategoryAdapter extends BaseAdapter {
+        Context context;
+        List<String> texts;
+
+        public CategoryAdapter(Context context, List<String> texts) {
+            this.context = context;
+            this.texts = texts;
+        }
+
+        @Override
+        public int getCount() {
+            return texts.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return texts.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            CategoryAdapter.Holder holder;
+            if(convertView == null){
+                holder = new CategoryAdapter.Holder();
+                convertView = LayoutInflater.from(context).inflate(R.layout.layout_category_item,null);
+                holder.tv = (TextView) convertView.findViewById(R.id.tv_category);
+                convertView.setTag(holder);
+            }else{
+                holder = (CategoryAdapter.Holder) convertView.getTag();
+            }
+            holder.tv.setText(texts.get(position));
+            if(vp.getCurrentItem() == position){
+                holder.tv.setBackgroundResource(R.drawable.category_textview_selected_green);
+                holder.tv.setTextColor(getResources().getColor(R.color.white));
+            }else{
+                holder.tv.setBackgroundResource(R.drawable.category_textview);
+                holder.tv.setTextColor(getResources().getColor(R.color.black));
+            }
+            return convertView;
+        }
+
+        class Holder{
+            TextView tv;
         }
     }
 }
