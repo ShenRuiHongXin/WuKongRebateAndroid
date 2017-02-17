@@ -147,6 +147,10 @@
                 android:layout_centerInParent="true"/>
         </RelativeLayout>
     </LinearLayout>
+    <com.shenrui.wukongrebate.view.JifenTaskView_
+        android:id="@+id/jtv_jf_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

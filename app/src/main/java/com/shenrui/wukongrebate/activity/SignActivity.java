@@ -13,7 +13,6 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
 import com.shenrui.wukongrebate.fragment.FragmentAward_;
 import com.shenrui.wukongrebate.fragment.FragmentExechange_;
-import com.shenrui.wukongrebate.fragment.FragmentSign_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -39,13 +38,13 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
     ViewPager vp_sign_content;
 
     //底部
-    @ViewsById({R.id.ll_exchange,R.id.ll_sign,R.id.ll_award})
+    @ViewsById({R.id.ll_exchange,R.id.ll_award})
     List list_sign_ll;
 
-    @ViewsById({R.id.iv_exchange,R.id.iv_sign,R.id.iv_award})
+    @ViewsById({R.id.iv_exchange,R.id.iv_award})
     List list_sign_iv;
 
-    @ViewsById({R.id.tv_exchange,R.id.tv_sign,R.id.tv_award})
+    @ViewsById({R.id.tv_exchange,R.id.tv_award})
     List list_sign_tv;
 
     private List<Fragment> fragmentList;
@@ -65,20 +64,21 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
         fragmentList   = new ArrayList<Fragment>();
 
         fragmentList.add(new FragmentExechange_());
-        fragmentList.add(new FragmentSign_());
+//        fragmentList.add(new FragmentSign_());
         fragmentList.add(new FragmentAward_());
 
         this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
         vp_sign_content.setAdapter(adapter);
 
-        if(getIntent().getIntExtra("fromMine",0)==1){
-            selectPage(2);
-        }else{
-            selectPage(1);
-        }
+        selectPage(1);
+//        if(getIntent().getIntExtra("fromMine",0)==1){
+//            selectPage(2);
+//        }else{
+//            selectPage(1);
+//        }
     }
 
-    @Click({R.id.ll_exchange,R.id.ll_sign,R.id.ll_award,R.id.toolbar_left_image})
+    @Click({R.id.ll_exchange,R.id.ll_award,R.id.toolbar_left_image})
     void clickEvent(View view){
         resetView();
         int tmpPosition = 0;
@@ -86,11 +86,11 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
             case R.id.ll_exchange:
                 tmpPosition = 0;
                 break;
-            case R.id.ll_sign:
-                tmpPosition = 1;
-                break;
+//            case R.id.ll_sign:
+//                tmpPosition = 1;
+//                break;
             case R.id.ll_award:
-                tmpPosition = 2;
+                tmpPosition = 1;
                 break;
             case R.id.toolbar_left_image:
                 if (Build.VERSION.SDK_INT >= 21){
@@ -108,8 +108,8 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
     private void resetView() {
         //
         ((ImageView)list_sign_iv.get(0)).setImageResource(R.drawable.index_sign_btn_award_n);
-        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_task_n);
-        ((ImageView)list_sign_iv.get(2)).setImageResource(R.drawable.index_sign_btn_integral_n);
+//        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_task_n);
+        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_n);
         //
         for (Object tv:list_sign_tv) {
             ((TextView)tv).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
@@ -127,15 +127,15 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
                 ((TextView)listTitleView.get(2)).setText("积分兑换");
                 vp_sign_content.setCurrentItem(0);
                 break;
+//            case 1:
+//                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_reward_btn_task_s);
+//                ((TextView)listTitleView.get(2)).setText("签到积分");
+//                vp_sign_content.setCurrentItem(1);
+//                break;
             case 1:
-                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_reward_btn_task_s);
-                ((TextView)listTitleView.get(2)).setText("签到积分");
-                vp_sign_content.setCurrentItem(1);
-                break;
-            case 2:
-                ((ImageView)list_sign_iv.get(2)).setImageResource(R.drawable.index_sign_btn_integral_s);
+                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_s);
                 ((TextView)listTitleView.get(2)).setText("悟空积分");
-                vp_sign_content.setCurrentItem(2);
+                vp_sign_content.setCurrentItem(1);
                 break;
                }
         ((TextView)list_sign_tv.get(position)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));

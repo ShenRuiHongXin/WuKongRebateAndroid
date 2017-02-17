@@ -31,31 +31,31 @@
             android:textColor="#E57373"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_sign"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/ll_sign"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_marginTop="5dp">-->
 
-        <ImageView
-            android:id="@+id/iv_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/index_sign_btn_task_n" />
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_sign"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@drawable/index_sign_btn_task_n" />-->
 
-        <TextView
-            android:id="@+id/tv_sign"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:singleLine="true"
-            android:text="签到积分"
-            android:textSize="10sp"
-            android:textColor="#B3B3B3"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_sign"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="3dp"-->
+            <!--android:singleLine="true"-->
+            <!--android:text="签到积分"-->
+            <!--android:textSize="10sp"-->
+            <!--android:textColor="#B3B3B3"/>-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/ll_award"

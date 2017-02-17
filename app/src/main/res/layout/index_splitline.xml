@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:background="@color/white">
+    android:paddingBottom="10dp">
 
     <TextView
-        android:text="每天早10点上新"
+        android:text="今日热门"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

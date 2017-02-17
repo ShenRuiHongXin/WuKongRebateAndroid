@@ -2,8 +2,6 @@ package com.shenrui.wukongrebate.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,17 +11,12 @@ import android.widget.LinearLayout;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.CityActivity_;
 import com.shenrui.wukongrebate.activity.MainActivity_;
-import com.shenrui.wukongrebate.adapter.RecyTenNewGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
-import com.shenrui.wukongrebate.contents.Constants;
-import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
-import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.Utils;
-import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
@@ -44,21 +37,10 @@ import java.util.List;
  */
 
 @EFragment(R.layout.rebate_fragment_page)
-public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelectedListener{
+public class FragmentRebate extends BaseFragment{
     //扫一扫按钮
     @ViewById(R.id.btn_scan)
     Button btnScan;
-    //标题栏
-//    @ViewsById({R.id.toolbar_left_text, R.id.toolbar_left_image, R.id.toolbar_title, R.id.toolbar_right_image})
-//    List<View> listTitleView;
-
-    //搜索栏
-//    @ViewById(R.id.sv_searchView)
-//    SearchView searchView;
-
-    //分类栏
-    @ViewById(R.id.tl_goods_category)
-    TabLayout tl_goods_category;
 
     //首页内容
     @ViewById(R.id.recy_main)
@@ -73,6 +55,7 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     List<SignRecyItemData> listData;
 
     Context context;
+
     //界面初始化
     @AfterViews
     void init() {
@@ -92,17 +75,6 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
                 return true;
             }
         });
-
-        //商品分类
-        tl_goods_category.setTabMode(TabLayout.MODE_SCROLLABLE);
-        for (CatsItemLocal cats : Constants.Itemcats) {
-            TabLayout.Tab tab = tl_goods_category.newTab();
-            tab.setText(cats.getName());
-            tab.setTag(cats);
-            tl_goods_category.addTab(tab);
-        }
-        tl_goods_category.setOnTabSelectedListener(this);
-        tl_goods_category.setVisibility(View.GONE);
 
 //        searchView.setEditTextOnlickListener(new View.OnClickListener() {
 //            @Override
@@ -157,65 +129,33 @@ public class FragmentRebate extends BaseFragment implements TabLayout.OnTabSelec
     @UiThread
     void updataUi() {
         MainActivity_.mainData = listData;
-        recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData, this));
+        recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData));
 
         hideProgressBar();
     }
 
 
-    //分类类目切换，处理数据
-    public void handleNewData(TabLayout.Tab tab) {
-        int p = tab.getPosition();
-        LogUtil.i("cats: " + p);
-        if(p == 0){
-            recyMain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-            recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData, this));
-        }else{
-            showProgressBar();
-            int spanCount2 = 2;
-            recyMain.setLayoutManager(new GridLayoutManager(getActivity(), spanCount2));
-
-            getCatsGoods((CatsItemLocal)(tab.getTag()));
-        }
-    }
-
-
-    //根据分类获取商品
-    @Background
-    void getCatsGoods(CatsItemLocal catsItemLocal){
-        updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(catsItemLocal));
-    }
-    @UiThread
-    void updateCatsGoods(final List list){
-        RecyTenNewGoodsAdapter adapter = new RecyTenNewGoodsAdapter(getActivity(), list);
-        //点击列表项进入商品详情
-        adapter.setOnItemClickLitener(new RecyTenNewGoodsAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
-                intent.putExtra("num_iid",((TenGoodsData)list.get(position)).getNum_iid());
-                context.startActivity(intent);
-
-            }
-        });
-        recyMain.setAdapter(adapter);
-        hideProgressBar();
-    }
-
-
-    //分类点击事件监听
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        handleNewData(tab);
-    }
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
-    }
+//    //根据分类获取商品
+//    @Background
+//    void getCatsGoods(CatsItemLocal catsItemLocal){
+//        updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(catsItemLocal));
+//    }
+//    @UiThread
+//    void updateCatsGoods(final List list){
+//        RecyTenNewGoodsAdapter adapter = new RecyTenNewGoodsAdapter(getActivity(), list);
+//        //点击列表项进入商品详情
+//        adapter.setOnItemClickLitener(new RecyTenNewGoodsAdapter.OnItemClickLitener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
+//                intent.putExtra("num_iid",((TenGoodsData)list.get(position)).getNum_iid());
+//                context.startActivity(intent);
+//
+//            }
+//        });
+//        recyMain.setAdapter(adapter);
+//        hideProgressBar();
+//    }
 
 
     //显示/隐藏进度条

@@ -19,10 +19,10 @@ import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
-import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
 import com.shenrui.wukongrebate.activity.RebateInstructionsActivity_;
+import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.activity.SignActivity_;
-import com.shenrui.wukongrebate.activity.WKLuckDrawActivity_;
+import com.shenrui.wukongrebate.entities.JfExchangeGoods;
 import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
 import com.shenrui.wukongrebate.entities.SplitlineItem;
@@ -32,6 +32,7 @@ import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.view.ActivityView;
 import com.shenrui.wukongrebate.view.CycleRotationView;
 import com.shenrui.wukongrebate.view.MyGridView;
+import com.shenrui.wukongrebate.view.SearchView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import java.util.List;
@@ -41,6 +42,7 @@ import static com.shenrui.wukongrebate.entities.SignRecyItemData.CATS_GOODS_ITEM
 import static com.shenrui.wukongrebate.entities.SignRecyItemData.ITEM_SPLITLINE;
 import static com.shenrui.wukongrebate.entities.SignRecyItemData.ITEM_TASK;
 import static com.shenrui.wukongrebate.entities.SignRecyItemData.ITEM_USER;
+import static com.shenrui.wukongrebate.entities.SignRecyItemData.JF_EXCHANG;
 import static com.shenrui.wukongrebate.entities.SignRecyItemData.MAIN_CONTENT;
 import static com.shenrui.wukongrebate.entities.SignRecyItemData.MAIN_ITEM;
 
@@ -59,18 +61,15 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
         this.listDatas = listDatas;
     }
 
-    public SignContentRecyAdapter(Context context, List listDatas, TabLayout.OnTabSelectedListener onTabSelectedListener) {
-        this.context = context;
-        this.listDatas = listDatas;
-        this.onTabSelectedListener = onTabSelectedListener;
-    }
-
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
         ViewHolder holder = null;
         switch (viewType){
+            case JF_EXCHANG:
+                view = LayoutInflater.from(context).inflate(R.layout.jf_exchange_goods_item, parent, false);
+                holder = new MyViewHolderMainRecyJfGoods(view);
+                break;
             case CATS:
                 break;
             case MAIN_ITEM:
@@ -102,10 +101,17 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         switch (getItemViewType(position)){
+            case JF_EXCHANG:
+                MyViewHolderMainRecyJfGoods myViewHolderMainRecyJfGoods = (MyViewHolderMainRecyJfGoods) holder;
+                    JfExchangeGoods jfExchangeGoods = (JfExchangeGoods) listDatas.get(position).getT();
+                    myViewHolderMainRecyJfGoods.tvJfGoodName.setText(jfExchangeGoods.getName());
+                    myViewHolderMainRecyJfGoods.tvJfGoofPrice.setText("兑换须"+jfExchangeGoods.getPrice()+"积分");
+                    myViewHolderMainRecyJfGoods.ivJfGoodImage.setBackgroundResource(jfExchangeGoods.getImg_url());
+                break;
             case CATS:
                 break;
             case MAIN_ITEM:
-                MyViewHolderMainRecyIndex myViewHolderMainRecyIndex = (MyViewHolderMainRecyIndex) holder;
+                final MyViewHolderMainRecyIndex myViewHolderMainRecyIndex = (MyViewHolderMainRecyIndex) holder;
                 RecyItemIndexData recyItemIndexData = (RecyItemIndexData) listDatas.get(position).getT();
                 myViewHolderMainRecyIndex.cyclerotationview.setUrls(recyItemIndexData.getCycleList());
                 myViewHolderMainRecyIndex.cyclerotationview.setOnItemClickListener(new CycleRotationView.OnItemClickListener() {
@@ -117,6 +123,21 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
 
 //                myViewHolderMainRecyIndex.rollPagerView.setPlayDelay(3000);
 //                myViewHolderMainRecyIndex.rollPagerView.setAdapter(new RpvLoopAdapter(context,myViewHolderMainRecyIndex.rollPagerView,recyItemIndexData.getCycleList()));
+
+                myViewHolderMainRecyIndex.searchView.setEditTextOnlickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, SearchActivity_.class);
+                        if(Build.VERSION.SDK_INT >= 21){
+                            context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context, myViewHolderMainRecyIndex.searchView, "sharedView").toBundle());
+                        }else{
+                            context.startActivity(intent);
+                        }
+                    }
+                });
+
+                myViewHolderMainRecyIndex.avChaojifan.setTitleIcon(new int[]{R.drawable.index_icon_supper_n,R.drawable.index_icon_nine_n,R.drawable.index_icon_award_n,R.drawable.index_icon_n});
+                myViewHolderMainRecyIndex.avChaojifan.setTitleText(new String[]{"超级返","9块9","悟空夺宝","悟空团购"});
 
                 myViewHolderMainRecyIndex.mgv_sign.setAdapter(new MyGridAdapter(context));
                 myViewHolderMainRecyIndex.mgv_sign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -255,6 +276,8 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                 return CATS;
             case MAIN_CONTENT:
                 return MAIN_CONTENT;
+            case JF_EXCHANG:
+                return JF_EXCHANG;
             default:
                 return -1;
         }
@@ -333,51 +356,56 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
 //        TabLayout tl_goods_category;
 //        RollPagerView rollPagerView;
         CycleRotationView cyclerotationview;
-        LinearLayout ll_activity;
+        SearchView searchView;
+//        LinearLayout ll_activity;
         MyGridView mgv_sign;
         ActivityView activity_view;
+        ActivityView avChaojifan;
         RecyclerView ten_new_goods_recy;
-        TextView tv_one,tv_two,tv_three,tv_four;
+//        TextView tv_one,tv_two,tv_three,tv_four;
 
         public MyViewHolderMainRecyIndex(View view) {
             super(view);
 //            tl_goods_category = (TabLayout) view.findViewById(R.id.tl_goods_category);
 //            rollPagerView = (RollPagerView) view.findViewById(R.id.rpv_ads);
             cyclerotationview = (CycleRotationView) view.findViewById(R.id.cyclerotationview);
-            ll_activity = (LinearLayout) view.findViewById(R.id.ll_activity);
+            searchView = (SearchView) view.findViewById(R.id.sv_searchView);
+
+//            ll_activity = (LinearLayout) view.findViewById(R.id.ll_activity);
             mgv_sign = (MyGridView) view.findViewById(R.id.mgv_sign);
             activity_view = (ActivityView) view.findViewById(R.id.activity_view);
+            avChaojifan = (ActivityView) view.findViewById(R.id.av_chaojifan);
             ten_new_goods_recy = (RecyclerView) view.findViewById(R.id.ten_new_goods_recy);
-            tv_one = (TextView) view.findViewById(R.id.tv_one);
-            tv_two = (TextView) view.findViewById(R.id.tv_two);
-            tv_three = (TextView) view.findViewById(R.id.tv_three);
-            tv_four = (TextView) view.findViewById(R.id.tv_four);
-            tv_one.setOnClickListener(this);
-            tv_two.setOnClickListener(this);
-            tv_three.setOnClickListener(this);
-            tv_four.setOnClickListener(this);
+//            tv_one = (TextView) view.findViewById(R.id.tv_one);
+//            tv_two = (TextView) view.findViewById(R.id.tv_two);
+//            tv_three = (TextView) view.findViewById(R.id.tv_three);
+//            tv_four = (TextView) view.findViewById(R.id.tv_four);
+//            tv_one.setOnClickListener(this);
+//            tv_two.setOnClickListener(this);
+//            tv_three.setOnClickListener(this);
+//            tv_four.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
-                //超级返
-                case R.id.tv_one:
-
-                    break;
-                //9块9
-                case R.id.tv_two:
-                    context.startActivity(new Intent(context, NineBlockNineActivity_.class));
-                    break;
-                //悟空抽奖
-                case R.id.tv_three:
-                    context.startActivity(new Intent(context, WKLuckDrawActivity_.class));
-                    break;
-                //悟空团购
-                case R.id.tv_four:
-
-                    break;
-            }
+//            switch (v.getId()){
+//                //超级返
+//                case R.id.tv_one:
+//
+//                    break;
+//                //9块9
+//                case R.id.tv_two:
+//                    context.startActivity(new Intent(context, NineBlockNineActivity_.class));
+//                    break;
+//                //悟空抽奖
+//                case R.id.tv_three:
+//                    context.startActivity(new Intent(context, WKLuckDrawActivity_.class));
+//                    break;
+//                //悟空团购
+//                case R.id.tv_four:
+//
+//                    break;
+//            }
         }
     }
 
@@ -399,5 +427,20 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
         }
 
 
+    }
+
+    class MyViewHolderMainRecyJfGoods extends RecyclerView.ViewHolder{
+        TextView tvJfGoodName;
+        TextView tvJfGoofPrice;
+        ImageView ivJfGoodImage;
+        TextView tvJfGoodExchange;
+
+        public MyViewHolderMainRecyJfGoods(View itemView) {
+            super(itemView);
+            tvJfGoodName = (TextView) itemView.findViewById(R.id.tv_jf_goods_name);
+            tvJfGoofPrice = (TextView) itemView.findViewById(R.id.tv_jf_goods_price);
+            ivJfGoodImage = (ImageView) itemView.findViewById(R.id.iv_jf_goods_image);
+            tvJfGoodExchange = (TextView) itemView.findViewById(R.id.tv_jf_exchange);
+        }
     }
 }

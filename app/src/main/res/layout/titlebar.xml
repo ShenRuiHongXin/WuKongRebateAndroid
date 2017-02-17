@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
             android:text="武汉"
-                android:textColor="#FFB6C1"/>
+            android:textColor="#FFB6C1"/>
 
             <ImageView
                 android:id="@+id/toolbar_left_image"

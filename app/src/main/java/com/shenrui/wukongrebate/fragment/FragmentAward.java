@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
@@ -44,6 +43,7 @@ public class FragmentAward extends BaseFragment {
     RelativeLayout awardGift;
     @ViewById(R.id.forPhoneBill)
     RelativeLayout forPhoneBill;
+
     Context context;
     UserInfo userInfo;
     @AfterViews

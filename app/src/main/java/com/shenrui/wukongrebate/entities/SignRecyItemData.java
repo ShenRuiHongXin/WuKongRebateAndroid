@@ -11,6 +11,8 @@ public class SignRecyItemData<T> {
     public static final int ITEM_TASK = 2;
     //分类栏
     public static final int CATS = 999;
+    //积分兑换商品
+    public static final int JF_EXCHANG = 998;
     //item首页
     public static final int MAIN_ITEM = 1000;
     //10点上新

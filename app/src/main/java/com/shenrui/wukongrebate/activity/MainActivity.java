@@ -8,7 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import com.shenrui.wukongrebate.fragment.FragmentMine;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
+import com.shenrui.wukongrebate.view.NoScrollViewPager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -41,7 +44,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     Context context;
     @ViewById(R.id.vp_content)
-    ViewPager vp_content;
+    NoScrollViewPager vp_content;
 
     @ViewsById({R.id.ll_rebate, R.id.ll_food, R.id.ll_haitao, R.id.ll_mine})
     List ll_list;
@@ -60,9 +63,23 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     public static List mainData = null;
 
+    private void addStatusBarView() {
+        View view = new View(this);
+        view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(this));
+        ViewGroup decorView = (ViewGroup) findViewById(android.R.id.content);
+        decorView.addView(view, params);
+    }
+
+    public int getStatusBarHeight(Context context) {
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return context.getResources().getDimensionPixelSize(resourceId);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        addStatusBarView();
         context = this;
     }
 

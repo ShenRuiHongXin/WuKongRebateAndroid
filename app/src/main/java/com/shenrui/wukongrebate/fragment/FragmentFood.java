@@ -56,7 +56,7 @@ public class FragmentFood extends BaseFragment {
     @ViewById(R.id.fvv_food_video)
     FoodVideoView fvvFoodVideo;
 
-    private String[] cats = {"美食攻略","精选美食","美食活动"};
+    private String[] cats = {"美食攻略","精选美食","美食集市"};
 
     @AfterViews
     void init(){
