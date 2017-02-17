@@ -24,7 +24,8 @@ public class SharedPreferenceUtils {
     private static SharedPreferenceUtils instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private static final String KEY_SEARTH_HISTORY = "searthHistory";
+    private static final String KEY_SEARCH_HISTORY = "searchHistory";
+    private static final String KEY_NINE_SEARCH_HISTORY = "nine_search_history";
     private static final String CURRENT_CITY = "currentCity";
     public static SharedPreferenceUtils getInstance(Context context){
         if(instance == null){
@@ -69,21 +70,26 @@ public class SharedPreferenceUtils {
     }
 
     //保存用户搜索历史
-    public void putSearthHistory(String newText){
-        String oldText = sp.getString(KEY_SEARTH_HISTORY, null);
-        if(oldText!=null && !oldText.contains(newText)){
-            editor.putString(KEY_SEARTH_HISTORY,newText.trim()+","+oldText.trim());
-        }else if (oldText==null){
-            editor.putString(KEY_SEARTH_HISTORY,newText.trim());
+    public void putSearthHistory(String q){
+        String newStr = q.trim();
+        String oldStr = sp.getString(KEY_SEARCH_HISTORY, null);
+        if(oldStr==null){
+            editor.putString(KEY_SEARCH_HISTORY,newStr);
+            editor.commit();
+        }else{
+            if (!oldStr.contains(newStr)){
+                editor.putString(KEY_SEARCH_HISTORY,oldStr.trim()+","+newStr);
+                editor.commit();
+            }
         }
-        editor.commit();
     }
     public List<String> getSearthHistory(){
-        String searthHistory = sp.getString(KEY_SEARTH_HISTORY, null);
+        String searthHistory = sp.getString(KEY_SEARCH_HISTORY, null);
         if(searthHistory!=null){
             List<String> strs = new ArrayList<>();
-            for(String str : searthHistory.split(",")){
-                strs.add(str);
+            String[] split = searthHistory.split(",");
+            for(int i=split.length-1;i>=0;i--){
+                strs.add(split[i]);
             }
             return strs;
         }
@@ -91,7 +97,7 @@ public class SharedPreferenceUtils {
     }
     //清除一条记录
     public void clearOneHistory(String one){
-        String searthHistory = sp.getString(KEY_SEARTH_HISTORY, null);
+        String searthHistory = sp.getString(KEY_SEARCH_HISTORY, null);
         if(searthHistory!=null){
             clearAllHistory();
             for(String str : searthHistory.split(",")){
@@ -102,7 +108,7 @@ public class SharedPreferenceUtils {
         }
     }
     public void clearAllHistory(){
-        editor.remove(KEY_SEARTH_HISTORY);
+        editor.remove(KEY_SEARCH_HISTORY);
         editor.commit();
     }
     //保存当前城市
@@ -112,6 +118,39 @@ public class SharedPreferenceUtils {
     }
     public String getCurrentCity(){
         return sp.getString(CURRENT_CITY,null);
+    }
+
+    //保存九块九搜索历史关键词
+    public void putNineSearchHistory(String q){
+        String newStr = q.trim();
+        String oldStr = sp.getString(KEY_NINE_SEARCH_HISTORY, null);
+        if(oldStr==null){
+            editor.putString(KEY_NINE_SEARCH_HISTORY,newStr);
+            editor.commit();
+        }else{
+            if (!oldStr.contains(newStr)){
+                editor.putString(KEY_NINE_SEARCH_HISTORY,oldStr.trim()+","+newStr);
+                editor.commit();
+            }
+        }
+    }
+    //得到九块九搜索历史
+    public List<String> getNineSearchHistory(){
+        String str = sp.getString(KEY_NINE_SEARCH_HISTORY, null);
+        if (str!=null){
+            List<String> list = new ArrayList<>();
+            String[] split = str.split(",");
+            for(int i=split.length-1;i>=0;i--){
+                list.add(split[i]);
+            }
+            return list;
+        }
+        return null;
+    }
+    //清除九块九搜索历史
+    public void clearNineSearchHistory(){
+        editor.remove(KEY_NINE_SEARCH_HISTORY);
+        editor.commit();
     }
     //退出帐号时调用
     public void clearAll(){

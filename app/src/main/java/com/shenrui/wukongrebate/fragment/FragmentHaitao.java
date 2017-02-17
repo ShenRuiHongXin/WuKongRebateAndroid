@@ -74,6 +74,7 @@ public class FragmentHaitao extends BaseFragment {
                     }
                 }
                 isExpand = !isExpand;
+                checkExpandStatus();
                 break;
         }
     }
@@ -96,6 +97,7 @@ public class FragmentHaitao extends BaseFragment {
                     if(pop!=null){
                         pop.dismiss();
                         isExpand = !isExpand;
+                        checkExpandStatus();
                     }
                 }
             }
@@ -106,6 +108,7 @@ public class FragmentHaitao extends BaseFragment {
                 if (pop!=null){
                     pop.dismiss();
                     isExpand = !isExpand;
+                    checkExpandStatus();
                 }
             }
         });
@@ -116,6 +119,14 @@ public class FragmentHaitao extends BaseFragment {
         pop.showAsDropDown(tabs,0,0);
     }
 
+    //切换分类箭头方向
+    private void checkExpandStatus() {
+        if (isExpand){
+            ivExpand.setImageResource(R.drawable.common_btn_back_n);
+        }else{
+            ivExpand.setImageResource(R.drawable.common_btn_down_n);
+        }
+    }
     private void initTabs() {
         titles = new String[]{"悟空推荐","母婴","美妆","箱包","美食保健","饰品","家电家居","直邮数码"};
         for(int i=0;i<titles.length;i++){

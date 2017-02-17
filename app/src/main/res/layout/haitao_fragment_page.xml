@@ -43,7 +43,9 @@
             app:tabSelectedTextColor="@color/mainRed"
             app:tabTextColor="@color/black"
             app:tabIndicatorColor="@color/mineRed"
-            app:tabMode="scrollable" />
+            app:tabMode="scrollable"
+            app:tabMaxWidth="80dp"
+            app:tabMinWidth="50dp"/>
         <View
             android:layout_width="1dp"
             android:layout_height="30dp"
