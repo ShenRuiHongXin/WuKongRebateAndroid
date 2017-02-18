@@ -23,6 +23,7 @@ import com.shenrui.wukongrebate.adapter.SearchGoodsAdater;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.shenrui.wukongrebate.view.SearchView;
 
@@ -174,7 +175,7 @@ public class SearchActivity extends BaseActivity {
                 if (Build.VERSION.SDK_INT >= 21){
                     finishAfterTransition();
                 }else{
-                    finish();
+                    MFGT.finish(SearchActivity.this);
                 }
             }
         });
@@ -271,4 +272,9 @@ public class SearchActivity extends BaseActivity {
             }
         });
     }*/
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
+    }
 }

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -33,7 +34,7 @@ public class AboutActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             //新版本检测
             case R.id.newVersion:
@@ -52,5 +53,10 @@ public class AboutActivity extends BaseActivity {
 
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

@@ -16,9 +16,13 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.BrandActivity;
+import com.shenrui.wukongrebate.activity.BrandActivity_;
 import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
+import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
 import com.shenrui.wukongrebate.activity.RebateInstructionsActivity_;
 import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.activity.SignActivity_;
@@ -29,9 +33,11 @@ import com.shenrui.wukongrebate.entities.SplitlineItem;
 import com.shenrui.wukongrebate.entities.TaskItem;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.ActivityView;
 import com.shenrui.wukongrebate.view.CycleRotationView;
 import com.shenrui.wukongrebate.view.MyGridView;
+import com.shenrui.wukongrebate.view.RebateItemView;
 import com.shenrui.wukongrebate.view.SearchView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
 
@@ -136,8 +142,28 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                     }
                 });
 
-                myViewHolderMainRecyIndex.avChaojifan.setTitleIcon(new int[]{R.drawable.index_icon_supper_n,R.drawable.index_icon_nine_n,R.drawable.index_icon_award_n,R.drawable.index_icon_n});
-                myViewHolderMainRecyIndex.avChaojifan.setTitleText(new String[]{"超级返","9块9","悟空夺宝","悟空团购"});
+                //超级返，九块九，悟空夺宝，悟空团购
+                myViewHolderMainRecyIndex.avChaojifan.setRebateViewOnClick(new RebateItemView.RebateViewItemOnClick() {
+                    @Override
+                    public void itemClick(int itemId) {
+                        switch (itemId){
+                            case R.id.ll_left_rebate://超级返
+                                Toast.makeText(context, "超级返", Toast.LENGTH_SHORT).show();
+                                MFGT.startActivity(context, BrandActivity_.class);
+                                break;
+                            case R.id.ll_right_top_nine://九块九
+                                MFGT.startActivity(context,NineBlockNineActivity_.class);
+                                break;
+                            case R.id.ll_right_bottom_left_award://悟空夺宝
+                                Toast.makeText(context, "悟空夺宝", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.ll_right_bottom_right_group://悟空团购
+                                Toast.makeText(context, "悟空团购", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                });
+
 
                 myViewHolderMainRecyIndex.mgv_sign.setAdapter(new MyGridAdapter(context));
                 myViewHolderMainRecyIndex.mgv_sign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -151,7 +177,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                                     //动画效果
                                     context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, "sharedView").toBundle());
                                 }else{
-                                    context.startActivity(intent);
+                                    MFGT.startActivity(context,intent);
                                 }
 //                                context.startActivity(new Intent(context,SignActivity_.class));
                                 break;
@@ -160,12 +186,10 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
 //                                context.startActivity(intent1);
                                 break;
                             case 2:
-                                Intent intent2 = new Intent(context, IntegralLuckDrawActivity_.class);
-                                context.startActivity(intent2);
+                                MFGT.startActivity(context,IntegralLuckDrawActivity_.class);
                                 break;
                             case 3:
-                                Intent intent3 = new Intent(context, RebateInstructionsActivity_.class);
-                                context.startActivity(intent3);
+                                MFGT.startActivity(context,RebateInstructionsActivity_.class);
                                 break;
                         }
                     }
@@ -190,7 +214,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                         LogUtil.d(((TenGoodsData)listTen.get(position)).getNum_iid());
                         Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
                         intent.putExtra("num_iid",((TenGoodsData)listTen.get(position)).getNum_iid());
-                        context.startActivity(intent);
+                        MFGT.startActivity(context,intent);
                     }
                 });
                 myViewHolderMainRecyIndex.ten_new_goods_recy.setAdapter(recyTenNewGoodsAdapter);
@@ -352,61 +376,25 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
     /**
      * 悟空返利, APP首页ViewHolder
      */
-    class MyViewHolderMainRecyIndex extends RecyclerView.ViewHolder implements View.OnClickListener{
-//        TabLayout tl_goods_category;
-//        RollPagerView rollPagerView;
+    class MyViewHolderMainRecyIndex extends RecyclerView.ViewHolder{
+
         CycleRotationView cyclerotationview;
         SearchView searchView;
-//        LinearLayout ll_activity;
         MyGridView mgv_sign;
         ActivityView activity_view;
-        ActivityView avChaojifan;
+        RebateItemView avChaojifan;
         RecyclerView ten_new_goods_recy;
-//        TextView tv_one,tv_two,tv_three,tv_four;
 
-        public MyViewHolderMainRecyIndex(View view) {
+        MyViewHolderMainRecyIndex(View view) {
             super(view);
-//            tl_goods_category = (TabLayout) view.findViewById(R.id.tl_goods_category);
-//            rollPagerView = (RollPagerView) view.findViewById(R.id.rpv_ads);
             cyclerotationview = (CycleRotationView) view.findViewById(R.id.cyclerotationview);
             searchView = (SearchView) view.findViewById(R.id.sv_searchView);
-
-//            ll_activity = (LinearLayout) view.findViewById(R.id.ll_activity);
             mgv_sign = (MyGridView) view.findViewById(R.id.mgv_sign);
             activity_view = (ActivityView) view.findViewById(R.id.activity_view);
-            avChaojifan = (ActivityView) view.findViewById(R.id.av_chaojifan);
+            avChaojifan = (RebateItemView) view.findViewById(R.id.av_chaojifan);
             ten_new_goods_recy = (RecyclerView) view.findViewById(R.id.ten_new_goods_recy);
-//            tv_one = (TextView) view.findViewById(R.id.tv_one);
-//            tv_two = (TextView) view.findViewById(R.id.tv_two);
-//            tv_three = (TextView) view.findViewById(R.id.tv_three);
-//            tv_four = (TextView) view.findViewById(R.id.tv_four);
-//            tv_one.setOnClickListener(this);
-//            tv_two.setOnClickListener(this);
-//            tv_three.setOnClickListener(this);
-//            tv_four.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-//            switch (v.getId()){
-//                //超级返
-//                case R.id.tv_one:
-//
-//                    break;
-//                //9块9
-//                case R.id.tv_two:
-//                    context.startActivity(new Intent(context, NineBlockNineActivity_.class));
-//                    break;
-//                //悟空抽奖
-//                case R.id.tv_three:
-//                    context.startActivity(new Intent(context, WKLuckDrawActivity_.class));
-//                    break;
-//                //悟空团购
-//                case R.id.tv_four:
-//
-//                    break;
-//            }
-        }
     }
 
     /**

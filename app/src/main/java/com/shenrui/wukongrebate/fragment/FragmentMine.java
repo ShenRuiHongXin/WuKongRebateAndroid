@@ -24,6 +24,7 @@ import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkOrderActivity_;
@@ -148,22 +149,23 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.toolbar_left_image:
-                startActivity(new Intent(context,SettingsActivity_.class));
+                MFGT.startActivity(context,SettingsActivity_.class);
                 break;
             case R.id.iv_avatar:
             case R.id.tv_userName:
             case R.id.iv_sex:
                 if(isLogined){
-                    startActivity(new Intent(context, PersonalInfoActivity_.class));
+                    MFGT.startActivity(context,PersonalInfoActivity_.class);
                 }else{
-                    startActivity(new Intent(context, LoginActivity_.class));
+                    MFGT.startActivity(context,LoginActivity_.class);
                 }
                 break;
             case R.id.tv_withdraw://提现
 
                 break;
             case R.id.tv_all_order://查看全部订单
-                startActivity(new Intent(context, AliSdkOrderActivity_.class));
+                //startActivity(new Intent(context, AliSdkOrderActivity_.class));
+                MFGT.startActivity(context,AliSdkOrderActivity_.class);
                 break;
         }
     }

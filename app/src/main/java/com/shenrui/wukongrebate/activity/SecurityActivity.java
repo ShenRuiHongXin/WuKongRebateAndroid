@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -55,7 +56,7 @@ public class SecurityActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             //修改手机号码
             case R.id.updateNumber:
@@ -63,8 +64,13 @@ public class SecurityActivity extends BaseActivity {
                 break;
             //修改登录密码
             case R.id.updatePassword:
-                startActivity(new Intent(this,PasswordActivity_.class));
+                MFGT.startActivity(this,PasswordActivity_.class);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

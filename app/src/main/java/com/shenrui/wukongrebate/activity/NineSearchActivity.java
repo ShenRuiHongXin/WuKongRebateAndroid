@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -69,9 +70,7 @@ public class NineSearchActivity extends BaseActivity {
                 //将热搜关键词放入首选项
                 SharedPreferenceUtils.getInstance(NineSearchActivity.this).putNineSearchHistory(texts_search_recommend[position]);
                 //携带热搜关键词进入搜索结果界面
-                Intent intent = new Intent(NineSearchActivity.this,NineSearchResultActivity_.class);
-                intent.putExtra("search_goods",texts_search_recommend[position]);
-                startActivity(intent);
+                gotoSearchResultActivity(texts_search_recommend[position]);
             }
         });
         gridView_history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,9 +82,7 @@ public class NineSearchActivity extends BaseActivity {
                     SharedPreferenceUtils.getInstance(NineSearchActivity.this).clearNineSearchHistory();
                 }else{
                     //携带历史搜索关键词进入搜索结果界面
-                    Intent intent = new Intent(NineSearchActivity.this,NineSearchResultActivity_.class);
-                    intent.putExtra("search_goods",searchHistory.get(position));
-                    startActivity(intent);
+                    gotoSearchResultActivity(searchHistory.get(position));
                 }
             }
         });
@@ -102,7 +99,7 @@ public class NineSearchActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_nine_search_back:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.tv_nine_search:
                 String goods = etSearch.getText().toString().trim();
@@ -112,12 +109,22 @@ public class NineSearchActivity extends BaseActivity {
                     //将搜索关键词放入首选项
                     SharedPreferenceUtils.getInstance(this).putNineSearchHistory(goods);
 
-                    Intent intent = new Intent(this,NineSearchResultActivity_.class);
-                    intent.putExtra("search_goods",goods);
-                    startActivity(intent);
+                    gotoSearchResultActivity(goods);
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
+    }
+
+    //进入搜索结果界面
+    public void gotoSearchResultActivity(String goods){
+        Intent intent = new Intent(NineSearchActivity.this,NineSearchResultActivity_.class);
+        intent.putExtra("search_goods",goods);
+        MFGT.startActivity(NineSearchActivity.this,intent);
     }
 
     //推荐搜索关键词适配器

@@ -20,6 +20,7 @@ import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.BitmapUtils;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.PhotoPop;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
@@ -86,13 +87,13 @@ public class PersonalInfoActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.avatar:
                 photoPop = new PhotoPop(this,R.layout.activity_personal_info);
                 break;
             case R.id.userName:
-                startActivity(new Intent(this,UserNameActivity_.class));
+                MFGT.startActivity(this,UserNameActivity_.class);
                 break;
             case R.id.userSex:
                 //修改性别
@@ -227,6 +228,11 @@ public class PersonalInfoActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 
     //计算inSampleSize的值

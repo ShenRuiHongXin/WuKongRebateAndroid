@@ -15,6 +15,7 @@ import com.shenrui.wukongrebate.adapter.NineGoodsAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.utils.ACache;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -141,13 +142,17 @@ public class NineSearchResultActivity extends Activity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_nine_search_result_back:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.tv_nine_search_result:
                 //进入九块九搜索界面
-                //startActivity(new Intent(this,NineSearchActivity_.class));
-                finish();
+                MFGT.finish(this);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

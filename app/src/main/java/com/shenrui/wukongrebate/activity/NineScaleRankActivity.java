@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.entities.TbkItem;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
 import com.shenrui.wukongrebate.view.MyGridView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
@@ -132,7 +133,7 @@ public class NineScaleRankActivity extends Activity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_nine_scale_rank_back:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.iv_nine_scale_rank_refresh://刷新
                 tabs.getTabAt(0).select();
@@ -342,5 +343,10 @@ public class NineScaleRankActivity extends Activity {
                 layoutNineRankGoods.setOnClickListener(listener);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

@@ -55,28 +55,47 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="Xsrcs9TkMRzx4n3zrC0TNf0Q6Y1yuaUI" />
         //key:开发者申请的Key
+        //百度地图定位
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+        //短信验证
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activity.MainActivity_"
             android:launchMode="singleTask">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.SettingsActivity_" />
         <activity android:name=".activity.SignActivity_" />
-        <activity android:name="com.taobao.api.AliSdkWebViewProxyActivity_" />
+        <activity
+            android:name="com.taobao.api.AliSdkWebViewProxyActivity_"
+            android:launchMode="singleInstance" />
         <activity android:name=".activity.SearchActivity_" />
         <activity android:name=".activity.PersonalInfoActivity_" />
         <activity android:name=".activity.UserNameActivity_" />
         <activity android:name=".activity.AboutActivity_" />
         <activity android:name=".activity.SecurityActivity_" />
         <activity android:name=".activity.CommonActivity_" />
-        <activity android:name="com.taobao.api.AliSdkOrderActivity_" />
-        <activity android:name="com.taobao.api.AliSdkMyCartActivity_" />
-        <activity android:name=".activity.NineBlockNineActivity_" />
+        <activity
+            android:name="com.taobao.api.AliSdkOrderActivity_"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name="com.taobao.api.AliSdkMyCartActivity_"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activity.NineBlockNineActivity_"
+            android:launchMode="singleTask" />
         <activity android:name=".activity.WKLuckDrawActivity_" />
         <activity android:name=".activity.LoginActivity_" />
         <activity android:name=".activity.RegisterActivity_" />
@@ -91,24 +110,18 @@
         <activity android:name=".activity.WkMenuActivity_" />
         <activity android:name=".activity.WordFoodActivity_" />
         <activity android:name=".activity.NineSearchActivity_" />
-        //百度地图定位
-        <service
-            android:name="com.baidu.location.f"
-            android:enabled="true"
-            android:process=":remote" />
-        //短信验证
-        <activity
-            android:name="com.mob.tools.MobUIShell"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activity.PasswordActivity_" />
-        <activity android:name=".activity.CityFoodActivity_"/>
-        <activity android:name=".activity.FoodArticleActivity_"/>
-        <activity android:name=".activity.FoodMarketActivity_"/>
-        <activity android:name=".activity.FoodVideoActivity_"/>
-        <activity android:name=".activity.WkMenuActivity_"/>
-        <activity android:name=".activity.WordFoodActivity_"/>
+        <activity android:name=".activity.NineScaleRankActivity_" />
+        <activity
+            android:name=".activity.NineSearchResultActivity_"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activity.BrandActivity_" />
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

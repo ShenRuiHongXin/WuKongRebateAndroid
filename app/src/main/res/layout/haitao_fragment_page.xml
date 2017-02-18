@@ -7,17 +7,15 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/white"
-        android:paddingTop="@dimen/padding_top">
+        android:layout_height="45dp"
+        android:background="@color/white">
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
             android:textSize="18sp"
-            android:text="悟空海淘"
-            android:textColor="#FFB6C1"/>
+            android:text="悟空海淘" />
         <ImageView
             android:id="@+id/iv_find"
             android:layout_width="wrap_content"

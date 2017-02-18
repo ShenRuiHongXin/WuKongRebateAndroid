@@ -24,6 +24,7 @@ import com.shenrui.wukongrebate.adapter.CityListAdapter;
 import com.shenrui.wukongrebate.contents.MyApplication;
 import com.shenrui.wukongrebate.db.City;
 import com.shenrui.wukongrebate.db.MyCityDBHelper;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.shenrui.wukongrebate.view.MyLetterView;
 
@@ -133,7 +134,7 @@ public class CityActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.ivFindCity:
                 String city = etCity.getText().toString();

@@ -39,8 +39,6 @@ import java.util.List;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    public LocationClient mLocationClient = null;
-    public BDLocationListener myListener = new MyLocationListener();
 
     Context context;
     @ViewById(R.id.vp_content)
@@ -86,11 +84,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @AfterViews
     void init() {
         LogUtil.i("Mainactivity oncreate");
-//        mToolbar.setTitle("");
-//        setSupportActionBar(mToolbar);
-
-        //定位当前城市
-        getCurrentCity();
 
         vp_content.addOnPageChangeListener(this);
 
@@ -159,11 +152,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
                 ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(1);
                 break;
-//            case 2:
-//                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_s);
-//                ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-//                vp_content.setCurrentItem(2);
-//                break;
             case 2:
                 ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_earth_s);
                 ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
@@ -201,9 +189,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-//        resetView();
-//        //
-//        selectPage(position);
+
     }
 
     @Override
@@ -211,37 +197,4 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     }
 
-    public class MyLocationListener implements BDLocationListener{
-        @Override
-        public void onReceiveLocation(BDLocation bdLocation) {
-            String currentCity = bdLocation.getCity();
-            Log.e("DeDiWang",currentCity);
-            SharedPreferenceUtils.getInstance(context).putCurrentCity(currentCity);
-        }
-    }
-    private void getCurrentCity() {
-        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
-        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span=0;
-        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于10000ms才是有效的
-        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
-        option.setOpenGps(true);//可选，默认false,设置是否使用gps
-        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
-        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
-        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
-        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
-        mLocationClient.setLocOption(option);
-        mLocationClient.start();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mLocationClient.stop();
-    }
 }

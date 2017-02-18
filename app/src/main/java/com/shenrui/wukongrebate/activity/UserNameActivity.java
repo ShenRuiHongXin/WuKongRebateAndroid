@@ -13,6 +13,7 @@ import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
@@ -59,7 +60,7 @@ public class UserNameActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.iv_delete:
                 if(etUserName.getText()!=null){

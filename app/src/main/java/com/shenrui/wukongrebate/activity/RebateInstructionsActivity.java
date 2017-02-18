@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -36,6 +37,11 @@ public class RebateInstructionsActivity extends BaseActivity{
 
     @Click(R.id.toolbar_left_image)
     void click(){
-        finish();
+        MFGT.finish(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

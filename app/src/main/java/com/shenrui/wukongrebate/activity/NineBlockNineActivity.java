@@ -25,6 +25,7 @@ import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao;
 import com.shenrui.wukongrebate.fragment.FragmentNineAll;
 import com.shenrui.wukongrebate.fragment.FragmentNineItem;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.MyGridView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -138,10 +139,10 @@ public class NineBlockNineActivity extends BaseActivity{
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_nine_back:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.iv_nine_find:
-                startActivity(new Intent(this,NineSearchActivity_.class));
+                MFGT.startActivity(this,NineSearchActivity_.class);
                 break;
             case R.id.iv_expand_nine:
                 if(pop == null){
@@ -157,6 +158,11 @@ public class NineBlockNineActivity extends BaseActivity{
                 checkExpandStatus();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 
     class MyPageAdapter extends FragmentPagerAdapter{

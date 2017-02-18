@@ -20,6 +20,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -130,7 +131,7 @@ public class RegisterActivity extends BaseActivity {
     void ClickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_text:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.btn_getCode:
                 phoneNumber = etPhoneNumber.getText().toString();
@@ -178,7 +179,8 @@ public class RegisterActivity extends BaseActivity {
                             @Override
                             public void onClick(View v) {
                                 dialog.dismiss();
-                                startActivity(new Intent(RegisterActivity.this,LoginActivity_.class).putExtra("phoneNumber",phoneNumber));
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity_.class).putExtra("phoneNumber", RegisterActivity.this.phoneNumber);
+                                MFGT.startActivity(RegisterActivity.this,intent);
                                 finish();
                             }
                         });
@@ -208,7 +210,7 @@ public class RegisterActivity extends BaseActivity {
                         //注册成功后跳到登录界面
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity_.class);
                         intent.putExtra("phoneNumber",result.getUserAuths().getIdentifier());
-                        startActivity(intent);
+                        MFGT.startActivity(RegisterActivity.this,intent);
                         finish();
                     }
                 }
@@ -288,5 +290,10 @@ public class RegisterActivity extends BaseActivity {
         handler = null;
         timeHandler = null;
         OkHttpUtils.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

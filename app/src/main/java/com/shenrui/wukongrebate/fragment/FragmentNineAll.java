@@ -25,6 +25,7 @@ import com.shenrui.wukongrebate.activity.NineScaleRankActivity_;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.Utils;
 import com.shenrui.wukongrebate.view.CycleRotationView;
@@ -180,7 +181,7 @@ public class FragmentNineAll extends BaseFragment {
                     //进入商品详情页
                     Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
                     intent.putExtra("num_iid",cid);
-                    context.startActivity(intent);
+                    MFGT.startActivity(context,intent);
                 }
             };
         }
@@ -266,7 +267,7 @@ public class FragmentNineAll extends BaseFragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.layout_scale_rank://热销榜单
-                        startActivity(new Intent(context, NineScaleRankActivity_.class));
+                        MFGT.startActivity(context,NineScaleRankActivity_.class);
                         break;
                     case R.id.layout_nine_team://9.9品牌团
 

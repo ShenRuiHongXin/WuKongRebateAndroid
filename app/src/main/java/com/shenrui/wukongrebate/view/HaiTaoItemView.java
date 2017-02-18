@@ -15,6 +15,7 @@ import org.androidannotations.annotations.ViewById;
 
 /**
  * Created by Administrator on 2017/2/10.
+ * 海淘 值得买，海淘热卖，预售拼模块
  */
 @EViewGroup(R.layout.activity_haitao)
 public class HaiTaoItemView extends LinearLayout{
