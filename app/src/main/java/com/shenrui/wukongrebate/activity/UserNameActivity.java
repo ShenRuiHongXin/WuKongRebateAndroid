@@ -13,6 +13,7 @@ import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
@@ -42,7 +43,7 @@ public class UserNameActivity extends BaseActivity {
     @AfterViews
     void init(){
         toolbar_left_text.setVisibility(View.GONE);
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_title.setText("会员名");
         toolbar_right_image.setVisibility(View.GONE);
         initUserData();
@@ -59,7 +60,7 @@ public class UserNameActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.iv_delete:
                 if(etUserName.getText()!=null){

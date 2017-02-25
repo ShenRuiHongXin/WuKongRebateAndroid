@@ -13,6 +13,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
 import com.shenrui.wukongrebate.fragment.FragmentAward_;
 import com.shenrui.wukongrebate.fragment.FragmentExechange_;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -56,7 +57,7 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
         //标题栏
         listTitleView.get(3).setVisibility(View.GONE);
         ((TextView)listTitleView.get(2)).setText("签到积分");
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         listTitleView.get(0).setVisibility(View.GONE);
 
         vp_sign_content.addOnPageChangeListener(this);
@@ -71,11 +72,6 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
         vp_sign_content.setAdapter(adapter);
 
         selectPage(1);
-//        if(getIntent().getIntExtra("fromMine",0)==1){
-//            selectPage(2);
-//        }else{
-//            selectPage(1);
-//        }
     }
 
     @Click({R.id.ll_exchange,R.id.ll_award,R.id.toolbar_left_image})
@@ -97,7 +93,7 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
                     vp_sign_content.setBackgroundColor(ContextCompat.getColor(this,R.color.category_bg));
                     finishAfterTransition();
                 }else{
-                    finish();
+                    MFGT.finish(this);
                 }
                 return;
         }
@@ -164,5 +160,10 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
             vp_sign_content.setBackgroundColor(ContextCompat.getColor(this,R.color.category_bg));
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

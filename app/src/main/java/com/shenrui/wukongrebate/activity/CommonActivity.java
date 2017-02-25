@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -32,7 +33,7 @@ public class CommonActivity extends BaseActivity {
     @AfterViews
     void initView() {
         toolbar_left_image.setVisibility(View.VISIBLE);
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("通用");
         toolbar_right_image.setVisibility(View.GONE);
@@ -42,7 +43,7 @@ public class CommonActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.iv_open_local_service:
                 isOpenLocalService = !isOpenLocalService;
@@ -87,5 +88,10 @@ public class CommonActivity extends BaseActivity {
             //关闭位置服务
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

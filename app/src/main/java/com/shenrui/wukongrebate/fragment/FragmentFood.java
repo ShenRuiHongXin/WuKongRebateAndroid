@@ -60,7 +60,7 @@ public class FragmentFood extends BaseFragment {
 
     @AfterViews
     void init(){
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         ((TextView)listTitleView.get(2)).setText("美食馆");
         listTitleView.get(3).setVisibility(View.GONE);
         LogUtil.i("FragmentFood created");

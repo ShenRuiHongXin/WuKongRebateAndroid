@@ -13,6 +13,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
@@ -62,11 +63,11 @@ public class LoginActivity extends BaseActivity {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_text:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.toolbar_right_text:
                 //进入注册界面
-                startActivity(new Intent(this,RegisterActivity_.class));
+                MFGT.startActivity(this,RegisterActivity_.class);
                 finish();
                 break;
             case R.id.btn_login:
@@ -76,7 +77,7 @@ public class LoginActivity extends BaseActivity {
                 }
                 break;
             case R.id.tv_find_password:
-                startActivity(new Intent(this,FindPasswordActivity_.class));
+                MFGT.startActivity(this,FindPasswordActivity_.class);
                 finish();
                 break;
         }
@@ -94,7 +95,7 @@ public class LoginActivity extends BaseActivity {
                         //登录成功后将用户信息保存在首选项中
                         SharedPreferenceUtils.getInstance(LoginActivity.this).putUserInfo(result.getUserInfo());
                         SharedPreferenceUtils.getInstance(LoginActivity.this).putUserAuths(result.getUserAuths());
-                        finish();
+                        MFGT.finish(LoginActivity.this);
                     }else if(code == Constants.LOGIN_PHONE_NO_REGISTER){
                         Toast.makeText(LoginActivity.this, "该手机号还未注册", Toast.LENGTH_SHORT).show();
                     }else if(code == Constants.LOGIN_PASSWORD_ERROR){
@@ -130,5 +131,10 @@ public class LoginActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

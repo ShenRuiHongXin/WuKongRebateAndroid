@@ -133,7 +133,5 @@
                 android:padding="10dp"
                 android:src="@drawable/oversea_icon_memeber" />
         </LinearLayout>
-
-
     </LinearLayout>
 </LinearLayout>

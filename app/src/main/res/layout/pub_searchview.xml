@@ -46,7 +46,7 @@
             android:layout_height="25dp"
             android:layout_gravity="right|center_vertical"
             android:layout_margin="10dp"
-            android:background="@drawable/index_btn_find_n" />
+            android:background="@drawable/nav_icon_search" />
     </LinearLayout>
 
 

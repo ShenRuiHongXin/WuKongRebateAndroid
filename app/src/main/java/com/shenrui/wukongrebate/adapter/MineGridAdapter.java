@@ -15,6 +15,7 @@ import com.ali.auth.third.core.model.User;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SignActivity_;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.taobao.api.AliSdkMyCartActivity;
 import com.taobao.api.AliSdkMyCartActivity_;
@@ -53,7 +54,8 @@ public class MineGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         break;
                     //悟空积分
                     case 2:
-                        context.startActivity(new Intent(context, SignActivity_.class).putExtra("fromMine",1));
+                        //context.startActivity(new Intent(context, SignActivity_.class).putExtra("fromMine",1));
+                        MFGT.startActivity(context,SignActivity_.class);
                         break;
                     case 3:
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();
@@ -63,7 +65,8 @@ public class MineGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         break;
                     //打开购物车界面
                     case 5:
-                        context.startActivity(new Intent(context, AliSdkMyCartActivity_.class));
+                        //context.startActivity(new Intent(context, AliSdkMyCartActivity_.class));
+                        MFGT.startActivity(context,AliSdkMyCartActivity_.class);
                         break;
                     case 6:
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();

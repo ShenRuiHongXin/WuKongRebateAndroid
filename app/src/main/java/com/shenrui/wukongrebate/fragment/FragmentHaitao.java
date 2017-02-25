@@ -122,7 +122,7 @@ public class FragmentHaitao extends BaseFragment {
     //切换分类箭头方向
     private void checkExpandStatus() {
         if (isExpand){
-            ivExpand.setImageResource(R.drawable.common_btn_back_n);
+            ivExpand.setImageResource(R.drawable.nav_icon_back);
         }else{
             ivExpand.setImageResource(R.drawable.common_btn_down_n);
         }

@@ -7,17 +7,15 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/mineRed"
-        android:paddingTop="@dimen/padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="50dp"
+        android:background="@color/mineRed">
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:scaleType="centerInside"
             android:layout_marginRight="10dp"
-            android:src="@drawable/common_btn_back_n"/>
+            android:src="@drawable/nav_icon_back"/>
         <com.shenrui.wukongrebate.view.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"

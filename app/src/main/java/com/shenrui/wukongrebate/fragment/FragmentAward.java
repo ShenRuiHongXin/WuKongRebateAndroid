@@ -12,6 +12,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.UserInfo;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -79,7 +80,7 @@ public class FragmentAward extends BaseFragment {
             case R.id.iv_award_avatar:
             case R.id.tv_award_userName:
                 if(!isLogin){
-                    startActivity(new Intent(context, LoginActivity_.class));
+                    MFGT.startActivity(context,LoginActivity_.class);
                 }
                 break;
             case R.id.tv_award_problem://积分规则
@@ -87,12 +88,12 @@ public class FragmentAward extends BaseFragment {
                 break;
             case R.id.award_record://兑换记录
                 if(!isLogin){
-                    startActivity(new Intent(context, LoginActivity_.class));
+                    MFGT.startActivity(context,LoginActivity_.class);
                 }
                 break;
             case R.id.award_details://积分明细
                 if(!isLogin){
-                    startActivity(new Intent(context, LoginActivity_.class));
+                    MFGT.startActivity(context,LoginActivity_.class);
                 }
                 break;
             case R.id.award_gift://积分抽奖
@@ -102,7 +103,7 @@ public class FragmentAward extends BaseFragment {
                 break;
             case R.id.forPhoneBill://兑话费
                 if(!isLogin){
-                    startActivity(new Intent(context, LoginActivity_.class));
+                    MFGT.startActivity(context,LoginActivity_.class);
                 }
                 break;
         }

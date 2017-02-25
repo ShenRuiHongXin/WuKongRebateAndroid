@@ -32,3 +32,12 @@
     -keepclassmembers class ** {
         public void onEvent*(**);
     }
+    -keep class cn.sharesdk.**{*;}
+    -keep class cn.smssdk.**{*;}
+    -keep class com.mob.**{*;}
+
+    -dontwarn com.mob.**
+    -dontwarn cn.smssdk.**
+
+    -dontwarn com.baidu.**
+    -keep class com.baidu.**{*;}

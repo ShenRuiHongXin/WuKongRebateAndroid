@@ -17,6 +17,7 @@ import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserAuths;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -133,7 +134,7 @@ public class FindPasswordActivity extends BaseActivity {
     void clienEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_text:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.toolbar_right_text:
                 startActivity(new Intent(this,RegisterActivity_.class));
@@ -199,7 +200,8 @@ public class FindPasswordActivity extends BaseActivity {
                 if(result.getResult()!=null){
                     if(result.getResult().getCode() == Constants.CODE_SUCCESS){
                         Toast.makeText(FindPasswordActivity.this, "成功找回密码", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(FindPasswordActivity.this,LoginActivity_.class).putExtra("phoneNumber",phoneNumber));
+                        Intent intent = new Intent(FindPasswordActivity.this, LoginActivity_.class).putExtra("phoneNumber", FindPasswordActivity.this.phoneNumber);
+                        MFGT.startActivity(FindPasswordActivity.this,intent);
                         finish();
                     }else if (result.getResult().getCode() == Constants.LOGIN_PHONE_NO_REGISTER){
                         Toast.makeText(FindPasswordActivity.this, "该手机号还未注册", Toast.LENGTH_SHORT).show();
@@ -246,5 +248,10 @@ public class FindPasswordActivity extends BaseActivity {
         handler = null;
         timeHandler = null;
         OkHttpUtils.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

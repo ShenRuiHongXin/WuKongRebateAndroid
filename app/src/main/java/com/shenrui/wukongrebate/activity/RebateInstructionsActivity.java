@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -28,7 +29,7 @@ public class RebateInstructionsActivity extends BaseActivity{
         //标题栏
         listTitleView.get(3).setVisibility(View.GONE);
         ((TextView)listTitleView.get(2)).setText("悟空返利教程");
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         listTitleView.get(0).setVisibility(View.GONE);
 
     }
@@ -36,6 +37,11 @@ public class RebateInstructionsActivity extends BaseActivity{
 
     @Click(R.id.toolbar_left_image)
     void click(){
-        finish();
+        MFGT.finish(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

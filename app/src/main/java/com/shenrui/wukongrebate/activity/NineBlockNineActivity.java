@@ -1,13 +1,10 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +17,13 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.adapter.MyPageAdapter;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao;
 import com.shenrui.wukongrebate.fragment.FragmentNineAll;
 import com.shenrui.wukongrebate.fragment.FragmentNineItem;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.MyGridView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -128,7 +127,7 @@ public class NineBlockNineActivity extends BaseActivity{
     //切换分类箭头方向
     private void checkExpandStatus() {
         if (isExpand){
-            ivExpand.setImageResource(R.drawable.common_btn_back_n);
+            ivExpand.setImageResource(R.drawable.nav_icon_back);
         }else{
             ivExpand.setImageResource(R.drawable.common_btn_down_n);
         }
@@ -138,10 +137,10 @@ public class NineBlockNineActivity extends BaseActivity{
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_nine_back:
-                finish();
+                MFGT.finish(this);
                 break;
             case R.id.iv_nine_find:
-                startActivity(new Intent(this,NineSearchActivity_.class));
+                MFGT.startActivity(this,NineSearchActivity_.class);
                 break;
             case R.id.iv_expand_nine:
                 if(pop == null){
@@ -159,35 +158,11 @@ public class NineBlockNineActivity extends BaseActivity{
         }
     }
 
-    class MyPageAdapter extends FragmentPagerAdapter{
-        List<Fragment> fragments;
-        List<String> titles;
-        public MyPageAdapter(FragmentManager fm,List<Fragment> fragmentList,List<String> titleList) {
-            super(fm);
-            this.fragments = fragmentList;
-            this.titles = titleList;
-        }
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return titles.get(position);
-        }
-
-        @Override
-        public void destroyItem(View container, int position, Object object) {
-            //super.destroyItem(container, position, object);
-        }
-
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
+
 
     //分类pop窗的适配器
     class CategoryAdapter extends BaseAdapter {

@@ -18,6 +18,7 @@ import com.alibaba.baichuan.android.trade.page.AlibcBasePage;
 import com.alibaba.baichuan.android.trade.page.AlibcDetailPage;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.BaseActivity;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -71,7 +72,7 @@ public class AliSdkWebViewProxyActivity extends BaseActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         listTitleView.get(0).setVisibility(View.GONE);
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         ((TextView) listTitleView.get(2)).setText("商品详情");
         listTitleView.get(3).setVisibility(View.GONE);
 
@@ -80,7 +81,7 @@ public class AliSdkWebViewProxyActivity extends BaseActivity {
 
     @Click(R.id.toolbar_left_image)
     void clickEvent(View view){
-                finish();
+        MFGT.finish(this);
     }
 
     private void initParams(){
@@ -107,7 +108,7 @@ public class AliSdkWebViewProxyActivity extends BaseActivity {
         if(webView.canGoBack()){
             webView.goBack();
         }else {
-            finish();
+            MFGT.finish(this);
         }
     }
 
