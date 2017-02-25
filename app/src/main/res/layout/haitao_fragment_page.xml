@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="10dp"
-            android:background="@drawable/index_btn_find_n">
+            android:background="@drawable/nav_icon_search">
         </ImageView>
     </android.support.v7.widget.Toolbar>
     <View

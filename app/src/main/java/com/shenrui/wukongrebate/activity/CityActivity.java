@@ -69,7 +69,7 @@ public class CityActivity extends BaseActivity {
     @AfterViews
     void initView(){
         context = this;
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("切换城市");
         toolbar_right_image.setVisibility(View.GONE);

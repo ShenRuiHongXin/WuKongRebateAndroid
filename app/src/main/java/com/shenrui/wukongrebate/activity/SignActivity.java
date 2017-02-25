@@ -57,7 +57,7 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
         //标题栏
         listTitleView.get(3).setVisibility(View.GONE);
         ((TextView)listTitleView.get(2)).setText("签到积分");
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         listTitleView.get(0).setVisibility(View.GONE);
 
         vp_sign_content.addOnPageChangeListener(this);

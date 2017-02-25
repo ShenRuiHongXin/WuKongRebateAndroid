@@ -1,45 +1,21 @@
 package com.shenrui.wukongrebate.adapter;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.support.design.widget.TabLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.BrandActivity;
-import com.shenrui.wukongrebate.activity.BrandActivity_;
-import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
-import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
-import com.shenrui.wukongrebate.activity.RebateInstructionsActivity_;
-import com.shenrui.wukongrebate.activity.SearchActivity_;
-import com.shenrui.wukongrebate.activity.SignActivity_;
 import com.shenrui.wukongrebate.entities.JfExchangeGoods;
-import com.shenrui.wukongrebate.entities.RecyItemIndexData;
 import com.shenrui.wukongrebate.entities.SignRecyItemData;
 import com.shenrui.wukongrebate.entities.SplitlineItem;
 import com.shenrui.wukongrebate.entities.TaskItem;
-import com.shenrui.wukongrebate.entities.TenGoodsData;
-import com.shenrui.wukongrebate.utils.LogUtil;
-import com.shenrui.wukongrebate.utils.MFGT;
-import com.shenrui.wukongrebate.view.ActivityView;
-import com.shenrui.wukongrebate.view.CycleRotationView;
-import com.shenrui.wukongrebate.view.MyGridView;
-import com.shenrui.wukongrebate.view.RebateItemView;
-import com.shenrui.wukongrebate.view.SearchView;
-import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import java.util.List;
 
@@ -78,18 +54,6 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                 break;
             case CATS:
                 break;
-            case MAIN_ITEM:
-                view = LayoutInflater.from(context).inflate(R.layout.main_recy_item_index, parent, false);
-                holder = new MyViewHolderMainRecyIndex(view);
-                break;
-            case CATS_GOODS_ITEM:
-                view = LayoutInflater.from(context).inflate(R.layout.main_recy_item_cats_content, parent, false);
-                holder = new MyViewHolderMainRecyCatsGoods(view);
-                break;
-            case MAIN_CONTENT:
-                view = LayoutInflater.from(context).inflate(R.layout.main_recy_item_index, parent, false);
-                holder = new MyViewHolderMainRecyIndex(view);
-                break;
             case ITEM_USER:
             case ITEM_TASK:
                 view = LayoutInflater.from(context).inflate(R.layout.sign_content_recy_user_task_item, parent, false);
@@ -116,21 +80,21 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                 break;
             case CATS:
                 break;
-            case MAIN_ITEM:
+            /*case MAIN_ITEM:
                 final MyViewHolderMainRecyIndex myViewHolderMainRecyIndex = (MyViewHolderMainRecyIndex) holder;
-                RecyItemIndexData recyItemIndexData = (RecyItemIndexData) listDatas.get(position).getT();
+                RebateMenuData recyItemIndexData = (RebateMenuData) listDatas.get(position).getT();
                 myViewHolderMainRecyIndex.cyclerotationview.setUrls(recyItemIndexData.getCycleList());
                 myViewHolderMainRecyIndex.cyclerotationview.setOnItemClickListener(new CycleRotationView.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        LogUtil.d("click " + position);
+                        Toast.makeText(context, position+"", Toast.LENGTH_SHORT).show();
                     }
                 });
 
 //                myViewHolderMainRecyIndex.rollPagerView.setPlayDelay(3000);
 //                myViewHolderMainRecyIndex.rollPagerView.setAdapter(new RpvLoopAdapter(context,myViewHolderMainRecyIndex.rollPagerView,recyItemIndexData.getCycleList()));
 
-                myViewHolderMainRecyIndex.searchView.setEditTextOnlickListener(new View.OnClickListener() {
+                *//*myViewHolderMainRecyIndex.searchView.setEditTextOnlickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, SearchActivity_.class);
@@ -140,24 +104,20 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                             context.startActivity(intent);
                         }
                     }
-                });
+                });*//*
 
-                //超级返，九块九，悟空夺宝，悟空团购
+                //超级返，限时抢，悟空团购
                 myViewHolderMainRecyIndex.avChaojifan.setRebateViewOnClick(new RebateItemView.RebateViewItemOnClick() {
                     @Override
                     public void itemClick(int itemId) {
                         switch (itemId){
-                            case R.id.ll_left_rebate://超级返
-                                Toast.makeText(context, "超级返", Toast.LENGTH_SHORT).show();
-                                MFGT.startActivity(context, BrandActivity_.class);
+                            case R.id.ll_super://超级返
+                                MFGT.startActivity(context, SuperActivity_.class);
                                 break;
-                            case R.id.ll_right_top_nine://九块九
-                                MFGT.startActivity(context,NineBlockNineActivity_.class);
+                            case R.id.ll_time_limit:
+                                Toast.makeText(context, "限时抢", Toast.LENGTH_SHORT).show();
                                 break;
-                            case R.id.ll_right_bottom_left_award://悟空夺宝
-                                Toast.makeText(context, "悟空夺宝", Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.ll_right_bottom_right_group://悟空团购
+                            case R.id.ll_group:
                                 Toast.makeText(context, "悟空团购", Toast.LENGTH_SHORT).show();
                                 break;
                         }
@@ -165,7 +125,7 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                 });
 
 
-                myViewHolderMainRecyIndex.mgv_sign.setAdapter(new MyGridAdapter(context));
+                *//*myViewHolderMainRecyIndex.mgv_sign.setAdapter(new MyGridAdapter(context));
                 myViewHolderMainRecyIndex.mgv_sign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -193,10 +153,10 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                                 break;
                         }
                     }
-                });
+                });*//*
 
 
-                myViewHolderMainRecyIndex.ten_new_goods_recy.addItemDecoration(new DividerGridItemDecoration(context));
+                *//*myViewHolderMainRecyIndex.ten_new_goods_recy.addItemDecoration(new DividerGridItemDecoration(context));
                 int spanCount = 2;
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(context, spanCount){
                     @Override
@@ -217,9 +177,9 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
                         MFGT.startActivity(context,intent);
                     }
                 });
-                myViewHolderMainRecyIndex.ten_new_goods_recy.setAdapter(recyTenNewGoodsAdapter);
+                myViewHolderMainRecyIndex.ten_new_goods_recy.setAdapter(recyTenNewGoodsAdapter);*//*
 
-                break;
+                break;*/
             case MAIN_CONTENT:
                 break;
             case CATS_GOODS_ITEM:
@@ -360,61 +320,6 @@ public class SignContentRecyAdapter extends RecyclerView.Adapter{
             tv_splitline_type = (TextView) view.findViewById(R.id.tv_sign_recy_slitline_type);
             tv_sign_task_nomore = (TextView) view.findViewById(R.id.tv_sign_task_nomore);
         }
-    }
-
-    /**
-     * 悟空返利，APP首页分类ViewHolder
-     */
-    class MyViewHolderMainRecyCats extends RecyclerView.ViewHolder{
-        TabLayout tl_goods_category;
-        public MyViewHolderMainRecyCats(View itemView) {
-            super(itemView);
-            tl_goods_category = (TabLayout) itemView.findViewById(R.id.tl_goods_category);
-        }
-    }
-
-    /**
-     * 悟空返利, APP首页ViewHolder
-     */
-    class MyViewHolderMainRecyIndex extends RecyclerView.ViewHolder{
-
-        CycleRotationView cyclerotationview;
-        SearchView searchView;
-        MyGridView mgv_sign;
-        ActivityView activity_view;
-        RebateItemView avChaojifan;
-        RecyclerView ten_new_goods_recy;
-
-        MyViewHolderMainRecyIndex(View view) {
-            super(view);
-            cyclerotationview = (CycleRotationView) view.findViewById(R.id.cyclerotationview);
-            searchView = (SearchView) view.findViewById(R.id.sv_searchView);
-            mgv_sign = (MyGridView) view.findViewById(R.id.mgv_sign);
-            activity_view = (ActivityView) view.findViewById(R.id.activity_view);
-            avChaojifan = (RebateItemView) view.findViewById(R.id.av_chaojifan);
-            ten_new_goods_recy = (RecyclerView) view.findViewById(R.id.ten_new_goods_recy);
-        }
-
-    }
-
-    /**
-     * 悟空返利，APP分类商品ViewHolder
-     */
-    class MyViewHolderMainRecyCatsGoods extends RecyclerView.ViewHolder{
-        private final int ONE_LINE_SHOW_NUMBER = 2;
-//        TabLayout tl_goods_category;
-//        TextView tv_cats_test;
-        RecyclerView recy_cats_goods_lists;
-
-        public MyViewHolderMainRecyCatsGoods(View view) {
-            super(view);
-//            tl_goods_category = (TabLayout) view.findViewById(R.id.tl_goods_category);
-//            tv_cats_test = (TextView) view.findViewById(R.id.textView);
-            recy_cats_goods_lists = (RecyclerView) view.findViewById(R.id.recy_cats_goods_lists);
-
-        }
-
-
     }
 
     class MyViewHolderMainRecyJfGoods extends RecyclerView.ViewHolder{

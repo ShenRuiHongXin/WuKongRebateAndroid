@@ -15,7 +15,7 @@
             android:layout_height="30dp"
             android:scaleType="centerInside"
             android:layout_marginRight="10dp"
-            android:src="@drawable/common_btn_back_n"/>
+            android:src="@drawable/nav_icon_back"/>
         <com.shenrui.wukongrebate.view.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"

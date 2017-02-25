@@ -8,7 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/mainRed">
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/toolbar_left"
@@ -23,8 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
-            android:text="武汉"
-            android:textColor="#FFB6C1"/>
+            android:text="武汉" />
 
             <ImageView
                 android:id="@+id/toolbar_left_image"
@@ -42,8 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
             android:textSize="18sp"
-            android:text="textView"
-            android:textColor="#FFB6C1"/>
+            android:text="textView" />
 
         <LinearLayout
             android:id="@+id/toolbar_right"
@@ -57,16 +55,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
-                android:text="武汉"
-                android:visibility="gone"
-                android:textColor="#FFB6C1"/>
+                android:visibility="gone" />
             <ImageView
                 android:id="@+id/toolbar_right_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:src="@mipmap/ic_launcher"
-                />
+                android:src="@mipmap/ic_launcher" />
 
         </LinearLayout>
         <!--<Button-->

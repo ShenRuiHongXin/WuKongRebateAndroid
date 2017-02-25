@@ -43,7 +43,7 @@ public class UserNameActivity extends BaseActivity {
     @AfterViews
     void init(){
         toolbar_left_text.setVisibility(View.GONE);
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_title.setText("会员名");
         toolbar_right_image.setVisibility(View.GONE);
         initUserData();

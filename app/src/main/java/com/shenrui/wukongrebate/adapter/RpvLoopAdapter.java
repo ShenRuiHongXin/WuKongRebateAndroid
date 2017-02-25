@@ -46,7 +46,7 @@ public class RpvLoopAdapter extends LoopPagerAdapter{
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         Glide.with(context)
                 .load(imgs[position])
-                .placeholder(R.drawable.loading)
+                //.placeholder(R.drawable.loading)
                 .crossFade()
                 .centerCrop()
                 .into(view);

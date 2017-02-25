@@ -35,7 +35,7 @@ public class BrandActivity extends Activity {
         collapsingToolbarLayout.setTitle("品牌名称");
         collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.white));
         floatingActionButton.setBackgroundColor(getResources().getColor(R.color.white));
-        toolbar.setNavigationIcon(R.drawable.common_btn_back_n);
+        toolbar.setNavigationIcon(R.drawable.nav_icon_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

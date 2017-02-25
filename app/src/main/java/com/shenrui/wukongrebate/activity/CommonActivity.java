@@ -33,7 +33,7 @@ public class CommonActivity extends BaseActivity {
     @AfterViews
     void initView() {
         toolbar_left_image.setVisibility(View.VISIBLE);
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("通用");
         toolbar_right_image.setVisibility(View.GONE);

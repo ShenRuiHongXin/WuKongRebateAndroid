@@ -22,9 +22,9 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                MFGT.startActivity(SplashActivity.this,MainActivity_.class);
+                startActivity(new Intent(SplashActivity.this,MainActivity_.class));
                 finish();
             }
-        }, 2000);
+        }, 1500);
     }
 }

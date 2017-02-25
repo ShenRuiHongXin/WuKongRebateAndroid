@@ -68,7 +68,7 @@ public class PersonalInfoActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_right_image.setVisibility(View.GONE);
         toolbar_title.setText("个人资料");

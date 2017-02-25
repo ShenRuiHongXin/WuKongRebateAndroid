@@ -9,8 +9,7 @@
         android:id="@+id/iv_10_new_goods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/index_img_commodity1_n"/>
+        android:scaleType="fitXY" />
     <TextView
         android:id="@+id/tv_10_new_goods_price"
         android:layout_width="wrap_content"

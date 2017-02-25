@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/index_btn_find_n"
+            android:src="@drawable/nav_icon_search"
             android:paddingRight="10dp"/>
     </LinearLayout>
     <ListView

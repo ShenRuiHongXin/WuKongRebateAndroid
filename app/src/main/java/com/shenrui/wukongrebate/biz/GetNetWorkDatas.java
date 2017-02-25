@@ -15,6 +15,7 @@ import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.TaobaoReqUtil;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -162,8 +163,9 @@ public class GetNetWorkDatas {
     /**
      * 九块九商品
      */
-    public static List<TbkItem> getNineGoods(String q,int page_no){
+    public static Map<String,Object> getNineGoods(String q,int page_no){
         Map<String,String> map = new HashMap<>();
+        DecimalFormat df = new DecimalFormat("#####0");
         map.put("fields", "num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick");
         map.put("page_no",String.valueOf(page_no));
         map.put("q",q);
@@ -180,7 +182,7 @@ public class GetNetWorkDatas {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        List<TbkItem> goodsList = null;
+        Map<String,Object> result = new HashMap<>();
         try {
             Response response = okHttpClient.newCall(request).execute();
             String responseJson = response.body().string();
@@ -190,9 +192,11 @@ public class GetNetWorkDatas {
             JSONObject jsonObject2 = jsonObject1.getJSONObject("results");
             Double results = jsonObject1.getDouble("total_results");
             JSONArray jsonArrayItems = jsonObject2.getJSONArray("n_tbk_item");
-            goodsList = JSON.parseArray(jsonArrayItems.toString(), TbkItem.class);
+            List<TbkItem> goodsList = JSON.parseArray(jsonArrayItems.toString(), TbkItem.class);
             Log.e("DeDiWang",goodsList.toString());
             Log.e("DeDiWang",String.valueOf(results));
+            result.put("goodsList",goodsList);
+            result.put("totals",df.format(results));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -200,7 +204,7 @@ public class GetNetWorkDatas {
         }catch (Exception e){
 
         }
-        return goodsList;
+        return result;
     }
 
     /**
@@ -214,7 +218,7 @@ public class GetNetWorkDatas {
         map.put("page_size","10");
         map.put("start_price","1");
         map.put("end_price","49");
-        map.put("start_tk_rate","1000");//淘宝客佣金比率20%-90%
+        map.put("start_tk_rate","2000");//淘宝客佣金比率20%-90%
         map.put("end_tk_rate","9000");
         map.put("sort","total_sales_des");//销量降序排列
 
@@ -244,5 +248,52 @@ public class GetNetWorkDatas {
 
         }
         return goodsList;
+    }
+
+    /**
+     * 超级返商品
+     */
+    public static Map<String,Object> getSuperGoods(String q,int page_no){
+        DecimalFormat df = new DecimalFormat("#####0");
+        Map<String,String> map = new HashMap<>();
+        map.put("fields", "num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick");
+        map.put("page_no",String.valueOf(page_no));
+        map.put("q",q);
+        map.put("page_size","50");
+        map.put("start_price","50");
+        map.put("end_price","100000");
+        map.put("start_tk_rate","2500");//淘宝客佣金比率25%-95%
+        map.put("end_tk_rate","9500");
+
+        String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
+        Log.e("DeDiWang nineGoods url",url);
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Map<String,Object> result = new HashMap<String,Object>();
+        try {
+            Response response = okHttpClient.newCall(request).execute();
+            String responseJson = response.body().string();
+            LogUtil.i(responseJson);
+            JSONObject jsonObject = (JSONObject) JSON.parse(responseJson);
+            JSONObject jsonObject1 = jsonObject.getJSONObject("tbk_item_get_response");
+            JSONObject jsonObject2 = jsonObject1.getJSONObject("results");
+            Double results = jsonObject1.getDouble("total_results");
+            JSONArray jsonArrayItems = jsonObject2.getJSONArray("n_tbk_item");
+            List<TbkItem> goodsList = JSON.parseArray(jsonArrayItems.toString(), TbkItem.class);
+            Log.e("DeDiWang",goodsList.toString());
+            Log.e("DeDiWang",String.valueOf(results));
+            result.put("goodsList",goodsList);
+            result.put("totals",df.format(results));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+
+        }
+        return result;
     }
 }

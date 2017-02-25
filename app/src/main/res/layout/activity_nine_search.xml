@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:src="@drawable/common_btn_back_n"
+            android:src="@drawable/nav_icon_back"
             android:layout_gravity="center_vertical"/>
         <EditText
             android:id="@+id/et_nine_search"
@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:textCursorDrawable="@null"
             android:background="@drawable/radius_edit"
-            android:drawableStart="@drawable/common_search_n"
+            android:drawableStart="@drawable/nav_icon_search"
             android:paddingLeft="10dp"
             android:drawablePadding="10dp"
             android:hint="搜索商品"

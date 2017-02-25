@@ -24,7 +24,7 @@ public class WkMenuActivity extends BaseActivity {
         //标题栏
         listTitleView.get(3).setVisibility(View.GONE);
         ((TextView) listTitleView.get(2)).setText("悟空菜单");
-        ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         listTitleView.get(0).setVisibility(View.GONE);
     }
 

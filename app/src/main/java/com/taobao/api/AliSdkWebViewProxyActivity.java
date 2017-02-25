@@ -72,7 +72,7 @@ public class AliSdkWebViewProxyActivity extends BaseActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         listTitleView.get(0).setVisibility(View.GONE);
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         ((TextView) listTitleView.get(2)).setText("商品详情");
         listTitleView.get(3).setVisibility(View.GONE);
 

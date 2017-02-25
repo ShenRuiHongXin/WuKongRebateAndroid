@@ -20,7 +20,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:src="@drawable/index_nine_bg1"/>
+                android:src="@drawable/index_99_bg1"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -38,7 +38,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:src="@drawable/index_nine_bg2"/>
+                android:src="@drawable/index_99_bg2"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

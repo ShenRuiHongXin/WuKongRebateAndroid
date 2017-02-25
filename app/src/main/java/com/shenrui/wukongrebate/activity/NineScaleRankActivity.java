@@ -156,7 +156,7 @@ public class NineScaleRankActivity extends Activity {
 
     private void checkExpandStatus() {
         if (isExpand){
-            ivExpand.setImageResource(R.drawable.common_btn_back_n);
+            ivExpand.setImageResource(R.drawable.nav_icon_back);
         }else{
             ivExpand.setImageResource(R.drawable.common_btn_down_n);
         }

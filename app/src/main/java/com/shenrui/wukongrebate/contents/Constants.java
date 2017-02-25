@@ -18,6 +18,9 @@ public class Constants {
     public static final String APP_KEY = "23585348";
     public static final String APP_SECRET = "ac4a7853f5ae6b37642358c8ba8c7aef";
 
+    //返给用户的佣金比率
+    public static final double RATE_FAN = 0.15;
+
     //分类(从淘宝API：taobao.itemcats.get获取到分类根目录下的所有父目录，只选取热门分类作为APP展示目录)
     public static final int COSMETITICS = 1801;         //化妆品
 
@@ -55,9 +58,9 @@ public class Constants {
 
     public static final int ORNAMENT = 50013864;        //饰品/流行首饰/时尚饰品新
 
-
-    public static final CatsItemLocal[] Itemcats = {
-            new CatsItemLocal("悟空推荐",new int[]{}),
+    //超级返分类条目
+    public static final CatsItemLocal[] ItemSuperCats = {
+            new CatsItemLocal("全部",new int[]{}),
             new CatsItemLocal("女装",new int[]{WOMEN_CLOTHES}),
             new CatsItemLocal("男装",new int[]{MEN_CLOTHES}),
             new CatsItemLocal("化妆品",new int[]{COSMETITICS}),
@@ -93,4 +96,13 @@ public class Constants {
     public static final int LOGIN_PHONE_NO_REGISTER = 402;
     //密码错误
     public static final int LOGIN_PASSWORD_ERROR = 403;
+
+    //价格从低到高排列
+    public static final int SORT_PRICE_ASC = 123;
+    //价格从高到低排列
+    public static final int SORT_PRICE_DESC = 321;
+    //销量从低到高排列
+    public static final int SORT_VOLUME_ASC = 456;
+    //销量从高到低排列
+    public static final int SORT_VOLUME_DESC = 654;
 }

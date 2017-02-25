@@ -46,7 +46,7 @@ public class PasswordActivity extends BaseActivity {
     @AfterViews
     void initViews(){
         toolbar_left_image.setVisibility(View.VISIBLE);
-        toolbar_left_image.setImageResource(R.drawable.common_btn_back_n);
+        toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("修改登录密码");
         toolbar_right_image.setVisibility(View.GONE);

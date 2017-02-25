@@ -25,7 +25,7 @@
     </style>
 
     <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>-->
+        <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>-->
 
     <style name="PhotoPopUp">
         <item name="android:windowEnterAnimation">@anim/anim_pop_enter</item>

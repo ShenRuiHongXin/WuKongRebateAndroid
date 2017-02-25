@@ -50,7 +50,7 @@ public class AliSdkMyCartActivity extends BaseActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         listTitleView.get(0).setVisibility(View.GONE);
-        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.common_btn_back_n);
+        ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         ((TextView) listTitleView.get(2)).setText("购物车");
         listTitleView.get(3).setVisibility(View.GONE);
 

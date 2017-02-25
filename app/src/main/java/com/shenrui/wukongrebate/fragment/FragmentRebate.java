@@ -1,21 +1,22 @@
 package com.shenrui.wukongrebate.fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.CityActivity_;
-import com.shenrui.wukongrebate.activity.MainActivity_;
-import com.shenrui.wukongrebate.adapter.SignContentRecyAdapter;
+import com.shenrui.wukongrebate.activity.SearchActivity_;
+import com.shenrui.wukongrebate.adapter.RebateAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
-import com.shenrui.wukongrebate.entities.RecyItemIndexData;
-import com.shenrui.wukongrebate.entities.SignRecyItemData;
-import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.entities.RebateMenuData;
+import com.shenrui.wukongrebate.entities.TbkItem;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -27,6 +28,7 @@ import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by heikki on 2016/12/28.
@@ -38,146 +40,160 @@ import java.util.List;
 
 @EFragment(R.layout.rebate_fragment_page)
 public class FragmentRebate extends BaseFragment{
+    private static final int ACTION_DOWNLOAD = 0;
+    private static final int ACTION_PULL_UP = 1;
+    @ViewById(R.id.ll_search)
+    LinearLayout layoutSearch;
     //扫一扫按钮
-    @ViewById(R.id.btn_scan)
-    Button btnScan;
-
+    @ViewById(R.id.iv_scan)
+    ImageView ivScan;
+    //搜索框
+    @ViewById(R.id.tv_search)
+    TextView tvSearch;
     //首页内容
     @ViewById(R.id.recy_main)
     RecyclerView recyMain;
-
     //进度条
     @ViewById(R.id.ll_progressBar)
     LinearLayout ll_progressBar;
-
-    //首页数据
-    RecyItemIndexData recyItemIndexData;
-    List<SignRecyItemData> listData;
-
+    //首页菜单数据
+    RebateMenuData rebateMenuData;
+    //首页新品数据
+    List<TbkItem> goodsData;
     Context context;
+    RebateAdapter adapter;
+    GridLayoutManager layoutManager;
 
+    int mDistanceY;
+    int pageNo = 1;
     //界面初始化
     @AfterViews
     void init() {
-        LogUtil.i("FragmentRebate created");
         context = getContext();
-//        ((ImageView) listTitleView.get(1)).setImageResource(R.drawable.index_btn_city_n);
-//        ((TextView) listTitleView.get(2)).setText("悟空返利");
-//        listTitleView.get(3).setVisibility(View.GONE);
-//
-//        ((TextView)listTitleView.get(0)).setText(SharedPreferenceUtils.getInstance(context).getCurrentCity());
-
         showProgressBar();
-
-        recyMain.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false){
-            @Override
-            public boolean canScrollVertically() {
-                return true;
-            }
-        });
-
-//        searchView.setEditTextOnlickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), SearchActivity_.class);
-//                if(Build.VERSION.SDK_INT >= 21){
-//                    getActivity().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), searchView, "sharedView").toBundle());
-//                }else{
-//                    getActivity().startActivity(intent);
-//                }
-//            }
-//        });
+        initView();
         initDatas();
+        setListener();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LogUtil.d("FragmentRebate destroyed");
+    private void setListener() {
+        //上拉加载监听
+        recyMain.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int lastPosition = layoutManager.findLastVisibleItemPosition();
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition>=adapter.getItemCount()-1){
+                    pageNo = pageNo + 1;
+                    downloadNewGoodsList();
+                }
+            }
+            //搜索栏透明度渐变
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                mDistanceY += dy;
+                if (mDistanceY<=0){
+                    layoutSearch.setBackgroundColor(Color.argb(0,255,255,255));
+                }else if (mDistanceY<=400){
+                    float scale = (float)mDistanceY / (float) 400;
+                    layoutSearch.setBackgroundColor(Color.argb((int) (255*scale),255,255,255));
+                }else{
+                    layoutSearch.setBackgroundColor(Color.argb(255,255,255,255));
+                }
+            }
+        });
+    }
+
+    private void initView() {
+        rebateMenuData = new RebateMenuData();
+        goodsData = new ArrayList<>();
+        adapter = new RebateAdapter(context, rebateMenuData ,goodsData);
+        layoutManager = new GridLayoutManager(context, 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0){
+                    return 2;
+                }else{
+                    return 1;
+                }
+            }
+        });
+        recyMain.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                if (parent.getChildPosition(view)!=0){
+                    if (parent.getChildPosition(view)%2!=0){
+                        outRect.set(4,0,3,4);
+                    }else{
+                        outRect.set(3,0,4,4);
+                    }
+                }
+            }
+        });
+        recyMain.setAdapter(adapter);
+        recyMain.setLayoutManager(layoutManager);
     }
 
     //首页数据加载
     @Background
     void initDatas() {
-        LogUtil.d("mainActivity mainData: " + MainActivity_.mainData);
-        if (MainActivity_.mainData == null) {
-            if (Utils.isNetworkConnected(getActivity())){
-                recyItemIndexData = new RecyItemIndexData();
-
-                String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
-                recyItemIndexData.setCycleList(urls);//轮播图
-                recyItemIndexData.setCjfanList(new ArrayList());//超级返
-                recyItemIndexData.setSignList(new ArrayList());//签到
-                recyItemIndexData.setActiviList(new ArrayList());//活动
-                List listTmp = GetNetWorkDatas.getTenNewGoods();
-                if(listTmp == null){
-                    initDatas();
-                }
-                recyItemIndexData.setTenList(listTmp);//早10点上新
-                listData = new ArrayList<>();
-                listData.add(new SignRecyItemData(recyItemIndexData, SignRecyItemData.MAIN_ITEM));
-                updataUi();
-            }else{
-                initDatas();
+        if (Utils.isNetworkConnected(getActivity())){
+            String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
+            rebateMenuData.setCycleList(urls);//轮播图
+            Map<String, Object> map = GetNetWorkDatas.getSuperGoods("冬装女", 1);
+            goodsData= (List<TbkItem>) map.get("goodsList");
+            if(goodsData == null){
+                showProgressBar();
             }
-        } else {
-            listData = MainActivity_.mainData;
-            updataUi();
+            updataUi(ACTION_DOWNLOAD);
+        }else{
+            showProgressBar();
         }
-
     }
+
+    @Background
+    void downloadNewGoodsList(){
+        Map<String, Object> map = GetNetWorkDatas.getSuperGoods("冬装女", pageNo);
+        goodsData = (List<TbkItem>) map.get("goodsList");
+        updataUi(ACTION_PULL_UP);
+    }
+
     @UiThread
-    void updataUi() {
-        MainActivity_.mainData = listData;
-        recyMain.setAdapter(new SignContentRecyAdapter(getActivity(), listData));
-
-        hideProgressBar();
+    void updataUi(int action) {
+        switch (action){
+            case ACTION_DOWNLOAD:
+                adapter.initData(rebateMenuData,goodsData);
+                hideProgressBar();
+                break;
+            case ACTION_PULL_UP:
+                adapter.addData(goodsData);
+                break;
+        }
     }
-
-
-//    //根据分类获取商品
-//    @Background
-//    void getCatsGoods(CatsItemLocal catsItemLocal){
-//        updateCatsGoods(GetNetWorkDatas.getCatsGoodsFromTaobao(catsItemLocal));
-//    }
-//    @UiThread
-//    void updateCatsGoods(final List list){
-//        RecyTenNewGoodsAdapter adapter = new RecyTenNewGoodsAdapter(getActivity(), list);
-//        //点击列表项进入商品详情
-//        adapter.setOnItemClickLitener(new RecyTenNewGoodsAdapter.OnItemClickLitener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
-//                intent.putExtra("num_iid",((TenGoodsData)list.get(position)).getNum_iid());
-//                context.startActivity(intent);
-//
-//            }
-//        });
-//        recyMain.setAdapter(adapter);
-//        hideProgressBar();
-//    }
-
 
     //显示/隐藏进度条
     @UiThread
     void showProgressBar(){
         ll_progressBar.setVisibility(View.VISIBLE);
-        recyMain.setVisibility(View.INVISIBLE);
+        recyMain.setVisibility(View.GONE);
     }
+
     @UiThread
     void hideProgressBar(){
         ll_progressBar.setVisibility(View.GONE);
         recyMain.setVisibility(View.VISIBLE);
     }
 
-    @Click({R.id.toolbar_left_text,R.id.toolbar_left_image})
+    @Click({R.id.tv_search,R.id.iv_scan})
     void clickEvent(View view){
         switch (view.getId()){
-            case R.id.toolbar_left_text:
-            case R.id.toolbar_left_image:
-                startActivity(new Intent(getContext(), CityActivity_.class));
+            case R.id.tv_search:
+                MFGT.startActivity(context, SearchActivity_.class);
+                break;
+            case R.id.iv_scan:
+
                 break;
         }
-
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
@@ -25,7 +19,6 @@ import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
 import com.shenrui.wukongrebate.utils.LogUtil;
-import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 import com.shenrui.wukongrebate.view.NoScrollViewPager;
 
 import org.androidannotations.annotations.AfterViews;
@@ -77,7 +70,7 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addStatusBarView();
+        //addStatusBarView();
         context = this;
     }
 
@@ -91,7 +84,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         fragmentList.add(new FragmentRebate_());
         fragmentList.add(new FragmentFood_());
-//        fragmentList.add(new FragmentCircle_());
         fragmentList.add(new FragmentHaitao_());
         fragmentList.add(new FragmentMine());
 
@@ -110,9 +102,6 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
             case R.id.ll_food:
                 tmpPosition = 1;
                 break;
-//            case R.id.ll_circle:
-//                tmpPosition = 2;
-//                break;
             case R.id.ll_haitao:
                 tmpPosition = 2;
                 break;
@@ -125,18 +114,15 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     //重置界面
     private void resetView() {
-        //
         ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_bag_n);
         ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_tropical_n);
-//        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_circle_n);
         ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_earth_n);
         ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_monkey_n);
-        //
+
         ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-//        ((TextView)tv_list.get(4)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
     }
 
     //设置选中页

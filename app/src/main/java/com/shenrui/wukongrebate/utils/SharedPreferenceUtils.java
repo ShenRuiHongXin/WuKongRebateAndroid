@@ -26,6 +26,7 @@ public class SharedPreferenceUtils {
     private SharedPreferences.Editor editor;
     private static final String KEY_SEARCH_HISTORY = "searchHistory";
     private static final String KEY_NINE_SEARCH_HISTORY = "nine_search_history";
+    private static final String KEY_SUPER_SEARCH_HISTORY = "super_search_history";
     private static final String CURRENT_CITY = "currentCity";
     public static SharedPreferenceUtils getInstance(Context context){
         if(instance == null){
@@ -150,6 +151,38 @@ public class SharedPreferenceUtils {
     //清除九块九搜索历史
     public void clearNineSearchHistory(){
         editor.remove(KEY_NINE_SEARCH_HISTORY);
+        editor.commit();
+    }
+    //保存超级返搜索历史关键词
+    public void putSuperSearchHistory(String q){
+        String newStr = q.trim();
+        String oldStr = sp.getString(KEY_SUPER_SEARCH_HISTORY, null);
+        if(oldStr==null){
+            editor.putString(KEY_SUPER_SEARCH_HISTORY,newStr);
+            editor.commit();
+        }else{
+            if (!oldStr.contains(newStr)){
+                editor.putString(KEY_SUPER_SEARCH_HISTORY,oldStr.trim()+","+newStr);
+                editor.commit();
+            }
+        }
+    }
+    //得到超级返搜索历史
+    public List<String> getSuperSearchHistory(){
+        String str = sp.getString(KEY_SUPER_SEARCH_HISTORY, null);
+        if (str!=null){
+            List<String> list = new ArrayList<>();
+            String[] split = str.split(",");
+            for(int i=split.length-1;i>=0;i--){
+                list.add(split[i]);
+            }
+            return list;
+        }
+        return null;
+    }
+    //清除超级返搜索历史
+    public void clearSuperSearchHistory(){
+        editor.remove(KEY_SUPER_SEARCH_HISTORY);
         editor.commit();
     }
     //退出帐号时调用
