@@ -1,7 +1,6 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;

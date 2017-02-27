@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.AiTaoBaoItem;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
+import com.shenrui.wukongrebate.entities.TbkFavorite;
 import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
 import com.shenrui.wukongrebate.utils.LogUtil;
@@ -122,22 +123,27 @@ public class GetNetWorkDatas {
     /**
      * 关键字查询商品
      */
-    public static List<TenGoodsData> getSearchGoods(String q,int pageNo){
-        Map map = new HashMap<String, String>();
-        map.put("fields", "num_iid,pict_url,title,zk_final_price");
-        map.put("q",q);
+    public static Map<String,Object> getSearchGoods(String q,int pageNo){
+        DecimalFormat df = new DecimalFormat("#####0");
+        Map<String,String> map = new HashMap<>();
+        map.put("fields", "num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick");
         map.put("page_no",String.valueOf(pageNo));
-        map.put("page_size", "20");
+        map.put("q",q);
+        map.put("page_size","20");
+        map.put("start_price","1");
+        map.put("end_price","1000000");
+        map.put("start_tk_rate","1000");//淘宝客佣金比率10%-95%
+        map.put("end_tk_rate","9500");
+        map.put("sort","total_sales_des");
 
         String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
-        LogUtil.i("main url: " + url);
-
+        Log.e("DeDiWang url",url);
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
                 .build();
-        List<TenGoodsData> tenGoodsDataList = null;
+        HashMap<String, Object> result = new HashMap<>();
         try {
             Response response = okHttpClient.newCall(request).execute();
             String responseJson = response.body().string();
@@ -145,11 +151,13 @@ public class GetNetWorkDatas {
             JSONObject jsonObject = (JSONObject) JSON.parse(responseJson);
             JSONObject jsonObject1 = jsonObject.getJSONObject("tbk_item_get_response");
             JSONObject jsonObject2 = jsonObject1.getJSONObject("results");
+            Double results = jsonObject1.getDouble("total_results");
             JSONArray jsonArrayItems = jsonObject2.getJSONArray("n_tbk_item");
-            tenGoodsDataList = JSON.parseArray(jsonArrayItems.toString(), TenGoodsData.class);
-            LogUtil.i("goods size: " + tenGoodsDataList.size());
-            LogUtil.i("list : " + tenGoodsDataList.toString());
-
+            List<TbkItem> goodsList = JSON.parseArray(jsonArrayItems.toString(), TbkItem.class);
+            Log.e("DeDiWang",goodsList.toString());
+            Log.e("DeDiWang",String.valueOf(results));
+            result.put("goodsList",goodsList);
+            result.put("totals",df.format(results));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -157,7 +165,7 @@ public class GetNetWorkDatas {
         }catch (Exception e){
 
         }
-        return tenGoodsDataList;
+        return result;
     }
 
     /**
@@ -262,11 +270,11 @@ public class GetNetWorkDatas {
         map.put("page_size","50");
         map.put("start_price","50");
         map.put("end_price","100000");
-        map.put("start_tk_rate","2500");//淘宝客佣金比率25%-95%
+        map.put("start_tk_rate","3500");//淘宝客佣金比率35%-95%
         map.put("end_tk_rate","9500");
 
         String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
-        Log.e("DeDiWang nineGoods url",url);
+        Log.e("DeDiWang url",url);
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
@@ -295,5 +303,38 @@ public class GetNetWorkDatas {
 
         }
         return result;
+    }
+
+    /**
+     * 获取选品库列表
+     */
+    public static List<TbkFavorite> getFavorites(int pageNo){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("page_no",String.valueOf(pageNo));
+        map.put("page_size",String.valueOf(20));
+        map.put("fields","favorites_title,favorites_id,type");
+        map.put("type",String.valueOf(-1));
+
+        String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.uatm.favorites.get ", map);
+        Log.e("DeDiWang url",url);
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        List<TbkFavorite> favorites = null;
+        try {
+            Response response = client.newCall(request).execute();
+            String responseJson = response.body().string();
+            JSONObject jsonObject = (JSONObject) JSON.parse(responseJson);
+            JSONObject jsonObject1 = jsonObject.getJSONObject("tbk_uatm_favorites_get_response");
+            JSONObject jsonObject2 = jsonObject1.getJSONObject("results");
+            Double results = jsonObject1.getDouble("total_results");
+            JSONArray jsonArrayItems = jsonObject2.getJSONArray("tbk_favorites");
+            favorites = JSON.parseArray(jsonArrayItems.toString(), TbkFavorite.class);
+            Log.e("DeDiWang favorites",favorites.toString());
+            Log.e("DeDiWang results",String.valueOf(results));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return favorites;
     }
 }

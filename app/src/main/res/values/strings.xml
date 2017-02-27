@@ -2,7 +2,7 @@
     <string name="app_name">悟空返利</string>
     <string name="agree_agreement">注册代表您已阅读并同意《悟空返利》协议</string>
     <string name="password_format">8-16位英文加数字的组合</string>
+    <string name="word_search">搜索淘宝/天猫宝贝 拿悟空返利</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

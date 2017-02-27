@@ -7,8 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/activity_super_search_result">
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
@@ -16,14 +15,14 @@
             android:gravity="center_vertical"
             android:background="@color/white">
             <ImageView
-                android:id="@+id/iv_super_search_result_back"
+                android:id="@+id/iv_search_result_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:src="@drawable/nav_icon_back"
                 android:layout_gravity="center_vertical"/>
             <TextView
-                android:id="@+id/tv_super_search_result"
+                android:id="@+id/tv_search_result"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_weight="1"
@@ -35,90 +34,33 @@
                 android:layout_marginRight="10dp"
                 android:textSize="13sp"/>
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/mineGrey"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:background="@color/white">
-            <RelativeLayout
-                android:id="@+id/layout_rank_price"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <TextView
-                    android:id="@+id/tv_rank_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="按价格排序"
-                    android:textSize="15sp"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/iv_rank_price_expand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/common_btn_down_n"
-                    android:layout_toRightOf="@id/tv_rank_price"
-                    android:layout_centerVertical="true"
-                    android:padding="2dp"/>
-            </RelativeLayout>
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp"
-                android:background="@color/mineGrey"
-                android:layout_gravity="center_vertical"/>
-            <RelativeLayout
-                android:id="@+id/layout_rank_volume"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <TextView
-                    android:id="@+id/tv_rank_volume"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="按销量排序"
-                    android:textSize="15sp"
-                    android:layout_centerInParent="true"/>
-                <ImageView
-                    android:id="@+id/iv_rank_volume_expand"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/common_btn_down_n"
-                    android:layout_toRightOf="@id/tv_rank_volume"
-                    android:layout_centerVertical="true"
-                    android:padding="2dp"/>
-            </RelativeLayout>
-        </LinearLayout>
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/srl_super_search_result"
+            android:id="@+id/srl_search_result"
             android:background="@color/mineGrey">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/tv_super_search_result_refresh"
+                    android:id="@+id/tv_search_result_refresh"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="刷新中..."
                     android:textSize="12sp"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:visibility="gone"/>
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/rv_super_search_result" />
+                    android:id="@+id/rv_search_result" />
             </LinearLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/layout_circle"
+        android:id="@+id/layout_index_circle"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:orientation="vertical"
@@ -128,7 +70,7 @@
         android:background="@drawable/circle_grey"
         android:visibility="gone">
         <TextView
-            android:id="@+id/tv_goods_current"
+            android:id="@+id/tv_index_goods_current"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -142,7 +84,7 @@
             android:background="@color/black"
             android:layout_gravity="center_horizontal"/>
         <TextView
-            android:id="@+id/tv_goods_total"
+            android:id="@+id/tv_index_goods_total"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

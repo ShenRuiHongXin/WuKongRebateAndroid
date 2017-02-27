@@ -1,39 +1,29 @@
 package com.shenrui.wukongrebate.activity;
 
-import android.content.Context;
-import android.graphics.Rect;
-import android.os.Build;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.ali.auth.third.core.model.Session;
-import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.SearchGoodsAdater;
-import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
-import com.shenrui.wukongrebate.entities.TenGoodsData;
-import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.adapter.SearchHistoryAdapter;
+import com.shenrui.wukongrebate.adapter.SearchRecommendAdapter;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
-import com.shenrui.wukongrebate.view.SearchView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,240 +31,103 @@ import java.util.List;
  */
 @EActivity(R.layout.activity_search)
 public class SearchActivity extends BaseActivity {
-    private static final int ACTION_PULL_UP = 0;
-    private static final int ACTION_PULL_DOWN = 1;
-    private static final int ACTION_DOWNLOAD = 2;
+
     @ViewById(R.id.iv_back)
     ImageView ivBack;
-    //搜索商品界面
-    @ViewById(R.id.srl)
-    SwipeRefreshLayout srl;
-    @ViewById(R.id.recyclerView)
-    RecyclerView rv;
-    @ViewById(R.id.search_view)
-    SearchView searchView;
-    //搜索历史界面
-    @ViewById(R.id.layout_search_history)
-    LinearLayout layout_search_history;
-    @ViewById(R.id.rv_all_search)
-    RecyclerView rvAllSearch;
-    @ViewById(R.id.rv_history_search)
-    RecyclerView rvHistorySearch;
-    @ViewById(R.id.btn_clear_search_history)
-    Button btnClearAll;
-    @ViewById(R.id.layout_history)
-    LinearLayout layoutHistory;
+    @ViewById(R.id.et_search)
+    EditText etSearch;
+    @ViewById(R.id.tv_search)
+    TextView tvSearch;
+    @ViewById(R.id.gridView_index_search_recommend)
+    GridView gridView;
+    @ViewById(R.id.gridView_index_search_history)
+    GridView gridView_history;
 
-    Context context;
-    SearchGoodsAdater adater;
-    GridLayoutManager gridLayoutManager;
-    List<TenGoodsData> list;
-    int pageNo = 1;
-    String q = "";//关键词
+    String[] texts_search_recommend;
+    List<String> searchHistory;
     @AfterViews
     void init(){
-        getUser();
-        initView();
+        //禁止自动弹出键盘
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        texts_search_recommend = new String[]{"女装","男装","夹克","牛仔","羽绒服",
+                "睡衣","内衣","运动鞋","高跟鞋"};
+        List<String> list = Arrays.asList(texts_search_recommend);
+        gridView.setAdapter(new SearchRecommendAdapter(list,this));
+        initSearchHistory();
         setListener();
     }
-
-    @Background
-    void download(int pageNo, int action) {
-        List<TenGoodsData> goodsList = GetNetWorkDatas.getSearchGoods(q,pageNo);
-        updateUi(goodsList,action);
-    }
-    @UiThread
-    void updateUi(List<TenGoodsData> goodsList,int action) {
-        switch (action){
-            case ACTION_DOWNLOAD:
-                adater.initData(goodsList);
-                break;
-            case ACTION_PULL_DOWN:
-                srl.setRefreshing(false);
-                adater.initData(goodsList);
-                break;
-            case ACTION_PULL_UP:
-                adater.addData(goodsList);
-                break;
-        }
-
-    }
-    List<String> searthHistory;
-    SearthHistoryAdapter historyAdapter;
-    private void initView() {
-        list = new ArrayList<>();
-        context = this;
-        adater = new SearchGoodsAdater(this,list);
-        rv.setAdapter(adater);
-        gridLayoutManager = new GridLayoutManager(this, 2);
-        rv.setLayoutManager(gridLayoutManager);
-
-        //获取历史搜索数据
-        searthHistory = SharedPreferenceUtils.getInstance(this).getSearthHistory();
-        if(searthHistory!=null){
-            layoutHistory.setVisibility(View.VISIBLE);
-            historyAdapter = new SearthHistoryAdapter(this);
-            rvHistorySearch.setAdapter(historyAdapter);
-            rvHistorySearch.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-            rvHistorySearch.addItemDecoration(new RecyclerView.ItemDecoration() {
-                @Override
-                public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                    outRect.set(0,5,0,5);
-                }
-            });
+    //初始化搜索历史模块
+    private void initSearchHistory() {
+        searchHistory = SharedPreferenceUtils.getInstance(this).getSearthHistory();
+        if (searchHistory==null){
+            gridView_history.setVisibility(View.GONE);
         }else{
-            layoutHistory.setVisibility(View.GONE);
+            gridView_history.setVisibility(View.VISIBLE);
+            gridView_history.setAdapter(new SearchHistoryAdapter(searchHistory,this));
         }
     }
 
     private void setListener() {
-        //开始搜索
-        searchView.setFindOnClickListener(new View.OnClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                if(!searchView.getEditText().isEmpty()){
-                    //隐藏搜索历史界面
-                    layout_search_history.setVisibility(View.GONE);
-                    srl.setVisibility(View.VISIBLE);
-
-                    q = searchView.getEditText().trim();
-                    download(pageNo,ACTION_DOWNLOAD);
-                    //将搜索词放入首选项
-                    SharedPreferenceUtils.getInstance(context).putSearthHistory(q);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //将热搜关键词放入首选项
+                SharedPreferenceUtils.getInstance(SearchActivity.this).putSearthHistory(texts_search_recommend[position]);
+                //携带热搜关键词进入搜索结果界面
+                gotoSearchResultActivity(texts_search_recommend[position]);
+            }
+        });
+        gridView_history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == searchHistory.size()){
+                    gridView_history.setVisibility(View.GONE);
+                    //删除首选项中历史搜索
+                    SharedPreferenceUtils.getInstance(SearchActivity.this).clearAllHistory();
                 }else{
-                    //没有搜索条件，显示搜索历史界面
-                    srl.setVisibility(View.GONE);
-                    layout_search_history.setVisibility(View.VISIBLE);
+                    //携带历史搜索关键词进入搜索结果界面
+                    gotoSearchResultActivity(searchHistory.get(position));
                 }
             }
         });
-        //下拉刷新
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                pageNo = 1;
-                download(pageNo,ACTION_PULL_DOWN);
-            }
-        });
-        //上拉加载
-        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                int lastPosition = gridLayoutManager.findLastVisibleItemPosition();
-                if(newState == RecyclerView.SCROLL_STATE_IDLE &&
-                        lastPosition>=adater.getItemCount()-1){
-                    pageNo = pageNo+1;
-                    download(pageNo,ACTION_PULL_UP);
-                }
-            }
-        });
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= 21){
-                    finishAfterTransition();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //更新搜索历史数据
+        initSearchHistory();
+    }
+
+    @Click({R.id.iv_back,R.id.tv_search})
+    void clickEvent(View view){
+        switch (view.getId()){
+            case R.id.iv_back:
+                MFGT.finish(this);
+                break;
+            case R.id.tv_search:
+                String goods = etSearch.getText().toString().trim();
+                if (goods.isEmpty()){
+                    Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
                 }else{
-                    MFGT.finish(SearchActivity.this);
+                    //将搜索关键词放入首选项
+                    SharedPreferenceUtils.getInstance(this).putSearthHistory(goods);
+
+                    gotoSearchResultActivity(goods);
                 }
-            }
-        });
-        //清空全部搜索记录
-        btnClearAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferenceUtils.getInstance(context).clearAllHistory();
-                searthHistory = null;
-                historyAdapter.notifyDataSetChanged();
-                layoutHistory.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    //搜索历史适配器
-    class SearthHistoryAdapter extends RecyclerView.Adapter<SearthHistoryAdapter.MyHolder>{
-        Context context;
-        View.OnClickListener clickListener;
-        public SearthHistoryAdapter(final Context context) {
-            this.context = context;
-            clickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = (int) v.getTag();
-                    switch (v.getId()){
-                        case R.id.iv_delete_history:
-                            //删除单条搜索记录
-                            SharedPreferenceUtils.getInstance(context).clearOneHistory(searthHistory.get(position));
-                            searthHistory.remove(position);
-                            notifyDataSetChanged();
-                            if(SharedPreferenceUtils.getInstance(context).getSearthHistory()==null){
-                                layoutHistory.setVisibility(View.GONE);
-                            }
-                            break;
-                        case R.id.tv_show_history:
-                            q = searthHistory.get(position);
-                            download(pageNo,ACTION_DOWNLOAD);
-                            layout_search_history.setVisibility(View.GONE);
-                            srl.setVisibility(View.VISIBLE);
-                            break;
-                    }
-
-                }
-            };
-        }
-        @Override
-        public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_searth_history, null);
-            return new MyHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(MyHolder holder, int position) {
-            holder.tvShowHistory.setText(searthHistory.get(position));
-            holder.ivDeleteHistory.setTag(position);
-            holder.tvShowHistory.setTag(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return searthHistory==null?0:searthHistory.size();
-        }
-
-        class MyHolder extends RecyclerView.ViewHolder{
-            TextView tvShowHistory;
-            ImageView ivDeleteHistory;
-            public MyHolder(View itemView) {
-                super(itemView);
-                tvShowHistory = (TextView) itemView.findViewById(R.id.tv_show_history);
-                ivDeleteHistory = (ImageView) itemView.findViewById(R.id.iv_delete_history);
-                ivDeleteHistory.setOnClickListener(clickListener);
-                tvShowHistory.setOnClickListener(clickListener);
-            }
+                break;
         }
     }
-
-    private void getUser(){
-        Session session = AlibcLogin.getInstance().getSession();
-        LogUtil.d(session.toString());
-    }
-
-    /*@Click(R.id.btn_taobao_out)
-    void logout(){
-        AlibcLogin.getInstance().logout(this, new LogoutCallback(){
-            @Override
-            public void onFailure(int i, String s) {
-
-            }
-
-            @Override
-            public void onSuccess() {
-
-            }
-        });
-    }*/
 
     @Override
     public void onBackPressed() {
         MFGT.finish(this);
+    }
+
+    //进入搜索结果界面
+    public void gotoSearchResultActivity(String goods){
+        Intent intent = new Intent(SearchActivity.this,SearchResultActivity_.class);
+        intent.putExtra("search_goods",goods);
+        MFGT.startActivity(SearchActivity.this,intent);
     }
 }

@@ -1,6 +1,7 @@
 package com.shenrui.wukongrebate.fragment.supers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,17 +10,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.BrandActivity_;
+import com.shenrui.wukongrebate.activity.SuperSearchActivity_;
+import com.shenrui.wukongrebate.activity.SuperSearchResultActivity_;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.MyGridView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
+@EFragment(R.layout.fragment_super_item)
 public class FragmentSuperItem extends Fragment {
+    @ViewById(R.id.srl_super_item)
     SwipeRefreshLayout srl;
+    @ViewById(R.id.rv_super_item)
     RecyclerView rv;
     String title;
     Context context;
@@ -32,7 +44,15 @@ public class FragmentSuperItem extends Fragment {
 
     }
 
-    @Override
+    @AfterViews
+    void init(){
+        title = getArguments().getString("title");
+        context = getContext();
+        initData();
+        initView();
+        setListener();
+    }
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_super_item, container, false);
@@ -42,7 +62,7 @@ public class FragmentSuperItem extends Fragment {
         initView(layout);
         setListener();
         return layout;
-    }
+    }*/
 
     private void setListener() {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -94,9 +114,7 @@ public class FragmentSuperItem extends Fragment {
 
     }
 
-    private void initView(View layout) {
-        srl = (SwipeRefreshLayout) layout.findViewById(R.id.srl_super_item);
-        rv = (RecyclerView) layout.findViewById(R.id.rv_super_item);
+    private void initView() {
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
         adapter = new SuperItemAdapter();
         rv.setAdapter(adapter);
@@ -192,10 +210,20 @@ public class FragmentSuperItem extends Fragment {
     class CategoryAdapter extends BaseAdapter {
         int[] images_category;
         String[] texts_category;
+        View.OnClickListener listener;
 
-        public CategoryAdapter(int[] images_category, String[] texts_category) {
+        CategoryAdapter(int[] images_category, final String[] texts_category) {
             this.images_category = images_category;
             this.texts_category = texts_category;
+            listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = (int) v.getTag(R.id.id_category);
+                    Intent intent = new Intent(context, SuperSearchResultActivity_.class);
+                    intent.putExtra("super_search_goods",title + texts_category[position]);
+                    MFGT.startActivity(context,intent);
+                }
+            };
         }
 
         @Override
@@ -221,17 +249,21 @@ public class FragmentSuperItem extends Fragment {
                 convertView = LayoutInflater.from(context).inflate(R.layout.layout_selected_category_item,null);
                 holder.ivCategory = (ImageView) convertView.findViewById(R.id.iv_category);
                 holder.tvCategory = (TextView) convertView.findViewById(R.id.tv_category);
+                holder.layoutCategory = (LinearLayout) convertView.findViewById(R.id.layout_category);
                 convertView.setTag(holder);
             }else{
                 holder = (CategoryHolder) convertView.getTag();
             }
             holder.ivCategory.setImageResource(images_category[position]);
             holder.tvCategory.setText(texts_category[position]);
+            holder.layoutCategory.setTag(R.id.id_category,position);
+            holder.layoutCategory.setOnClickListener(listener);
             return convertView;
         }
         class CategoryHolder{
             ImageView ivCategory;
             TextView tvCategory;
+            LinearLayout layoutCategory;
         }
     }
 }

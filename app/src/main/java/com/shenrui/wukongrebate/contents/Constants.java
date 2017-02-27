@@ -105,4 +105,6 @@ public class Constants {
     public static final int SORT_VOLUME_ASC = 456;
     //销量从高到低排列
     public static final int SORT_VOLUME_DESC = 654;
+    //综合排序
+    public static final int SORT_NO = 111;
 }

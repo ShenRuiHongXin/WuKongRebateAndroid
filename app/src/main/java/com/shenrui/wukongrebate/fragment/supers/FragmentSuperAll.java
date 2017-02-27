@@ -1,6 +1,5 @@
 package com.shenrui.wukongrebate.fragment.supers;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -17,30 +16,52 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
+import com.shenrui.wukongrebate.entities.TbkFavorite;
+
 import com.shenrui.wukongrebate.view.CycleRotationView;
-import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
+
+@EFragment(R.layout.fragment_super_all)
 public class FragmentSuperAll extends Fragment {
     Context context;
+
+    @ViewById(R.id.srl_super_new)
     SwipeRefreshLayout srl;
+    @ViewById(R.id.rv_super_new)
     RecyclerView rv;
+
     SuperNewAdapter adpter;
     GridLayoutManager layoutManager;
 
-    public FragmentSuperAll() {
-
+    @AfterViews
+    void init(){
+        context = getContext();
+        initView();
+        //getFavorites();
+        setListener();
     }
-
-    @Override
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_super_all, container, false);
         context = getContext();
-        initView(layout);
+        initView();
+        getFavorites();
         setListener();
         return layout;
+    }*/
+
+    @Background
+    void getFavorites() {
+        List<TbkFavorite> favorites = GetNetWorkDatas.getFavorites(1);
     }
 
     private void setListener() {
@@ -52,9 +73,9 @@ public class FragmentSuperAll extends Fragment {
         });
     }
 
-    private void initView(View layout) {
-        srl = (SwipeRefreshLayout) layout.findViewById(R.id.srl_super_new);
-        rv = (RecyclerView) layout.findViewById(R.id.rv_super_new);
+    private void initView() {
+        /*srl = (SwipeRefreshLayout) layout.findViewById(R.id.srl_super_new);
+        rv = (RecyclerView) layout.findViewById(R.id.rv_super_new);*/
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
         adpter = new SuperNewAdapter();
         rv.setAdapter(adpter);
@@ -88,7 +109,7 @@ public class FragmentSuperAll extends Fragment {
 
     class SuperNewAdapter extends RecyclerView.Adapter{
         private static final int TYPE_ONE = 0;//轮播图，爱逛街，美妆不可少，创意神器，精品小吃
-        private static final int TYPE_TWO = 1;//九块九商品
+        private static final int TYPE_TWO = 1;
 
         View.OnClickListener listener;
         SuperNewAdapter() {
