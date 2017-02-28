@@ -11,6 +11,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.shenrui.wukongrebate.utils.LogUtil;
 
+import cn.sharesdk.framework.ShareSDK;
 import cn.smssdk.SMSSDK;
 
 /**
@@ -42,6 +43,8 @@ public class MyApplication extends Application {
         //短信验证sdk初始化
         SMSSDK.initSDK(application, "1ace16e599126", "9123070f01ccf5f000012f1402658596");
 
+        //shareSDK初始化
+        ShareSDK.initSDK(this);
     }
 
 }

@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_toRightOf="@+id/iv_jf_task_sign"
-            android:layout_toLeftOf="@+id/tv_jf_task_sign_to_compl">
+            android:layout_toLeftOf="@+id/tv_jf_task_sign">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_jf_task_sign_to_compl"
+            android:id="@+id/tv_jf_task_sign"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_toRightOf="@+id/iv_jf_task_share"
-            android:layout_toLeftOf="@+id/tv_sign_recy_to_compl">
+            android:layout_toLeftOf="@+id/tv_jf_task_share">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -203,7 +203,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_sign_recy_to_compl"
+            android:id="@+id/tv_jf_task_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"

@@ -15,6 +15,7 @@ import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
+import com.shenrui.wukongrebate.view.JifenTaskView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -45,6 +46,8 @@ public class FragmentAward extends BaseFragment {
     RelativeLayout awardGift;
     @ViewById(R.id.forPhoneBill)
     RelativeLayout forPhoneBill;
+    @ViewById(R.id.jtv_jf_task)
+    JifenTaskView jfView;
 
     Context context;
     UserInfo userInfo;
