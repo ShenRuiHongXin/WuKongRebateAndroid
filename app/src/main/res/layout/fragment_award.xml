@@ -5,8 +5,7 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/award_color">
+        android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/iv_award_avatar"
             android:layout_width="80dp"
@@ -50,13 +49,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/mainGrey"
-        />
+        android:background="@color/mineGrey" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:background="@color/award_color">
+        android:orientation="horizontal">
         <RelativeLayout
             android:id="@+id/award_record"
             android:layout_width="0dp"
@@ -73,7 +70,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/mainGrey"/>
+            android:background="@color/mineGrey"/>
         <RelativeLayout
             android:id="@+id/award_details"
             android:layout_width="0dp"
@@ -90,7 +87,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/mainGrey"/>
+            android:background="@color/mineGrey"/>
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -111,7 +108,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">

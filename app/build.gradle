@@ -41,28 +41,47 @@ dependencies {
     //androidannotations配置
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     //androidannotations配置
+
     //EventBus配置
+
     //轮播图
+
     //百分比布局
+
     /*
-            百川电商
-            */
+                百川电商
+                */
+
     //fastjson
+
     //支付
+
     //登陆
+
     //    //【可选】仅供特殊合作伙伴使用
+
     //    compile 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
+
     //
+
     //安全基础
+
     //    //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
+
     //    compile 'com.taobao.android:securitybodyaar3:5.1.25@aar'
+
     //Mtop网关
+
     //applink
+
     //UT
+
     //电商SDK
+
     /*
-            *okHttp
-            * */
+                *okHttp
+                * */
+
     //SMS
     compile name: 'SMSSDK-2.1.3', ext: 'aar'
     compile name: 'SMSSDKGUI-2.1.3', ext: 'aar'
@@ -70,10 +89,10 @@ dependencies {
     compile files('libs/MobCommons-2016.1201.1839.jar')
     compile files('libs/MobTools-2016.1201.1839.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.1.0'
-    compile 'com.android.support:cardview-v7:24.1.0'
-    compile 'com.android.support:gridlayout-v7:24.1.0'
-    compile 'com.android.support:design:24.1.0'
+    compile 'com.android.support:recyclerview-v7:25.1.0'
+    compile 'com.android.support:cardview-v7:25.1.0'
+    compile 'com.android.support:gridlayout-v7:25.1.0'
+    compile 'com.android.support:design:25.1.0'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.zhy:percent-support-extends:1.1.1'
@@ -91,6 +110,23 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
+    compile files('libs/MobTools-2017.0216.1054.jar')
+    compile files('libs/ShareSDK-Alipay-2.8.1.jar')
+    compile files('libs/ShareSDK-Alipay-Core-2.8.1.jar')
+    compile files('libs/ShareSDK-Core-2.8.1.jar')
+    compile files('libs/ShareSDK-Dingding-2.8.1.jar')
+    compile files('libs/ShareSDK-Email-2.8.1.jar')
+    compile files('libs/ShareSDK-Facebook-2.8.1.jar')
+    compile files('libs/ShareSDK-Line-2.8.1.jar')
+    compile files('libs/ShareSDK-QQ-2.8.1.jar')
+    compile files('libs/ShareSDK-QZone-2.8.1.jar')
+    compile files('libs/ShareSDK-ShortMessage-2.8.1.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.8.1.jar')
+    compile files('libs/ShareSDK-TencentWeibo-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.8.1.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.8.1.jar')
+    compile files('libs/MobCommons-2017.0216.1054.jar')
 }
 
 /*

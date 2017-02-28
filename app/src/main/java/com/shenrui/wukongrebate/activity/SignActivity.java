@@ -89,12 +89,7 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
                 tmpPosition = 1;
                 break;
             case R.id.toolbar_left_image:
-                if (Build.VERSION.SDK_INT >= 21){
-                    vp_sign_content.setBackgroundColor(ContextCompat.getColor(this,R.color.category_bg));
-                    finishAfterTransition();
-                }else{
-                    MFGT.finish(this);
-                }
+                MFGT.finish(this);
                 return;
         }
         selectPage(tmpPosition);
@@ -102,7 +97,6 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
 
     //重置界面
     private void resetView() {
-        //
         ((ImageView)list_sign_iv.get(0)).setImageResource(R.drawable.index_sign_btn_award_n);
 //        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_task_n);
         ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_n);
@@ -154,13 +148,13 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
 
     }
 
-    @Override
+    /*@Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
             vp_sign_content.setBackgroundColor(ContextCompat.getColor(this,R.color.category_bg));
         }
         return super.onKeyDown(keyCode, event);
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

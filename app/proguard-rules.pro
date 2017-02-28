@@ -188,3 +188,12 @@
     -keep class com.google.gson.** { *;}
     #这句非常重要，主要是滤掉 com.bgb.scan.model包下的所有.class文件不进行混淆编译
     -keep class com.bgb.scan.model.** {*;}
+
+    -keep class cn.sharesdk.**{*;}
+    	-keep class com.sina.**{*;}
+    	-keep class **.R$* {*;}
+    	-keep class **.R{*;}
+    	-keep class com.mob.**{*;}
+    	-dontwarn com.mob.**
+    	-dontwarn cn.sharesdk.**
+    	-dontwarn **.R$*

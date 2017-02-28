@@ -9,11 +9,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
 import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
+import com.shenrui.wukongrebate.view.JifenTaskView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -44,6 +46,8 @@ public class FragmentAward extends BaseFragment {
     RelativeLayout awardGift;
     @ViewById(R.id.forPhoneBill)
     RelativeLayout forPhoneBill;
+    @ViewById(R.id.jtv_jf_task)
+    JifenTaskView jfView;
 
     Context context;
     UserInfo userInfo;
@@ -98,7 +102,9 @@ public class FragmentAward extends BaseFragment {
                 break;
             case R.id.award_gift://积分抽奖
                 if(!isLogin){
-                    startActivity(new Intent(context, LoginActivity_.class));
+                    MFGT.startActivity(context,LoginActivity_.class);
+                }else{
+                    MFGT.startActivity(context, IntegralLuckDrawActivity_.class);
                 }
                 break;
             case R.id.forPhoneBill://兑话费

@@ -18,10 +18,9 @@ import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MyPageAdapter;
-import com.shenrui.wukongrebate.contents.Constants;
-import com.shenrui.wukongrebate.entities.CatsItemLocal;
-import com.shenrui.wukongrebate.fragment.supers.FragmentSuperAll;
+import com.shenrui.wukongrebate.fragment.supers.FragmentSuperAll_;
 import com.shenrui.wukongrebate.fragment.supers.FragmentSuperItem;
+import com.shenrui.wukongrebate.fragment.supers.FragmentSuperItem_;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.MyGridView;
 
@@ -77,9 +76,9 @@ public class SuperActivity extends BaseActivity{
         String[] texts = {"今日上新","女装","男装","食品","美妆","居家","内衣","运动"};
         titles = Arrays.asList(texts);
         fragments = new ArrayList<>();
-        fragments.add(new FragmentSuperAll());
+        fragments.add(new FragmentSuperAll_());
         for(int i=0;i<texts.length-1;i++){
-            FragmentSuperItem item = new FragmentSuperItem();
+            FragmentSuperItem item = new FragmentSuperItem_();
             Bundle bundle = new Bundle();
             bundle.putString("title",titles.get(i+1));
             item.setArguments(bundle);

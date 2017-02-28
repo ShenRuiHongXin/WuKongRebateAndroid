@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 /**
  * Created by Administrator on 2017/2/20.
  */
@@ -32,6 +34,7 @@ public class SuperGoodsAdapter extends RecyclerView.Adapter {
     int sortBy;//排序规则
     View.OnClickListener listener;
     DecimalFormat df;
+    View.OnLongClickListener longClickListener;
     public SuperGoodsAdapter(final Context context, List<TbkItem> list) {
         this.context = context;
         this.list = list;
@@ -44,6 +47,14 @@ public class SuperGoodsAdapter extends RecyclerView.Adapter {
                 Intent intent = new Intent(context, AliSdkWebViewProxyActivity_.class);
                 intent.putExtra("num_iid",cid);
                 MFGT.startActivity(context,intent);
+            }
+        };
+        longClickListener = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                TbkItem item = (TbkItem) v.getTag(R.id.id_share);
+                showShare(item.getTitle(),item.getItem_url(),item.getPict_url());
+                return true;
             }
         };
     }
@@ -94,6 +105,7 @@ public class SuperGoodsAdapter extends RecyclerView.Adapter {
         goodsHolder.tvGoodsFan.setText(df.format(Double.parseDouble(tbkItem.getZk_final_price()) * Constants.RATE_FAN));
         goodsHolder.ivGoodsType.setImageResource(tbkItem.getUser_type() == 0 ? R.drawable.common_icon_tao : R.drawable.common_icon_mao);
         goodsHolder.layoutNineGoods.setTag(String.valueOf(tbkItem.getNum_iid()));
+        goodsHolder.layoutNineGoods.setTag(R.id.id_share,tbkItem);
     }
 
     public void initData(List<TbkItem> goodsList){
@@ -129,6 +141,34 @@ public class SuperGoodsAdapter extends RecyclerView.Adapter {
             tvGoodsPrice = (TextView) itemView.findViewById(R.id.tv_super_goods_price);
             layoutNineGoods = (LinearLayout) itemView.findViewById(R.id.layout_super_goods);
             layoutNineGoods.setOnClickListener(listener);
+            layoutNineGoods.setOnLongClickListener(longClickListener);
         }
+    }
+
+    private void showShare(String title,String url,String imgUrl) {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+        // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
+        oks.setTitle("悟空返利");
+        // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
+        oks.setTitleUrl(url);
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText(title);
+        //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
+        oks.setImageUrl(imgUrl);
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl(url);
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("我是测试评论文本");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite("ShareSDK");
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://sharesdk.cn");
+
+        // 启动分享GUI
+        oks.show(context);
     }
 }
