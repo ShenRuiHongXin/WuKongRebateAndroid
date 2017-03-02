@@ -97,4 +97,9 @@ public class UserNameActivity extends BaseActivity {
             });
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
+    }
 }

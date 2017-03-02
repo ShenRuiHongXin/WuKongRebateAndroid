@@ -60,7 +60,6 @@
                 android:id="@+id/toolbar_right_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
                 android:src="@mipmap/ic_launcher" />
 
         </LinearLayout>

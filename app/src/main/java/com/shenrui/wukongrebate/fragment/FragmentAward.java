@@ -12,6 +12,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
 import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
@@ -51,6 +52,7 @@ public class FragmentAward extends BaseFragment {
 
     Context context;
     UserInfo userInfo;
+    UserAuths userAuths;
     @AfterViews
     void init(){
         context = getContext();
@@ -60,12 +62,17 @@ public class FragmentAward extends BaseFragment {
     boolean isLogin;
     private void initUserData() {
         userInfo = SharedPreferenceUtils.getInstance(context).getUserInfo();
+        userAuths = SharedPreferenceUtils.getInstance(context).getUserAuths();
         if(userInfo!=null){
             isLogin = true;
             tvUserName.setText(userInfo.getNick_name());
             tvIntegral.setText(String.valueOf(userInfo.getIntegral()));
             if(userInfo.getAvatar()!=null){
-                Glide.with(context).load(Constants.HOST+userInfo.getAvatar()).into(ivAvatar);
+                if (!userAuths.getIdentity_type().equals("phone")){
+                    Glide.with(this).load(userInfo.getAvatar()).into(ivAvatar);
+                }else{
+                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(ivAvatar);
+                }
             }else{
                 ivAvatar.setImageResource(R.drawable.mine_avatar);
             }

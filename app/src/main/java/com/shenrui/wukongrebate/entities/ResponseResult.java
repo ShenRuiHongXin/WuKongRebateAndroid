@@ -14,7 +14,7 @@ public class ResponseResult {
 
     @Override
     public String toString() {
-        return "ResponseResult{" +
+        return "{" +
                 "result=" + result +
                 ", userInfo=" + userInfo +
                 ", userAuths=" + userAuths +

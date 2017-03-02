@@ -48,6 +48,7 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
     TextView tv_all_order;
     SwipeRefreshLayout srl;
     Context context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.mine_fragment_page, container, false);
@@ -72,7 +73,11 @@ public class FragmentMine extends BaseFragment implements View.OnClickListener{
             tv_money.setText(userInfo.getBalance()+"元");
             iv_sex.setImageResource(userInfo.getSex() == 2?R.drawable.mine_sex_woman:R.drawable.mine_sex_man);
             if(userInfo.getAvatar()!=null){
-                Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(iv_avatar);
+                if (!userAuths.getIdentity_type().equals("phone")){
+                    Glide.with(this).load(userInfo.getAvatar()).into(iv_avatar);
+                }else{
+                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(iv_avatar);
+                }
             }else{
                 iv_avatar.setImageResource(R.drawable.mine_avatar);
             }

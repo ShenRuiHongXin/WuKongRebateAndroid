@@ -124,6 +124,46 @@ public class NetDao {
                 .execute(listener);
     }
 
+    //第三方登录
+    public static void otherLogin(Context context,String loginType,String number,String nick,String icon,String password,OkHttpUtils.OnCompleteListener<ResponseResult> listener){
+        UserInfo userInfo = new UserInfo();
+        userInfo.setNick_name(nick);
+        userInfo.setAvatar(icon);
+        Gson gson = new Gson();
+        String userInfoJson = gson.toJson(userInfo);
+        Log.e("DeDiWang userInfo",userInfoJson);
+
+        UserAuths userAuths = new UserAuths();
+        userAuths.setIdentity_type(loginType);
+        userAuths.setIdentifier(number);
+        userAuths.setCredential(password);
+        String userAuthsJson = gson.toJson(userAuths);
+        Log.e("DeDiWang userAuths",userAuthsJson);
+
+        LoginInfo loginInfo = new LoginInfo();
+        long l = System.currentTimeMillis();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = format.format(new Date(l));
+        loginInfo.setLast_login_time(time);
+        loginInfo.setLast_login_device_model(Build.MODEL);
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+        String deviceId = tm.getDeviceId();
+        loginInfo.setLast_login_device_id(deviceId);
+        String ipAddress = getIpAddressString();
+        loginInfo.setLast_login_ip(ipAddress);
+        String loginInfoJson = gson.toJson(loginInfo);
+        Log.e("DeDiWang loginInfo",loginInfoJson);
+
+        OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_URL+"user_login")
+                .post()
+                .addParam("userInfo",userInfoJson)
+                .addParam("userAuths",userAuthsJson)
+                .addParam("loginInfo",loginInfoJson)
+                .targetClass(ResponseResult.class)
+                .execute(listener);
+    }
+
     //获取登录ip地址
     public static String getIpAddressString() {
         try {

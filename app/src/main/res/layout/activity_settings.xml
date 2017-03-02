@@ -9,9 +9,9 @@
     <Button
         android:id="@+id/btn_exit"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:text="退出当前帐号"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:background="@color/mineRed"
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"/>
@@ -30,8 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="10dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,8 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,8 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -123,8 +120,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -154,8 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,8 +180,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -216,8 +210,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:background="@color/mineGrey">
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

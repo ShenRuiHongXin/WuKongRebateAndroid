@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.ali.auth.third.core.model.User;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SignActivity_;
+import com.shenrui.wukongrebate.activity.TestActivity;
+import com.shenrui.wukongrebate.activity.TestActivity_;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
@@ -48,6 +50,7 @@ public class MineGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 switch (position){
                     case 0:
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();
+                        MFGT.startActivity(context, TestActivity_.class);
                         break;
                     case 1:
                         Toast.makeText(context, texts[position], Toast.LENGTH_SHORT).show();
