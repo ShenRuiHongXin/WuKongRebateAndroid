@@ -169,9 +169,9 @@ public class SuperActivity extends BaseActivity{
     //切换分类箭头方向
     private void checkExpandStatus() {
         if (isExpand){
-            ivExpand.setImageResource(R.drawable.nav_icon_back);
+            ivExpand.setImageResource(R.drawable.nav_icon_backup);
         }else{
-            ivExpand.setImageResource(R.drawable.common_btn_down_n);
+            ivExpand.setImageResource(R.drawable.nav_icon_backdown);
         }
     }
 

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -26,7 +27,7 @@
                 android:id="@+id/iv_rebate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_bag_s" />
+                android:src="@drawable/tab_icon_fanli_pre" />
 
             <TextView
                 android:id="@+id/tv_rebate"
@@ -53,7 +54,7 @@
                 android:id="@+id/iv_food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_tropical_n" />
+                android:src="@drawable/tab_icon_meishi_default" />
 
             <TextView
                 android:id="@+id/tv_food"
@@ -106,7 +107,7 @@
                 android:id="@+id/iv_haitao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_earth_n" />
+                android:src="@drawable/tab_icon_zhidemai_default" />
 
             <TextView
                 android:id="@+id/tv_haitao"
@@ -114,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:singleLine="true"
-                android:text="海淘"
+                android:text="值得买"
                 android:textSize="10sp"
                 android:textColor="#B3B3B3" />
         </LinearLayout>
@@ -133,7 +134,7 @@
                 android:id="@+id/iv_mine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_monkey_n" />
+                android:src="@drawable/tab_icon_wukong_default" />
 
             <TextView
                 android:id="@+id/tv_mine"

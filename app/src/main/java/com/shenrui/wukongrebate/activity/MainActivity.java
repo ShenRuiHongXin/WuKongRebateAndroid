@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
+import com.shenrui.wukongrebate.fragment.FragmentZhi_;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.view.NoScrollViewPager;
 
@@ -80,11 +81,11 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
         vp_content.addOnPageChangeListener(this);
 
-        fragmentList   = new ArrayList<Fragment>();
+        fragmentList = new ArrayList<Fragment>();
 
         fragmentList.add(new FragmentRebate_());
         fragmentList.add(new FragmentFood_());
-        fragmentList.add(new FragmentHaitao_());
+        fragmentList.add(new FragmentZhi_());
         fragmentList.add(new FragmentMine());
 
         this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
@@ -114,10 +115,10 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
 
     //重置界面
     private void resetView() {
-        ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_bag_n);
-        ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_tropical_n);
-        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_earth_n);
-        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_monkey_n);
+        ((ImageView)iv_list.get(0)).setImageResource(R.drawable.tab_icon_fanli_default);
+        ((ImageView)iv_list.get(1)).setImageResource(R.drawable.tab_icon_meishi_default);
+        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.tab_icon_zhidemai_default);
+        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.tab_icon_wukong_default);
 
         ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
         ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
@@ -129,22 +130,22 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     private void selectPage(int position){
         switch (position) {
             case 0:
-                ((ImageView)iv_list.get(0)).setImageResource(R.drawable.common_icon_bag_s);
+                ((ImageView)iv_list.get(0)).setImageResource(R.drawable.tab_icon_fanli_pre);
                 ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(0);
                 break;
             case 1:
-                ((ImageView)iv_list.get(1)).setImageResource(R.drawable.common_icon_tropical_s);
+                ((ImageView)iv_list.get(1)).setImageResource(R.drawable.tab_icon_meishi_pre);
                 ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(1);
                 break;
             case 2:
-                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.common_icon_earth_s);
+                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.tab_icon_zhidemai_pre);
                 ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(2);
                 break;
             case 3:
-                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.common_icon_monkey_s);
+                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.tab_icon_wukong_pre);
                 ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
                 vp_content.setCurrentItem(3);
                 break;

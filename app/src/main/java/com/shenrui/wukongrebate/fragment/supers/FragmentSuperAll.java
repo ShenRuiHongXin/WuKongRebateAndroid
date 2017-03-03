@@ -48,16 +48,6 @@ public class FragmentSuperAll extends Fragment {
         //getFavorites();
         setListener();
     }
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_super_all, container, false);
-        context = getContext();
-        initView();
-        getFavorites();
-        setListener();
-        return layout;
-    }*/
 
     @Background
     void getFavorites() {
@@ -74,8 +64,6 @@ public class FragmentSuperAll extends Fragment {
     }
 
     private void initView() {
-        /*srl = (SwipeRefreshLayout) layout.findViewById(R.id.srl_super_new);
-        rv = (RecyclerView) layout.findViewById(R.id.rv_super_new);*/
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
         adpter = new SuperNewAdapter();
         rv.setAdapter(adpter);

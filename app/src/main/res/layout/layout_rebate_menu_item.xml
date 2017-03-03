@@ -59,8 +59,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="悟空团"
-            android:drawableTop="@drawable/home_btn_bulk"
+            android:text="值得买"
+            android:drawableTop="@drawable/home_btn_zhidemai"
             android:drawablePadding="3dp"
             android:gravity="center_horizontal"/>
         <TextView

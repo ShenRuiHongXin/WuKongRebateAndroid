@@ -28,6 +28,8 @@
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
+    //多麦广告
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTOUT"/>
     <!--
     &lt;!&ndash; 蓝牙分享所需的权限 &ndash;&gt;
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -62,7 +64,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
-        <meta-data
+        <!--<meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="Xsrcs9TkMRzx4n3zrC0TNf0Q6Y1yuaUI" />
         //key:开发者申请的Key
@@ -70,7 +72,7 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":remote" />-->
         //短信验证
         <!--
             <activity
@@ -132,10 +134,15 @@
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- value填写从多麦移动联盟获取到的appkey -->
+        <meta-data android:name="appkey" android:value="225371" />
+        <!-- value填写从多麦移动联盟获取到的appsecret -->
+        <meta-data android:name="appsecret" android:value="602e18c7870a1f0184cdb4c4aa1536d4"/>
+
         <activity
             android:name=".activity.MainActivity_"
             android:launchMode="singleTask" />
