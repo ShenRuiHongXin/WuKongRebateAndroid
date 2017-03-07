@@ -258,8 +258,8 @@ public class FragmentNineAll extends BaseFragment {
                 super(itemView);
                 nineCrv = (CycleRotationView) itemView.findViewById(R.id.nine_cycleRotationView);
                 layoutScaleRank = (RelativeLayout) itemView.findViewById(R.id.layout_scale_rank);
-                layoutNineTeam = (RelativeLayout) itemView.findViewById(R.id.layout_nine_team);
-                layoutNineTeam.setOnClickListener(this);
+                //layoutNineTeam = (RelativeLayout) itemView.findViewById(R.id.layout_nine_team);
+                //layoutNineTeam.setOnClickListener(this);
                 layoutScaleRank.setOnClickListener(this);
             }
 

@@ -1,8 +1,12 @@
 package com.shenrui.wukongrebate.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
@@ -10,10 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
+import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
 import com.shenrui.wukongrebate.fragment.FragmentMine;
@@ -32,126 +38,101 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-
+public class MainActivity extends BaseActivity{
     Context context;
-    @ViewById(R.id.vp_content)
-    NoScrollViewPager vp_content;
 
-    @ViewsById({R.id.ll_rebate, R.id.ll_food, R.id.ll_haitao, R.id.ll_mine})
-    List ll_list;
+    @ViewById(R.id.rb_rebate)
+    RadioButton rbRebate;
+    @ViewById(R.id.rb_food)
+    RadioButton rbFood;
+    @ViewById(R.id.rb_zhi)
+    RadioButton rbZhi;
+    @ViewById(R.id.rb_wukong)
+    RadioButton rbWuKong;
 
-    @ViewsById({R.id.iv_rebate, R.id.iv_food, R.id.iv_haitao, R.id.iv_mine})
-    List iv_list;
-
-    @ViewsById({R.id.tv_rebate, R.id.tv_food, R.id.tv_haitao, R.id.tv_mine})
-    List tv_list;
-
-    private List<View> views;
+    private RadioButton[] rbs;
     private List<Fragment> fragmentList;
 
-    // ViewPager适配器MainViewPagerAdapter
-    private MainViewPagerAdapter adapter;
-
-    public static List mainData = null;
-
-    private void addStatusBarView() {
-        View view = new View(this);
-        view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(this));
-        ViewGroup decorView = (ViewGroup) findViewById(android.R.id.content);
-        decorView.addView(view, params);
-    }
-
-    public int getStatusBarHeight(Context context) {
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return context.getResources().getDimensionPixelSize(resourceId);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //addStatusBarView();
-        context = this;
-    }
-
+    MyReceiver receiver;
+    int index = 0;
     @AfterViews
     void init() {
-        LogUtil.i("Mainactivity oncreate");
-
-        vp_content.addOnPageChangeListener(this);
-
-        fragmentList = new ArrayList<Fragment>();
-
+        context = this;
+        fragmentList = new ArrayList<>();
         fragmentList.add(new FragmentRebate_());
-        fragmentList.add(new FragmentFood_());
         fragmentList.add(new FragmentZhi_());
+        fragmentList.add(new FragmentFood_());
         fragmentList.add(new FragmentMine());
 
-        this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
-        vp_content.setAdapter(adapter);
+        //设置默认显示的Fragment
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.layout_content,fragmentList.get(0)).show(fragmentList.get(0)).commit();
+
+        //注册广播接受者
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Constants.GOTOZHI);
+        receiver = new MyReceiver();
+        registerReceiver(receiver,filter);
     }
 
-    @Click({R.id.ll_rebate, R.id.ll_food, R.id.ll_haitao, R.id.ll_mine})
+    class MyReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            index = 1;
+            switchFragment();
+        }
+    }
+
+    @Click({R.id.rb_rebate, R.id.rb_zhi, R.id.rb_food, R.id.rb_wukong})
     void clickEvent(View view) {
-        resetView();
-        int tmpPosition = 0;
         switch (view.getId()) {
-            case R.id.ll_rebate:
-                tmpPosition = 0;
+            case R.id.rb_rebate:
+                index = 0;
                 break;
-            case R.id.ll_food:
-                tmpPosition = 1;
+            case R.id.rb_zhi:
+                index = 1;
                 break;
-            case R.id.ll_haitao:
-                tmpPosition = 2;
+            case R.id.rb_food:
+                index = 2;
                 break;
-            case R.id.ll_mine:
-                tmpPosition = 3;
+            case R.id.rb_wukong:
+                index = 3;
                 break;
+            default:
+                index = 0;
         }
-        selectPage(tmpPosition);
+        switchFragment();
     }
 
-    //重置界面
-    private void resetView() {
-        ((ImageView)iv_list.get(0)).setImageResource(R.drawable.tab_icon_fanli_default);
-        ((ImageView)iv_list.get(1)).setImageResource(R.drawable.tab_icon_meishi_default);
-        ((ImageView)iv_list.get(2)).setImageResource(R.drawable.tab_icon_zhidemai_default);
-        ((ImageView)iv_list.get(3)).setImageResource(R.drawable.tab_icon_wukong_default);
-
-        ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-        ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-        ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-        ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
+    int currentIndex;
+    private void switchFragment() {
+        initViewStatus();
+        if(currentIndex == index){
+            return;
+        }
+        Fragment fragment = fragmentList.get(index);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (!fragment.isAdded()){
+            ft.add(R.id.layout_content,fragment);
+        }
+        ft.show(fragmentList.get(index)).hide(fragmentList.get(currentIndex)).commit();
+        currentIndex = index;
     }
 
-    //设置选中页
-    private void selectPage(int position){
-        switch (position) {
-            case 0:
-                ((ImageView)iv_list.get(0)).setImageResource(R.drawable.tab_icon_fanli_pre);
-                ((TextView)tv_list.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-                vp_content.setCurrentItem(0);
-                break;
-            case 1:
-                ((ImageView)iv_list.get(1)).setImageResource(R.drawable.tab_icon_meishi_pre);
-                ((TextView)tv_list.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-                vp_content.setCurrentItem(1);
-                break;
-            case 2:
-                ((ImageView)iv_list.get(2)).setImageResource(R.drawable.tab_icon_zhidemai_pre);
-                ((TextView)tv_list.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-                vp_content.setCurrentItem(2);
-                break;
-            case 3:
-                ((ImageView)iv_list.get(3)).setImageResource(R.drawable.tab_icon_wukong_pre);
-                ((TextView)tv_list.get(3)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-                vp_content.setCurrentItem(3);
-                break;
+    private void initViewStatus(){
+        rbs = new RadioButton[4];
+        rbs[0] = rbRebate;
+        rbs[1] = rbZhi;
+        rbs[2] = rbFood;
+        rbs[3] = rbWuKong;
+        for(int i = 0;i<rbs.length;i++){
+            if (index == i){
+                rbs[i].setChecked(true);
+            }else{
+                rbs[i].setChecked(false);
+            }
         }
     }
-
 
     private long exitTime = 0;
     @Override
@@ -170,18 +151,8 @@ public class MainActivity extends BaseActivity implements ViewPager.OnPageChange
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
     }
-
-    @Override
-    public void onPageSelected(int position) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
 }

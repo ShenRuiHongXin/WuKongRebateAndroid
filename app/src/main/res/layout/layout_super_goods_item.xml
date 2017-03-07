@@ -13,14 +13,12 @@
         <ImageView
             android:id="@+id/iv_super_goods"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:src="@drawable/oversea_activity_img9"/>
+            android:layout_height="180dp" />
         <TextView
             android:id="@+id/tv_super_goods_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="男士纯色打底短袖T恤简约舒适百搭"
             android:textSize="15sp"
             android:maxLines="2"/>
         <View
@@ -71,8 +69,7 @@
             <ImageView
                 android:id="@+id/iv_super_goods_type"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/common_icon_tao"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

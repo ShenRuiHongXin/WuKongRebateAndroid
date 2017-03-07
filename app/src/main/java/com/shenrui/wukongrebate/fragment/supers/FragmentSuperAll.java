@@ -4,68 +4,138 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
+import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.TbkFavorite;
 
+import com.shenrui.wukongrebate.entities.UatmTbkItem;
+import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.Utils;
 import com.shenrui.wukongrebate.view.CycleRotationView;
+import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @EFragment(R.layout.fragment_super_all)
 public class FragmentSuperAll extends Fragment {
     Context context;
+    private static final int ACTION_DOWNLOAD = 0;
+    private static final int ACTION_PULL_UP = 1;
+    private static final int ACTION_PULL_DOWN = 2;
+    private static final int ACTION_NO_NET = 3;
 
     @ViewById(R.id.srl_super_new)
     SwipeRefreshLayout srl;
     @ViewById(R.id.rv_super_new)
     RecyclerView rv;
+    @ViewById(R.id.fab_super_new)
+    FloatingActionButton fab;
 
+    List<UatmTbkItem> goodsList;
     SuperNewAdapter adpter;
     GridLayoutManager layoutManager;
+    int pageNo = 1;
 
     @AfterViews
     void init(){
         context = getContext();
         initView();
-        //getFavorites();
+        srl.setRefreshing(true);
+        getFavorites(ACTION_DOWNLOAD,1);
         setListener();
     }
 
+    @Click(R.id.fab_super_new)
+    void clickEvent(){
+        rv.scrollToPosition(0);
+        fab.setVisibility(View.GONE);
+    }
+
     @Background
-    void getFavorites() {
-        List<TbkFavorite> favorites = GetNetWorkDatas.getFavorites(1);
+    void getFavorites(int action,int pageNo) {
+        if (Utils.isNetworkConnected(context)){
+            Map<String, Object> map = GetNetWorkDatas.getFavoritesGoods(3305391, pageNo ,Constants.PAGE_SIZE);
+            List<UatmTbkItem> goods = (List<UatmTbkItem>) map.get(Constants.GOODS);
+            updateUi(action,goods);
+        }else{
+            updateUi(ACTION_NO_NET,null);
+        }
+    }
+
+    @UiThread
+    void updateUi(int action,List<UatmTbkItem> list){
+        switch (action){
+            case ACTION_DOWNLOAD:
+            case ACTION_PULL_DOWN:
+                adpter.initData(list);
+                srl.setRefreshing(false);
+                break;
+            case ACTION_PULL_UP:
+                adpter.addData(list);
+                break;
+            case ACTION_NO_NET:
+                Toast.makeText(context, getString(R.string.word_no_net), Toast.LENGTH_SHORT).show();
+                srl.setRefreshing(false);
+                break;
+        }
     }
 
     private void setListener() {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                srl.setRefreshing(false);
+                pageNo = 1;
+                getFavorites(ACTION_PULL_DOWN,pageNo);
+            }
+        });
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int position = layoutManager.findLastVisibleItemPosition();
+                if (position>5){
+                    fab.setVisibility(View.VISIBLE);
+                }else{
+                    fab.setVisibility(View.GONE);
+                }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE&&position>=adpter.getItemCount()-1){
+                    pageNo = pageNo+1;
+                    getFavorites(ACTION_PULL_UP,pageNo);
+                }
             }
         });
     }
 
     private void initView() {
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
-        adpter = new SuperNewAdapter();
+        goodsList = new ArrayList<>();
+        adpter = new SuperNewAdapter(goodsList);
         rv.setAdapter(adpter);
         layoutManager = new GridLayoutManager(context,2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -98,11 +168,11 @@ public class FragmentSuperAll extends Fragment {
     class SuperNewAdapter extends RecyclerView.Adapter{
         private static final int TYPE_ONE = 0;//轮播图，爱逛街，美妆不可少，创意神器，精品小吃
         private static final int TYPE_TWO = 1;
-
+        List<UatmTbkItem> list;
         View.OnClickListener listener;
-        SuperNewAdapter() {
-
-            /*listener = new View.OnClickListener() {
+        SuperNewAdapter(List<UatmTbkItem> list) {
+            this.list = list;
+            listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String cid = (String) v.getTag();
@@ -111,7 +181,7 @@ public class FragmentSuperAll extends Fragment {
                     intent.putExtra("num_iid",cid);
                     MFGT.startActivity(context,intent);
                 }
-            };*/
+            };
         }
 
         @Override
@@ -139,24 +209,33 @@ public class FragmentSuperAll extends Fragment {
                 oneHolder.superNewCrv.setImages(new int[]{R.drawable.home_banner,R.drawable.home_banner,R.drawable.home_banner});
             }else{
                 TwoHolder twoHolder = (TwoHolder) holder;
-                if (position%2==0){
-                    twoHolder.ivNewGoods.setImageResource(R.drawable.img_right_clothes);
-                    twoHolder.tvTitle.setText("稻草人时尚单肩小挎包");
-                    twoHolder.tvPrice.setText("165.8");
-                    twoHolder.tvVolume.setText("355");
-                }else{
-                    twoHolder.ivNewGoods.setImageResource(R.drawable.img_left_bag);
-                    twoHolder.tvTitle.setText("稻草人时尚单肩小挎包");
-                    twoHolder.tvPrice.setText("95.8");
-                    twoHolder.tvVolume.setText("251");
-                }
+                UatmTbkItem uatmTbkItem = list.get(position-1);
+                twoHolder.tvTitle.setText(uatmTbkItem.getTitle());
+                twoHolder.tvPrice.setText(uatmTbkItem.getZk_final_price());
+                twoHolder.tvVolume.setText(String.valueOf(uatmTbkItem.getVolume()));
+                Glide.with(context).load(uatmTbkItem.getPict_url()).into(twoHolder.ivNewGoods);
+                twoHolder.tvRate.setText(uatmTbkItem.getTk_rate());
+                twoHolder.layoutNewGoods.setTag(String.valueOf(uatmTbkItem.getNum_iid()));
             }
-
         }
-
+        public void initData(List<UatmTbkItem> goodsList){
+            if (list.size()!=0){
+                list.clear();
+            }
+            if (goodsList!=null){
+                list.addAll(goodsList);
+                notifyDataSetChanged();
+            }
+        }
+        public void addData(List<UatmTbkItem> goodsList){
+            if (goodsList!=null){
+                list.addAll(goodsList);
+                notifyDataSetChanged();
+            }
+        }
         @Override
         public int getItemCount() {
-            return 11;
+            return list.size()==0?0:1+list.size();
         }
 
         @Override

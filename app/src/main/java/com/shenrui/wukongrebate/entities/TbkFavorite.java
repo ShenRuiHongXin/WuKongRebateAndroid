@@ -9,6 +9,9 @@ public class TbkFavorite {
     private long favorites_id;//选品库id
     private String favorites_title;//选品组名称
 
+    public TbkFavorite() {
+    }
+
     public TbkFavorite(int type, long favorites_id, String favorites_title) {
         this.type = type;
         this.favorites_id = favorites_id;

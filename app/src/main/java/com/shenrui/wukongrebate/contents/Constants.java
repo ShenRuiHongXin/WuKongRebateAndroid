@@ -15,8 +15,10 @@ public class Constants {
     //正式环境
     public static final String ROOT_URL = "http://gw.api.taobao.com/router/rest?";
     //淘宝客app key
-    public static final String APP_KEY = "23585348";
-    public static final String APP_SECRET = "ac4a7853f5ae6b37642358c8ba8c7aef";
+    //public static final String APP_KEY = "23585348";
+    public static final String APP_KEY = "23665752";
+    //public static final String APP_SECRET = "ac4a7853f5ae6b37642358c8ba8c7aef";
+    public static final String APP_SECRET = "efcb1281a2de520742aa08f7bcfe46f3";
 
     //返给用户的佣金比率
     public static final double RATE_FAN = 0.15;
@@ -114,4 +116,16 @@ public class Constants {
     public static final String WECHAT = "wechat";
     public static final String TAOBAO = "taobao";
     public static final String TYPE_PHONE = "phone";
+
+    //商品和商品数量
+    public static final String GOODS = "goodsList";
+    public static final String TOTALS = "totals";
+    //默认每页加载的商品数量
+    public static final int PAGE_SIZE = 20;
+
+    //跳到值得买界面
+    public static final String GOTOZHI = "go_to_zhi";
+
+    //某品牌选品库id
+    public static final String FAVORITES_ID = "favorites_id";
 }

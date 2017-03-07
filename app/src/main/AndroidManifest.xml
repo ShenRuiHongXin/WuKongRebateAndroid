@@ -145,7 +145,13 @@
 
         <activity
             android:name=".activity.MainActivity_"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.SettingsActivity_" />
         <activity
@@ -187,13 +193,14 @@
         <activity
             android:name=".activity.NineSearchResultActivity_"
             android:launchMode="singleInstance" />
-        <activity android:name=".activity.BrandActivity_" />
+        <activity android:name=".activity.BrandActivity_"
+            android:launchMode="singleInstance"/>
         <activity android:name=".activity.SplashActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".activity.SuperActivity_"

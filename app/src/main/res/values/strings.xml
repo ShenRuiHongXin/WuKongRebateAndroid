@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">悟空返利</string>
-    <string name="agree_agreement">注册代表您已阅读并同意《悟空返利》协议</string>
-    <string name="password_format">8-16位英文加数字的组合</string>
-    <string name="word_search">搜索淘宝/天猫宝贝 拿悟空返利</string>
+<string name="app_name">悟空返利</string>
+<string name="agree_agreement">注册代表您已阅读并同意《悟空返利》协议</string>
+<string name="password_format">8-16位英文加数字的组合</string>
+<string name="word_search">搜索淘宝/天猫宝贝 拿悟空返利</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="other_login_warn">第三方帐号不能修改用户信息！</string>
+<string name="hello_blank_fragment">Hello blank fragment</string>
+<string name="other_login_warn">第三方帐号不能修改用户信息！</string>
+<string name="word_no_net">请检查网络设置</string>
 </resources>

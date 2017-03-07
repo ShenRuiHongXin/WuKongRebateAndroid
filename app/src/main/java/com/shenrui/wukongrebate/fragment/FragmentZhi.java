@@ -3,6 +3,7 @@ package com.shenrui.wukongrebate.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
@@ -27,8 +28,8 @@ import java.util.List;
 
 @EFragment(R.layout.zhi_fragment_page)
 public class FragmentZhi extends BaseFragment {
-    @ViewById(R.id.zhi_tv_search)
-    TextView tv_search;
+    @ViewById(R.id.zhi_iv_search)
+    ImageView iv_search;
     @ViewById(R.id.zhi_tabs)
     TabLayout tabs;
     @ViewById(R.id.zhi_vp)
@@ -50,7 +51,10 @@ public class FragmentZhi extends BaseFragment {
         fragments.add(new SCFragment_());
         fragments.add(new BKFragment_());
         fragments.add(new HTFragment_());
+        //设置缓存页数，不销毁之前的状态
+        vp.setOffscreenPageLimit(3);
         vp.setAdapter(new MyPageAdapter(getFragmentManager(),fragments,list));
         tabs.setupWithViewPager(vp);
+
     }
 }

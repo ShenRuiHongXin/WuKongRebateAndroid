@@ -1,23 +1,21 @@
 package com.shenrui.wukongrebate.biz;
 
 import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.shenrui.wukongrebate.contents.Constants;
-import com.shenrui.wukongrebate.entities.AiTaoBaoItem;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
 import com.shenrui.wukongrebate.entities.TbkFavorite;
 import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.entities.TenGoodsData;
+import com.shenrui.wukongrebate.entities.UatmTbkItem;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.TaobaoReqUtil;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -293,8 +291,8 @@ public class GetNetWorkDatas {
             List<TbkItem> goodsList = JSON.parseArray(jsonArrayItems.toString(), TbkItem.class);
             Log.e("DeDiWang",goodsList.toString());
             Log.e("DeDiWang",String.valueOf(results));
-            result.put("goodsList",goodsList);
-            result.put("totals",df.format(results));
+            result.put(Constants.GOODS,goodsList);
+            result.put(Constants.TOTALS,df.format(results));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -315,7 +313,7 @@ public class GetNetWorkDatas {
         map.put("fields","favorites_title,favorites_id,type");
         map.put("type",String.valueOf(-1));
 
-        String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.uatm.favorites.get ", map);
+        String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.uatm.favorites.get", map);
         Log.e("DeDiWang url",url);
 
         OkHttpClient client = new OkHttpClient();
@@ -336,5 +334,41 @@ public class GetNetWorkDatas {
             e.printStackTrace();
         }
         return favorites;
+    }
+
+    /**
+     * 获取指定选品库商品
+     */
+    public static Map<String,Object> getFavoritesGoods(int favorites_id,int pageNo,int pageSize){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("page_no",String.valueOf(pageNo));
+        map.put("page_size",String.valueOf(pageSize));
+        map.put("adzone_id",String.valueOf(73328735));
+        map.put("favorites_id",String.valueOf(favorites_id));
+        map.put("fields","num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick,shop_title,zk_final_price_wap,event_start_time,event_end_time,tk_rate,status,type");
+
+        String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.uatm.favorites.item.get", map);
+        Log.e("DeDiWang url",url);
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+        Map<String,Object> result = new HashMap<>();
+        try {
+            Response response = client.newCall(request).execute();
+            String responseJson = response.body().string();
+            JSONObject jsonObject = (JSONObject) JSON.parse(responseJson);
+            JSONObject jsonObject1 = jsonObject.getJSONObject("tbk_uatm_favorites_item_get_response");
+            JSONObject jsonObject2 = jsonObject1.getJSONObject("results");
+            int results = jsonObject1.getInteger("total_results");
+            JSONArray jsonArrayItems = jsonObject2.getJSONArray("uatm_tbk_item");
+            List<UatmTbkItem> favorites = JSON.parseArray(jsonArrayItems.toString(), UatmTbkItem.class);
+            Log.e("DeDiWang favorites",favorites.toString());
+            Log.e("DeDiWang results",String.valueOf(results));
+            result.put(Constants.GOODS,favorites);
+            result.put(Constants.TOTALS,results);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

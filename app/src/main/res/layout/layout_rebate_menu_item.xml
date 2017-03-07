@@ -8,28 +8,6 @@
         android:id="@+id/cyclerotationview"
         android:layout_width="match_parent"
         android:layout_height="160dp" />
-    <!--签到栏-->
-    <!--<com.shenrui.wukongrebate.view.MyGridView
-        android:id="@+id/mgv_sign"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:horizontalSpacing="0.0dip"
-        android:listSelector="@null"
-        android:numColumns="2"
-        android:paddingTop="5dp"
-        android:scrollbars="none"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="0.0dip" />-->
-    <!--活动栏-->
-    <!--<com.shenrui.wukongrebate.view.ActivityView_
-        android:id="@+id/activity_view"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_marginLeft="3dp"
-        android:layout_marginRight="3dp"
-        android:layout_marginTop="5dp"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
