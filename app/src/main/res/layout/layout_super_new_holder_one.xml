@@ -10,18 +10,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/white">
             <TextView
                 android:id="@+id/tv_title1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="爱逛街"
                 android:textSize="18sp"
                 android:textColor="@color/mainRed"/>
@@ -29,7 +29,7 @@
                 android:id="@+id/tv_good1_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_below="@id/tv_title1"
                 android:text="必备小白鞋"
                 android:textSize="15sp"/>
@@ -37,7 +37,8 @@
                 android:id="@+id/iv_good1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@null"
                 android:layout_below="@id/tv_good1_title"
                 android:src="@drawable/home_img_lingquanlijian"/>
             <ImageView
@@ -46,22 +47,23 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_img_xiaobaixie"
                 android:paddingTop="10dp"
-                android:layout_alignParentRight="true"/>
+                android:contentDescription="@null"
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/mineGrey"/>
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"/>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/white">
             <TextView
                 android:id="@+id/tv_title2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="美妆不可少"
                 android:textSize="18sp"
                 android:textColor="@color/mainRed"/>
@@ -69,7 +71,7 @@
                 android:id="@+id/tv_good2_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_below="@id/tv_title2"
                 android:text="好气色就靠它"
                 android:textSize="15sp"/>
@@ -77,7 +79,8 @@
                 android:id="@+id/iv_good2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@null"
                 android:layout_below="@id/tv_good2_title"
                 android:src="@drawable/home_img_shoumanwu"/>
             <ImageView
@@ -86,28 +89,28 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_img_meizhuangkouhong"
                 android:layout_marginTop="10dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@null"/>
         </RelativeLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/mineGrey"/>
+        android:layout_height="0.5dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:orientation="horizontal">
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/white">
             <TextView
                 android:id="@+id/tv_title3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="创意神器"
                 android:textSize="18sp"
                 android:textColor="@color/mainRed"/>
@@ -115,7 +118,7 @@
                 android:id="@+id/tv_good3_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_below="@id/tv_title3"
                 android:text="隐藏数据线"
                 android:textSize="15sp"/>
@@ -123,7 +126,8 @@
                 android:id="@+id/iv_good3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@null"
                 android:layout_below="@id/tv_good3_title"
                 android:src="@drawable/home_img_xinqishenghuo"/>
             <ImageView
@@ -131,23 +135,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_img_yincangshujuxian"
-                android:layout_alignParentRight="true"
-                android:paddingTop="10dp"/>
+                android:layout_alignParentEnd="true"
+                android:paddingTop="10dp"
+                android:contentDescription="@null"/>
         </RelativeLayout>
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/mineGrey"/>
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent" />
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/white">
             <TextView
                 android:id="@+id/tv_title4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:text="精品小吃"
                 android:textSize="18sp"
                 android:textColor="@color/mainRed"/>
@@ -155,7 +160,7 @@
                 android:id="@+id/tv_good4_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_below="@id/tv_title4"
                 android:text="热销好货"
                 android:textSize="15sp"/>
@@ -163,7 +168,8 @@
                 android:id="@+id/iv_good4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:contentDescription="@null"
                 android:layout_below="@id/tv_good4_title"
                 android:src="@drawable/home_img_manjianyouhui"/>
             <ImageView
@@ -172,7 +178,8 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/home_img_jingpingxiaochi"
                 android:layout_marginTop="10dp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@null"/>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

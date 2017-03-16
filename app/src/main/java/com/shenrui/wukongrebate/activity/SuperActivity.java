@@ -1,7 +1,6 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -53,6 +52,7 @@ public class SuperActivity extends BaseActivity{
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         initTabs();
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -148,9 +148,7 @@ public class SuperActivity extends BaseActivity{
                 }
             }
         });
-        //设置点击外面pop窗销毁
-        pop.setOutsideTouchable(true);
-        pop.setBackgroundDrawable(new BitmapDrawable());
+        pop.setOutsideTouchable(false);
         pop.showAsDropDown(tabs,0,0);
     }
 
@@ -169,9 +167,9 @@ public class SuperActivity extends BaseActivity{
     //切换分类箭头方向
     private void checkExpandStatus() {
         if (isExpand){
-            ivExpand.setImageResource(R.drawable.nav_icon_back);
+            ivExpand.setImageResource(R.drawable.nav_icon_backup);
         }else{
-            ivExpand.setImageResource(R.drawable.common_btn_down_n);
+            ivExpand.setImageResource(R.drawable.nav_icon_backdown);
         }
     }
 
@@ -180,7 +178,7 @@ public class SuperActivity extends BaseActivity{
         Context context;
         List<String> texts;
 
-        public CategoryAdapter(Context context, List<String> texts) {
+        CategoryAdapter(Context context, List<String> texts) {
             this.context = context;
             this.texts = texts;
         }

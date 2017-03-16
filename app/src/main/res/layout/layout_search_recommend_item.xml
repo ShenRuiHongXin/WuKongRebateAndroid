@@ -5,9 +5,6 @@
     android:id="@+id/tv_search_recommend"
     android:gravity="center"
     android:textSize="15sp"
-    android:text="袜子"
     android:padding="15dp"
     android:background="@color/white"
-    >
-
-</TextView>
+    />

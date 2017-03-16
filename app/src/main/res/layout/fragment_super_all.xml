@@ -1,12 +1,25 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/srl_super_new"
-    tools:context="com.shenrui.wukongrebate.fragment.supers.FragmentSuperAll">
-    <android.support.v7.widget.RecyclerView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_super_new">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rv_super_new"
-        android:background="@color/mineGrey"/>
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rv_super_new" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_super_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            app:backgroundTint="@color/lucency_white"
+            android:src="@drawable/nav_icon_backup"
+            android:visibility="gone"
+            android:layout_margin="20dp"/>
+    </RelativeLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

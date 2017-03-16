@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:src="@drawable/nav_icon_back"/>
+            android:src="@drawable/nav_icon_back"
+            android:contentDescription="@null"/>
         <TextView
             android:id="@+id/tv_super_title"
             android:layout_width="wrap_content"
@@ -31,16 +32,17 @@
             android:id="@+id/tv_super_new_search"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="搜返利商品/折扣好货"
-            android:textSize="13sp"
+            android:text="@string/word_super_search"
+            android:textSize="12sp"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:drawableStart="@drawable/navbar_icon_search"
             android:drawablePadding="5dp"
-            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:background="@drawable/radius_edit"
-            android:layout_toRightOf="@id/iv_super_back"
-            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@id/iv_super_back"
+            android:layout_marginEnd="20dp"
             android:visibility="gone"/>
     </RelativeLayout>
     <LinearLayout
@@ -68,12 +70,14 @@
             android:id="@+id/iv_expand_super"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/common_btn_down_n"
+            android:src="@drawable/nav_icon_backdown"
             android:padding="10dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"/>
     </LinearLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_super"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="@color/mineGrey"/>
 </LinearLayout>

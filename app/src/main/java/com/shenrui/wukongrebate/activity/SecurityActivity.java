@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.MFGT;
@@ -31,6 +33,8 @@ public class SecurityActivity extends BaseActivity {
     TextView tvUserName;
     @ViewById(R.id.tv_show_number)
     TextView tvShowNumber;
+
+    UserAuths userAuths;
     @AfterViews
     void init(){
         toolbar_left_image.setVisibility(View.VISIBLE);
@@ -46,25 +50,24 @@ public class SecurityActivity extends BaseActivity {
         if(userInfo!=null){
             tvUserName.setText(userInfo.getNick_name());
         }
-        UserAuths userAuths = SharedPreferenceUtils.getInstance(this).getUserAuths();
-        if(userAuths!=null){
+        userAuths = SharedPreferenceUtils.getInstance(this).getUserAuths();
+        if(userAuths!=null && userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
             tvShowNumber.setText(userAuths.getIdentifier());
         }
     }
 
-    @Click({R.id.toolbar_left_image,R.id.updateNumber,R.id.updatePassword})
+    @Click({R.id.toolbar_left_image,R.id.updatePassword})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
                 MFGT.finish(this);
                 break;
-            //修改手机号码
-            case R.id.updateNumber:
-
-                break;
-            //修改登录密码
             case R.id.updatePassword:
-                MFGT.startActivity(this,PasswordActivity_.class);
+                if (!userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
+                    Toast.makeText(this, getResources().getString(R.string.other_login_warn), Toast.LENGTH_SHORT).show();
+                }else{
+                    MFGT.startActivity(this,PasswordActivity_.class);
+                }
                 break;
         }
     }

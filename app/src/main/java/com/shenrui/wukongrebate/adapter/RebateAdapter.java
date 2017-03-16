@@ -13,11 +13,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.DuoBaoActivity_;
 import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
 import com.shenrui.wukongrebate.activity.SignActivity_;
 import com.shenrui.wukongrebate.activity.SuperActivity_;
+import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.RebateMenuData;
 import com.shenrui.wukongrebate.entities.TbkItem;
+import com.shenrui.wukongrebate.entities.UatmTbkItem;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.CycleRotationView;
 import com.shenrui.wukongrebate.view.RebateItemView;
@@ -34,11 +37,11 @@ public class RebateAdapter extends RecyclerView.Adapter {
     private static final int TYPE_NEW_GOODS = 1;
     Context context;
     private RebateMenuData menuData;
-    private List<TbkItem> goodsData;
+    private List<UatmTbkItem> goodsData;
     private View.OnClickListener listener;
     private RebateMenuHolder menuHolder = null;//用来保存第一个holder的状态
 
-    public RebateAdapter(final Context context, RebateMenuData rebateData,List<TbkItem> goodsList) {
+    public RebateAdapter(final Context context, RebateMenuData rebateData,List<UatmTbkItem> goodsList) {
         this.context = context;
         menuData = rebateData;
         goodsData = goodsList;
@@ -88,18 +91,18 @@ public class RebateAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_NEW_GOODS:
                 NewGoodsHolder newGoodsHolder = (NewGoodsHolder) holder;
-
-                TbkItem item = goodsData.get(position-1);
+                UatmTbkItem item = goodsData.get(position-1);
                 newGoodsHolder.tvTitle.setText(item.getTitle());
                 newGoodsHolder.tvPrice.setText(item.getZk_final_price());
                 newGoodsHolder.tvVolume.setText(String.valueOf(item.getVolume()));
+                newGoodsHolder.tvRate.setText(item.getTk_rate());
                 Glide.with(context).load(item.getPict_url()).into(newGoodsHolder.ivNewGoods);
                 newGoodsHolder.layoutNewGoods.setTag(String.valueOf(item.getNum_iid()));
                 break;
         }
     }
 
-    public void initData(RebateMenuData rebateData,List<TbkItem> goodsList){
+    public void initData(RebateMenuData rebateData,List<UatmTbkItem> goodsList){
         if (rebateData!=null && goodsList!=null){
             menuData = rebateData;
             goodsData.addAll(goodsList);
@@ -107,11 +110,21 @@ public class RebateAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public void addData(List<TbkItem> goodsList){
+    public void addData(List<UatmTbkItem> goodsList){
         if (goodsList!=null){
             goodsData.addAll(goodsList);
             notifyDataSetChanged();
         }
+    }
+
+    private boolean isMore;
+
+    public void setMore(boolean isMore){
+        this.isMore = isMore;
+    }
+
+    public boolean isMore(){
+        return this.isMore;
     }
 
     @Override
@@ -160,10 +173,11 @@ public class RebateAdapter extends RecyclerView.Adapter {
                     MFGT.startActivity(context,NineBlockNineActivity_.class);
                     break;
                 case R.id.tv_group:
-                    Toast.makeText(context, "悟空团购", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent().setAction(Constants.GOTOZHI);
+                    context.sendBroadcast(intent);
                     break;
                 case R.id.tv_duo:
-                    Toast.makeText(context, "夺宝", Toast.LENGTH_SHORT).show();
+                    MFGT.startActivity(context, DuoBaoActivity_.class);
                     break;
                 case R.id.tv_sign:
                     MFGT.startActivity(context,SignActivity_.class);

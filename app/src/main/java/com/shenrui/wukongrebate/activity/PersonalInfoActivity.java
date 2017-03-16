@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.BitmapUtils;
 import com.shenrui.wukongrebate.utils.MFGT;
@@ -60,12 +61,12 @@ public class PersonalInfoActivity extends BaseActivity {
     LinearLayout userName;
     @ViewById(R.id.userSex)
     LinearLayout userSex;
-    @ViewById(R.id.shippingAddress)
-    LinearLayout shippingAddress;
+    /*@ViewById(R.id.shippingAddress)
+    LinearLayout shippingAddress;*/
     PhotoPop photoPop;
 
     UserInfo userInfo;
-
+    UserAuths userAuths;
     @AfterViews
     void initView(){
         toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
@@ -77,30 +78,44 @@ public class PersonalInfoActivity extends BaseActivity {
 
     private void initUserData() {
         userInfo = SharedPreferenceUtils.getInstance(this).getUserInfo();
+        userAuths = SharedPreferenceUtils.getInstance(this).getUserAuths();
         if(userInfo.getAvatar()!=null){
             //http://192.168.0.4:8080/WukongServer/resources/UserAvatar/26.jpg
-            Glide.with(this).load(Constants.HOST+userInfo.getAvatar()).into(avatar);
+            if (!userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
+                Glide.with(this).load(userInfo.getAvatar()).into(avatar);
+            }else{
+                Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(avatar);
+            }
         }
     }
 
-    @Click({R.id.toolbar_left_image,R.id.avatar,R.id.userName,R.id.userSex,R.id.shippingAddress})
+    @Click({R.id.toolbar_left_image,R.id.avatar,R.id.userName,R.id.userSex})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
                 MFGT.finish(this);
                 break;
             case R.id.avatar:
-                photoPop = new PhotoPop(this,R.layout.activity_personal_info);
+                if (!userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
+                    Toast.makeText(this, getResources().getString(R.string.other_login_warn), Toast.LENGTH_SHORT).show();
+                }else{
+                    photoPop = new PhotoPop(this,R.layout.activity_personal_info);
+                }
                 break;
             case R.id.userName:
-                MFGT.startActivity(this,UserNameActivity_.class);
+                if (!userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
+                    Toast.makeText(this, getResources().getString(R.string.other_login_warn), Toast.LENGTH_SHORT).show();
+                }else{
+                    MFGT.startActivity(this,UserNameActivity_.class);
+                }
                 break;
             case R.id.userSex:
-                //修改性别
-                showUpdateSexDialog();
-                break;
-            case R.id.shippingAddress:
-
+                if (!userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
+                    Toast.makeText(this, getResources().getString(R.string.other_login_warn), Toast.LENGTH_SHORT).show();
+                }else{
+                    //修改性别
+                    showUpdateSexDialog();
+                }
                 break;
         }
     }
@@ -177,6 +192,7 @@ public class PersonalInfoActivity extends BaseActivity {
             }
         }
     }
+
     @Background
     void updateAvatar(File file) {
         final Gson gson = new Gson();
@@ -228,6 +244,7 @@ public class PersonalInfoActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.release();
+        photoPop = null;
     }
 
     @Override

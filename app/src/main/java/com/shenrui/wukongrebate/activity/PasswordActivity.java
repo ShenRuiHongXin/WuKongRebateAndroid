@@ -16,6 +16,7 @@ import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserAuths;
+import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
@@ -65,7 +66,7 @@ public class PasswordActivity extends BaseActivity {
                 }
                 break;
             case R.id.toolbar_left_image:
-                finish();
+                MFGT.finish(this);
                 break;
         }
 
@@ -121,5 +122,10 @@ public class PasswordActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         OkHttpUtils.release();
+    }
+
+    @Override
+    public void onBackPressed() {
+        MFGT.finish(this);
     }
 }

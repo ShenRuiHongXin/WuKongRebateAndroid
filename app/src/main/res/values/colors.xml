@@ -8,11 +8,13 @@
     <color name="mainRed">#F54949</color>
     <color name="mainGrey">#B3B3B3</color>
     <color name="titleRed">#F5A0A5</color>
-    <color name="mineRed">#F54949</color>
+    <color name="selectedText">#E57373</color>
+    <color name="mineRed">#F36565</color>
     <color name="search_bg">#a0DBDBDB</color>
     <color name="search_hint_color">#6D6D6D</color>
     <color name="category_bg">#FFE8E8</color>
     <color name="white">#FFFFFF</color>
+    <color name="lucency_white">#30FFFFFF</color>
     <color name="black">#000000</color>
 
 
@@ -31,4 +33,6 @@
     <color name="category_item_color">#a0000000</color>
     <color name="yellow">#FFFF00</color>
     <color name="blue">#0000FF</color>
+    <color name="unselectedText">#B3B3B3</color>
+    <color name="super_fan_bg">#F0F0F0</color>
 </resources>

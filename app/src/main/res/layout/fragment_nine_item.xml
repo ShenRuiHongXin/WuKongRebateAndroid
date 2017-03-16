@@ -4,23 +4,8 @@
     android:layout_height="match_parent"
     android:id="@+id/nine_item_srl"
     tools:context="com.shenrui.wukongrebate.fragment.FragmentNineItem">
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nine_item_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/mineGrey">
-        <TextView
-            android:id="@+id/tv_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="正在刷新..."
-            android:padding="10dp"
-            android:textSize="13sp"
-            android:gravity="center"
-            android:visibility="gone"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/nine_item_rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 </android.support.v4.widget.SwipeRefreshLayout>

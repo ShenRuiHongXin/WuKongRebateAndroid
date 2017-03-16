@@ -8,17 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.activity.NineSearchActivity;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/2/20.
- */
-
 //超级返，9块9搜索推荐适配器
 public class SearchRecommendAdapter extends BaseAdapter {
-    List<String> texts;
+    private List<String> texts;
     Context context;
     public SearchRecommendAdapter(List<String> texts, Context context) {
         this.texts = texts;
@@ -55,7 +50,7 @@ public class SearchRecommendAdapter extends BaseAdapter {
         return convertView;
     }
 
-    class Holder{
+    private class Holder{
         TextView tv;
     }
 }

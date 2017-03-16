@@ -8,14 +8,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SearchActivity_;
 import com.shenrui.wukongrebate.adapter.RebateAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
+import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.RebateMenuData;
-import com.shenrui.wukongrebate.entities.TbkItem;
+import com.shenrui.wukongrebate.entities.UatmTbkItem;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
 
@@ -43,7 +45,7 @@ public class FragmentRebate extends BaseFragment{
     private static final int ACTION_DOWNLOAD = 0;
     private static final int ACTION_PULL_UP = 1;
     @ViewById(R.id.ll_search)
-    LinearLayout layoutSearch;
+    RelativeLayout layoutSearch;
     //扫一扫按钮
     @ViewById(R.id.iv_scan)
     ImageView ivScan;
@@ -58,13 +60,15 @@ public class FragmentRebate extends BaseFragment{
     LinearLayout ll_progressBar;
     //首页菜单数据
     RebateMenuData rebateMenuData;
+
     //首页新品数据
-    List<TbkItem> goodsData;
+    List<UatmTbkItem> goodsData;
     Context context;
     RebateAdapter adapter;
     GridLayoutManager layoutManager;
 
     int mDistanceY;
+    int totals;
     int pageNo = 1;
     //界面初始化
     @AfterViews
@@ -84,8 +88,10 @@ public class FragmentRebate extends BaseFragment{
                 super.onScrollStateChanged(recyclerView, newState);
                 int lastPosition = layoutManager.findLastVisibleItemPosition();
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition>=adapter.getItemCount()-1){
-                    pageNo = pageNo + 1;
-                    downloadNewGoodsList();
+                    if (adapter.isMore()){
+                        pageNo = pageNo + 1;
+                        downloadNewGoodsList();
+                    }
                 }
             }
             //搜索栏透明度渐变
@@ -96,9 +102,9 @@ public class FragmentRebate extends BaseFragment{
                     layoutSearch.setBackgroundColor(Color.argb(0,255,255,255));
                 }else if (mDistanceY<=400){
                     float scale = (float)mDistanceY / (float) 400;
-                    layoutSearch.setBackgroundColor(Color.argb((int) (255*scale),255,255,255));
+                    layoutSearch.setBackgroundColor(Color.argb((int) (240*scale),255,255,255));
                 }else{
-                    layoutSearch.setBackgroundColor(Color.argb(255,255,255,255));
+                    layoutSearch.setBackgroundColor(Color.argb(240,255,255,255));
                 }
             }
         });
@@ -139,23 +145,25 @@ public class FragmentRebate extends BaseFragment{
     @Background
     void initDatas() {
         if (Utils.isNetworkConnected(getActivity())){
+            GetNetWorkDatas.getFavorites(1);
             String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
             rebateMenuData.setCycleList(urls);//轮播图
-            Map<String, Object> map = GetNetWorkDatas.getSuperGoods("冬装女", 1);
-            goodsData= (List<TbkItem>) map.get("goodsList");
+            Map<String, Object> map = GetNetWorkDatas.getFavoritesGoods(3529818,1,Constants.PAGE_SIZE);
+            goodsData= (List<UatmTbkItem>) map.get(Constants.GOODS);
+            totals = (int) map.get(Constants.TOTALS);
             if(goodsData == null){
                 showProgressBar();
             }
             updataUi(ACTION_DOWNLOAD);
         }else{
-            showProgressBar();
+            initDatas();
         }
     }
 
     @Background
     void downloadNewGoodsList(){
-        Map<String, Object> map = GetNetWorkDatas.getSuperGoods("冬装女", pageNo);
-        goodsData = (List<TbkItem>) map.get("goodsList");
+        Map<String, Object> map = GetNetWorkDatas.getFavoritesGoods(3529818, pageNo,Constants.PAGE_SIZE);
+        goodsData = (List<UatmTbkItem>) map.get(Constants.GOODS);
         updataUi(ACTION_PULL_UP);
     }
 
@@ -164,10 +172,12 @@ public class FragmentRebate extends BaseFragment{
         switch (action){
             case ACTION_DOWNLOAD:
                 adapter.initData(rebateMenuData,goodsData);
+                adapter.setMore(adapter.getItemCount()-1<totals);
                 hideProgressBar();
                 break;
             case ACTION_PULL_UP:
                 adapter.addData(goodsData);
+                adapter.setMore(adapter.getItemCount()-1<totals);
                 break;
         }
     }

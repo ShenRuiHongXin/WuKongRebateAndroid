@@ -7,14 +7,13 @@
         android:id="@+id/tv_search_history"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="袜子"
         android:maxLines="1"
         android:textSize="16sp"
         android:gravity="start"
         android:padding="15dp"
-        android:drawableRight="@drawable/common_btn_right"/>
+        android:drawableEnd="@drawable/common_btn_right"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/mineGrey"/>
 </LinearLayout>

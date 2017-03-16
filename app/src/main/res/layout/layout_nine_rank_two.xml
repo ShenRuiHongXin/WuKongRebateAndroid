@@ -17,7 +17,8 @@
                 android:id="@+id/iv_nine_rank_goods"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="center" />
+                android:scaleType="center"
+                android:contentDescription="@null"/>
             <TextView
                 android:id="@+id/tv_nine_goods_rank"
                 android:layout_width="20dp"

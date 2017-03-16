@@ -15,8 +15,10 @@ public class Constants {
     //正式环境
     public static final String ROOT_URL = "http://gw.api.taobao.com/router/rest?";
     //淘宝客app key
-    public static final String APP_KEY = "23585348";
-    public static final String APP_SECRET = "ac4a7853f5ae6b37642358c8ba8c7aef";
+    //public static final String APP_KEY = "23585348";
+    public static final String APP_KEY = "23665752";
+    //public static final String APP_SECRET = "ac4a7853f5ae6b37642358c8ba8c7aef";
+    public static final String APP_SECRET = "efcb1281a2de520742aa08f7bcfe46f3";
 
     //返给用户的佣金比率
     public static final double RATE_FAN = 0.15;
@@ -85,9 +87,9 @@ public class Constants {
     };
 
     //服务器根地址
-    public static final String SERVICE_URL = "http://192.168.0.4:8080/WukongServer/";
+    public static final String SERVICE_URL = "http://192.168.0.8:8080/WukongServer/";
     //Host
-    public static final String HOST = "http://192.168.0.4:8080/";
+    public static final String HOST = "http://192.168.0.8:8080/";
     //注册/登录 成功的结果码
     public static final int CODE_SUCCESS = 200;
     //手机号已被注册
@@ -107,4 +109,28 @@ public class Constants {
     public static final int SORT_VOLUME_DESC = 654;
     //综合排序
     public static final int SORT_NO = 111;
+
+    //三方登录
+    public static final String SINA = "sina";
+    public static final String QQ = "qq";
+    public static final String WECHAT = "wechat";
+    public static final String TAOBAO = "taobao";
+    public static final String TYPE_PHONE = "phone";
+
+    //商品和商品数量
+    public static final String GOODS = "goodsList";
+    public static final String TOTALS = "totals";
+    //默认每页加载的商品数量
+    public static final int PAGE_SIZE = 20;
+
+    //跳到值得买界面
+    public static final String GOTOZHI = "go_to_zhi";
+
+    //某品牌选品库id
+    public static final String FAVORITES_ID = "favorites_id";
+
+    //周刊数据
+    public static final String FOOD_ARTICLE = "article";
+    //视频数据
+    public static final String FOOD_VIDEO = "video";
 }

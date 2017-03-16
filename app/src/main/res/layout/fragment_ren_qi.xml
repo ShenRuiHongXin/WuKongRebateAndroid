@@ -1,0 +1,19 @@
+<com.shenrui.wukongrebate.view.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.shenrui.wukongrebate.fragment.duo.RenQiFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.shenrui.wukongrebate.view.CycleRotationView
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:id="@+id/duo_crv"/>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/duo_rq_rv" />
+    </LinearLayout>
+</com.shenrui.wukongrebate.view.MyScrollView>

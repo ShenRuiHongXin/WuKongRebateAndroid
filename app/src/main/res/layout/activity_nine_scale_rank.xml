@@ -61,7 +61,7 @@
             android:id="@+id/iv_nine_scale_rank_expand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/common_btn_down_n"
+            android:src="@drawable/nav_icon_backdown"
             android:padding="10dp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>

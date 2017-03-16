@@ -41,8 +41,6 @@ public class SuperSearchResultActivity extends Activity {
     TextView tv_search_result;//显示搜索结果的商品名称和数量
     @ViewById(R.id.srl_super_search_result)
     SwipeRefreshLayout srl;
-    @ViewById(R.id.tv_super_search_result_refresh)
-    TextView tv_refresh;
     @ViewById(R.id.rv_super_search_result)
     RecyclerView rv;
     @ViewById(R.id.iv_rank_price_expand)
@@ -68,6 +66,7 @@ public class SuperSearchResultActivity extends Activity {
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         context = this;
         //获得搜索界面传过来的关键字
         goods = getIntent().getStringExtra("super_search_goods");
@@ -92,7 +91,6 @@ public class SuperSearchResultActivity extends Activity {
                 public void run() {
                     Toast.makeText(context, "请检查网络设置", Toast.LENGTH_SHORT).show();
                     srl.setRefreshing(false);
-                    tv_refresh.setVisibility(View.GONE);
                 }
             });
         }
@@ -111,7 +109,6 @@ public class SuperSearchResultActivity extends Activity {
             case ACTION_PULL_DOWN://下拉
                 srl.setRefreshing(false);
                 adapter.initData(list);
-                tv_refresh.setVisibility(View.GONE);
                 break;
             case ACTION_PULL_UP://上拉
                 adapter.addData(list);
@@ -124,7 +121,6 @@ public class SuperSearchResultActivity extends Activity {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                tv_refresh.setVisibility(View.VISIBLE);
                 downloadGoodsList(ACTION_PULL_DOWN,1);
             }
         });

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.shenrui.wukongrebate.activity.TimeLimitActivity">
+    <ImageView
+        android:id="@+id/iv_time_limit_back"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:src="@drawable/nav_icon_back"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:contentDescription="@null" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/mineGrey"/>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs_time_limit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        app:tabBackground="@drawable/time_tab_background"
+        app:tabIndicatorHeight="0dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/mineGrey"/>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/vp_time_limit" />
+</LinearLayout>

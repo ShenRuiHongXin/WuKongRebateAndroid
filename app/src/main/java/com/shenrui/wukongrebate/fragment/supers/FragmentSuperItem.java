@@ -16,16 +16,26 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.BrandActivity_;
 import com.shenrui.wukongrebate.activity.SuperSearchActivity_;
 import com.shenrui.wukongrebate.activity.SuperSearchResultActivity_;
+import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
+import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.UatmTbkItem;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.MyGridView;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @EFragment(R.layout.fragment_super_item)
 public class FragmentSuperItem extends Fragment {
@@ -33,16 +43,16 @@ public class FragmentSuperItem extends Fragment {
     SwipeRefreshLayout srl;
     @ViewById(R.id.rv_super_item)
     RecyclerView rv;
+
     String title;
     Context context;
     SuperItemAdapter adapter;
     LinearLayoutManager layoutManager;
+    List<List<UatmTbkItem>> list;
+    int[] favorites = null;
 
     int[] images_category;
     String[] texts_category;
-    public FragmentSuperItem() {
-
-    }
 
     @AfterViews
     void init(){
@@ -50,19 +60,50 @@ public class FragmentSuperItem extends Fragment {
         context = getContext();
         initData();
         initView();
+        srl.setRefreshing(true);
+        downloadBrands();
         setListener();
     }
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_super_item, container, false);
-        title = getArguments().getString("title");
-        context = getContext();
-        initData();
-        initView(layout);
-        setListener();
-        return layout;
-    }*/
+
+    private void downloadBrands() {
+        switch (title){
+            case "女装":
+                favorites = new int[]{3457856,3457752};
+                break;
+            case "男装":
+                break;
+            case "食品":
+                break;
+            case "美妆":
+                break;
+            case "居家":
+                break;
+            case "内衣":
+                break;
+            case "运动":
+                break;
+        }
+        download(favorites);
+    }
+
+    @Background
+    void download(int[] favorites){
+        if (favorites!=null){
+            //下载每个品牌的两个商品
+            for(int i=0;i<favorites.length;i++){
+                Map<String, Object> map = GetNetWorkDatas.getFavoritesGoods(favorites[i], 1, 2);
+                List<UatmTbkItem> goodsList = (List<UatmTbkItem>) map.get(Constants.GOODS);
+                list.add(goodsList);
+            }
+            updateUi(list);
+        }
+    }
+
+    @UiThread
+    void updateUi(List<List<UatmTbkItem>> list){
+        adapter.initData(list);
+        srl.setRefreshing(false);
+    }
 
     private void setListener() {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -116,7 +157,8 @@ public class FragmentSuperItem extends Fragment {
 
     private void initView() {
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
-        adapter = new SuperItemAdapter();
+        list = new ArrayList<>();
+        adapter = new SuperItemAdapter(list);
         rv.setAdapter(adapter);
         layoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
         rv.setLayoutManager(layoutManager);
@@ -126,13 +168,21 @@ public class FragmentSuperItem extends Fragment {
     class SuperItemAdapter extends RecyclerView.Adapter{
         private static final int TYPE_ONE = 0;//分类栏
         private static final int TYPE_TWO = 1;//品牌及其部分商品
+        CategoryAdapter categoryAdapter;
         View.OnClickListener listener;
+        List<List<UatmTbkItem>> list;
 
-        SuperItemAdapter() {
+        SuperItemAdapter(List<List<UatmTbkItem>> goodsList) {
+            list = new ArrayList<>();
+            list.addAll(goodsList);
+            categoryAdapter = new CategoryAdapter(images_category, texts_category);
             listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MFGT.startActivity(context, BrandActivity_.class);
+                    int position = (int) v.getTag();
+                    Intent intent = new Intent(context, BrandActivity_.class);
+                    intent.putExtra(Constants.FAVORITES_ID,favorites[position]);
+                    MFGT.startActivity(context,intent);
                 }
             };
         }
@@ -157,16 +207,27 @@ public class FragmentSuperItem extends Fragment {
             int viewType = getItemViewType(position);
             if (viewType == TYPE_ONE){
                 CategoryViewHolder categoryViewHolder = (CategoryViewHolder) holder;
-                categoryViewHolder.myGridView.setAdapter(new CategoryAdapter(images_category,texts_category));
+                categoryViewHolder.myGridView.setAdapter(categoryAdapter);
             }else{
                 GoodsViewHolder goodsViewHolder = (GoodsViewHolder) holder;
-
+                List<UatmTbkItem> uatmTbkItemList = list.get(position - 1);
+                Glide.with(context).load(uatmTbkItemList.get(0).getPict_url()).into(goodsViewHolder.ivGood1);
+                goodsViewHolder.tvGood1Title.setText(uatmTbkItemList.get(0).getTitle());
+                goodsViewHolder.tvGood1Price.setText(uatmTbkItemList.get(0).getZk_final_price());
+                goodsViewHolder.tvGood1Rate.setText(uatmTbkItemList.get(0).getTk_rate());
+                goodsViewHolder.tvGood1Volume.setText(String.valueOf(uatmTbkItemList.get(0).getVolume()));
+                Glide.with(context).load(uatmTbkItemList.get(1).getPict_url()).into(goodsViewHolder.ivGood2);
+                goodsViewHolder.tvGood2Title.setText(uatmTbkItemList.get(1).getTitle());
+                goodsViewHolder.tvGood2Price.setText(uatmTbkItemList.get(1).getZk_final_price());
+                goodsViewHolder.tvGood2Rate.setText(uatmTbkItemList.get(1).getTk_rate());
+                goodsViewHolder.tvGood2Volume.setText(String.valueOf(uatmTbkItemList.get(1).getVolume()));
+                goodsViewHolder.layoutBrand.setTag(position-1);
             }
         }
 
         @Override
         public int getItemCount() {
-            return 5;
+            return list.size()==0?1:1+list.size();
         }
 
         @Override
@@ -178,6 +239,16 @@ public class FragmentSuperItem extends Fragment {
             }
         }
 
+        public void initData(List<List<UatmTbkItem>> brands) {
+            if (list.size()!=0){
+                list.clear();
+            }
+            if (brands!=null){
+                list.addAll(brands);
+                notifyDataSetChanged();
+            }
+        }
+
         class CategoryViewHolder extends RecyclerView.ViewHolder{
             MyGridView myGridView;
             public CategoryViewHolder(View itemView) {
@@ -185,11 +256,14 @@ public class FragmentSuperItem extends Fragment {
                 myGridView = (MyGridView) itemView.findViewById(R.id.gridView_selected);
             }
         }
+
         class GoodsViewHolder extends RecyclerView.ViewHolder{
+            LinearLayout layoutBrand;
             ImageView ivBrand,ivGood1,ivGood2;
             TextView tvGood1Title,tvGood1Price,tvGood1Volume,tvGood1Rate,tvGood2Title,tvGood2Price,tvGood2Volume,tvGood2Rate;
             public GoodsViewHolder(View itemView) {
                 super(itemView);
+                layoutBrand = (LinearLayout) itemView.findViewById(R.id.layout_brand);
                 ivBrand = (ImageView) itemView.findViewById(R.id.iv_brand);
                 ivGood1 = (ImageView) itemView.findViewById(R.id.iv_brand_goods1);
                 ivGood2 = (ImageView) itemView.findViewById(R.id.iv_brand_goods2);
@@ -201,7 +275,7 @@ public class FragmentSuperItem extends Fragment {
                 tvGood2Price = (TextView) itemView.findViewById(R.id.tv_brand_goods2_price);
                 tvGood2Volume = (TextView) itemView.findViewById(R.id.tv_brand_goods2_volume);
                 tvGood2Rate = (TextView) itemView.findViewById(R.id.tv_brand_goods2_rate);
-                ivBrand.setOnClickListener(listener);
+                layoutBrand.setOnClickListener(listener);
             }
         }
     }

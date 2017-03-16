@@ -29,12 +29,11 @@ import com.shenrui.wukongrebate.utils.RecyclerViewItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentNineItem extends BaseFragment {
+public class FragmentNineItem extends BaseFragment{
     private static final int ACTION_DOWNLOAD = 0;
     private static final int ACTION_PULL_DOWN = 1;
     private static final int ACTION_PULL_UP = 2;
     SwipeRefreshLayout srl;
-    TextView tvRefresh;
     RecyclerView rv;
     int[] cids;
     int page_no = 1;
@@ -54,8 +53,8 @@ public class FragmentNineItem extends BaseFragment {
         cids = getArguments().getIntArray("cids");
         goodsList = new ArrayList<>();
         initView(view);
-        setListener();
         downloadGoods(ACTION_DOWNLOAD,1);
+        setListener();
         return view;
     }
 
@@ -64,7 +63,6 @@ public class FragmentNineItem extends BaseFragment {
             @Override
             public void onRefresh() {
                 srl.setRefreshing(false);
-                tvRefresh.setVisibility(View.VISIBLE);
                 downloadGoods(ACTION_PULL_DOWN,1);
             }
         });
@@ -85,7 +83,6 @@ public class FragmentNineItem extends BaseFragment {
     private void initView(View view) {
         rv = (RecyclerView) view.findViewById(R.id.nine_item_rv);
         srl = (SwipeRefreshLayout) view.findViewById(R.id.nine_item_srl);
-        tvRefresh = (TextView) view.findViewById(R.id.tv_refresh);
         srl.setColorSchemeColors(getResources().getColor(R.color.green));
         adapter = new NineGoodsAdapter(context, goodsList);
         layoutManager = new GridLayoutManager(context, 2);
@@ -131,7 +128,6 @@ public class FragmentNineItem extends BaseFragment {
                 break;
             case ACTION_PULL_DOWN:
                 adapter.initData(goodsList);
-                tvRefresh.setVisibility(View.GONE);
                 break;
             case ACTION_PULL_UP:
                 adapter.addData(goodsList);
@@ -144,4 +140,5 @@ public class FragmentNineItem extends BaseFragment {
         super.onDestroy();
         OkHttpUtils.release();
     }
+
 }

@@ -13,7 +13,7 @@ public class Result {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "{" +
                 "code=" + code +
                 ", message=" + message +
                 '}';

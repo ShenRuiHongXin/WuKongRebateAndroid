@@ -61,6 +61,7 @@ public class NineScaleRankActivity extends Activity {
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         context = this;
         initTab();
         initView();
@@ -156,9 +157,9 @@ public class NineScaleRankActivity extends Activity {
 
     private void checkExpandStatus() {
         if (isExpand){
-            ivExpand.setImageResource(R.drawable.nav_icon_back);
+            ivExpand.setImageResource(R.drawable.nav_icon_backup);
         }else{
-            ivExpand.setImageResource(R.drawable.common_btn_down_n);
+            ivExpand.setImageResource(R.drawable.nav_icon_backdown);
         }
     }
 

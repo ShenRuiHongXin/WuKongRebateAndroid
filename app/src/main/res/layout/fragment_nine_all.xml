@@ -4,21 +4,8 @@
     android:layout_height="match_parent"
     android:id="@+id/nine_all_srl"
     tools:context="com.shenrui.wukongrebate.fragment.FragmentNineAll">
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/mineGrey">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="刷新中..."
-            android:gravity="center"
-            android:id="@+id/layout_nine_refresh"
-            android:visibility="gone"/>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/nine_all_rv"/>
-    </LinearLayout>
+        android:id="@+id/nine_all_rv"/>
 </android.support.v4.widget.SwipeRefreshLayout>

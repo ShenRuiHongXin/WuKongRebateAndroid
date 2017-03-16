@@ -7,7 +7,7 @@ package com.shenrui.wukongrebate.entities;
 public class UserAuths {
     private int id;//用户认证信息在数据库中的唯一标识
     private int user_id;//用户在数据库中的唯一标识
-    private String identity_type;//帐号类型（phone,username）
+    private String identity_type;//帐号类型（phone,qq,wechat,sina,taobao）
     private String identifier;//帐号
     private String credential;//密码
 

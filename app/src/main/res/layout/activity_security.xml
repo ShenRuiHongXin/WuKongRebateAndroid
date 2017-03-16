@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/mineGrey"
         android:layout_marginTop="10dp">
         <TextView
             android:layout_width="wrap_content"
@@ -30,10 +29,8 @@
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="悟空返利"
             android:textSize="15sp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
             android:layout_marginRight="30dp"/>
     </LinearLayout>
     <LinearLayout
@@ -41,12 +38,11 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/mineGrey"
         android:layout_marginTop="5dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="修改手机号码"
+            android:text="手机号码"
             android:textSize="15sp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"/>
@@ -58,23 +54,15 @@
             android:id="@+id/tv_show_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="180****6621"
             android:textSize="15sp"
-            android:layout_gravity="center_vertical"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/common_btn_right"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="30dp"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/updatePassword"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:background="@color/mineGrey"
         android:layout_marginTop="8dp">
         <TextView
             android:layout_width="wrap_content"
