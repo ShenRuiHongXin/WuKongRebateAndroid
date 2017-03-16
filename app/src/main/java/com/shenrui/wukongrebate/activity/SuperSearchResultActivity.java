@@ -3,24 +3,21 @@ package com.shenrui.wukongrebate.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.NineGoodsAdapter;
 import com.shenrui.wukongrebate.adapter.SuperGoodsAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.TbkItem;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
 
@@ -217,5 +214,23 @@ public class SuperSearchResultActivity extends Activity {
     @Override
     public void onBackPressed() {
         MFGT.finish(this);
+    }
+
+    @Override
+    protected void onPause() {
+        LogUtil.d("onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        LogUtil.d("onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        LogUtil.d("onDestroy");
+        super.onDestroy();
     }
 }
