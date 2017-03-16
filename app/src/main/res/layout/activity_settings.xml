@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.shenrui.wukongrebate.activity.SettingsActivity">
-
     <Button
         android:id="@+id/btn_exit"
         android:layout_width="match_parent"
@@ -35,14 +34,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_personal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="个人资料"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -53,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/security"
@@ -65,14 +64,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_account"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="账户与安全"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -83,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/message"
@@ -95,14 +94,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_message"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="消息与通知"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -113,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/secret"
@@ -125,14 +124,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_privacy"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="隐私"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -143,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/common"
@@ -155,14 +154,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_reneral"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="通用"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -173,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/area"
@@ -185,14 +184,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_area"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="地区"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -203,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/about"
@@ -215,14 +214,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:src="@drawable/mine_set_icon_about"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="关于悟空返利"
                 android:textSize="15sp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center_vertical"/>
             <View
                 android:layout_width="0dp"
@@ -233,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/common_btn_right"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"/>
         </LinearLayout>
 
     </LinearLayout>

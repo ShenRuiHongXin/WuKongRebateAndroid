@@ -9,29 +9,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        android:src="@drawable/home_img"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"/>
+        android:src="@drawable/home_img"
+        android:contentDescription="@null"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <View
-            android:layout_width="3dp"
-            android:layout_height="match_parent"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="2dp">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:layout_marginStart="2dp"
             android:id="@+id/layout_brand_goods1"
             android:background="@color/white">
             <ImageView
                 android:id="@+id/iv_brand_goods1"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@null"/>
             <TextView
                 android:id="@+id/tv_brand_goods1_title"
                 android:layout_width="match_parent"
@@ -42,7 +40,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,6 +107,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginEnd="2dp"
             android:id="@+id/layout_brand_goods2"
             android:background="@color/white">
             <ImageView
@@ -179,9 +178,6 @@
                     android:textSize="12sp"/>
             </LinearLayout>
         </LinearLayout>
-        <View
-            android:layout_width="3dp"
-            android:layout_height="match_parent"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

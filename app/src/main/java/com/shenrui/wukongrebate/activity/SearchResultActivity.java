@@ -33,12 +33,11 @@ public class SearchResultActivity extends Activity {
     private static final int ACTION_DOWNLOAD = 0;
     private static final int ACTION_PULL_DOWN = 1;
     private static final int ACTION_PULL_UP = 2;
+    private static final int ACTION_NO_NET = 3;
     @ViewById(R.id.tv_search_result)
     TextView tv_search_result;//显示搜索结果的商品名称和数量
     @ViewById(R.id.srl_search_result)
     SwipeRefreshLayout srl;
-    @ViewById(R.id.tv_search_result_refresh)
-    TextView tv_refresh;
     @ViewById(R.id.rv_search_result)
     RecyclerView rv;
     @ViewById(R.id.layout_index_circle)
@@ -57,10 +56,12 @@ public class SearchResultActivity extends Activity {
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         //获得搜索界面传过来的关键字
         goods = getIntent().getStringExtra("search_goods");
         tv_search_result.setText(goods);
         initView();
+        srl.setRefreshing(true);
         downloadGoodsList(ACTION_DOWNLOAD,1);
         setListener();
     }
@@ -75,14 +76,7 @@ public class SearchResultActivity extends Activity {
             }
             updateUi(action,searchGoods);
         }else{
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(SearchResultActivity.this, "请检查网络设置", Toast.LENGTH_SHORT).show();
-                    srl.setRefreshing(false);
-                    tv_refresh.setVisibility(View.GONE);
-                }
-            });
+           updateUi(ACTION_NO_NET,null);
         }
     }
 
@@ -94,14 +88,18 @@ public class SearchResultActivity extends Activity {
         switch (action){
             case ACTION_DOWNLOAD:
                 adapter.initData(list);
+                srl.setRefreshing(false);
                 break;
             case ACTION_PULL_DOWN://下拉
                 srl.setRefreshing(false);
                 adapter.initData(list);
-                tv_refresh.setVisibility(View.GONE);
                 break;
             case ACTION_PULL_UP://上拉
                 adapter.addData(list);
+                break;
+            case ACTION_NO_NET:
+                Toast.makeText(this, getString(R.string.word_no_net), Toast.LENGTH_SHORT).show();
+                srl.setRefreshing(false);
                 break;
         }
     }
@@ -111,7 +109,6 @@ public class SearchResultActivity extends Activity {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                tv_refresh.setVisibility(View.VISIBLE);
                 downloadGoodsList(ACTION_PULL_DOWN,1);
             }
         });

@@ -20,7 +20,8 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:src="@drawable/nav_icon_back"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"/>
             <TextView
                 android:id="@+id/tv_search_result"
                 android:layout_width="0dp"
@@ -30,33 +31,20 @@
                 android:drawableStart="@drawable/nav_icon_search"
                 android:drawablePadding="10dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="13sp"/>
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="12sp"/>
         </LinearLayout>
         <android.support.v4.widget.SwipeRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/srl_search_result"
-            android:background="@color/mineGrey">
-            <LinearLayout
+            android:id="@+id/srl_search_result">
+            <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_search_result_refresh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="刷新中..."
-                    android:textSize="12sp"
-                    android:gravity="center"
-                    android:padding="15dp"
-                    android:visibility="gone"/>
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/rv_search_result" />
-            </LinearLayout>
+                android:id="@+id/rv_search_result"
+                android:background="@color/mineGrey"/>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
     <LinearLayout
@@ -74,7 +62,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="99"
             android:textSize="10sp"
             android:paddingBottom="2dp"
             android:gravity="center_horizontal|bottom" />
@@ -88,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="6184"
             android:textSize="10sp"
             android:paddingTop="2dp"
             android:gravity="center_horizontal|top"/>

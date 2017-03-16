@@ -94,7 +94,9 @@ public class FragmentSuperAll extends Fragment {
             case ACTION_DOWNLOAD:
             case ACTION_PULL_DOWN:
                 adpter.initData(list);
-                srl.setRefreshing(false);
+                if (srl.isRefreshing()){
+                    srl.setRefreshing(false);
+                }
                 break;
             case ACTION_PULL_UP:
                 adpter.addData(list);

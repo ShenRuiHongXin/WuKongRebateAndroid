@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.utils.MFGT;
@@ -18,13 +19,9 @@ import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import java.util.List;
 
-/**
- * Created by Administrator on 2017/1/11.
- */
-
 public class SearchGoodsAdater extends RecyclerView.Adapter<SearchGoodsAdater.NewGoodsHolder> {
     Context context;
-    List<TbkItem> list;
+    private List<TbkItem> list;
     private View.OnClickListener listener;
     public SearchGoodsAdater(final Context context, List<TbkItem> list) {
         this.context = context;

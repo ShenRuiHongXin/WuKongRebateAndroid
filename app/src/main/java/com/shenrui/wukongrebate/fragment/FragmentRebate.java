@@ -17,7 +17,6 @@ import com.shenrui.wukongrebate.adapter.RebateAdapter;
 import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.RebateMenuData;
-import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.entities.UatmTbkItem;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
@@ -103,9 +102,9 @@ public class FragmentRebate extends BaseFragment{
                     layoutSearch.setBackgroundColor(Color.argb(0,255,255,255));
                 }else if (mDistanceY<=400){
                     float scale = (float)mDistanceY / (float) 400;
-                    layoutSearch.setBackgroundColor(Color.argb((int) (222*scale),255,255,255));
+                    layoutSearch.setBackgroundColor(Color.argb((int) (240*scale),255,255,255));
                 }else{
-                    layoutSearch.setBackgroundColor(Color.argb(222,255,255,255));
+                    layoutSearch.setBackgroundColor(Color.argb(240,255,255,255));
                 }
             }
         });

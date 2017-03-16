@@ -3,14 +3,14 @@ package com.shenrui.wukongrebate.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
@@ -41,6 +41,7 @@ public class SuperSearchActivity extends Activity {
     List<String> searchHistory;
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         context = this;
         //禁止自动弹出键盘
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -83,6 +84,25 @@ public class SuperSearchActivity extends Activity {
                     //携带历史搜索关键词进入搜索结果界面
                     gotoSearchResultActivity(searchHistory.get(position));
                 }
+            }
+        });
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER){
+                    String str = etSearch.getText().toString().trim();
+                    if (str.isEmpty()){
+                        Toast.makeText(SuperSearchActivity.this, getString(R.string.word_empty_search), Toast.LENGTH_SHORT).show();
+                    }else{
+                        ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow(
+                                        SuperSearchActivity.this.getCurrentFocus().getWindowToken(),
+                                        InputMethodManager.HIDE_NOT_ALWAYS);
+                        SharedPreferenceUtils.getInstance(SuperSearchActivity.this).putSuperSearchHistory(str);
+                        gotoSearchResultActivity(str);
+                    }
+                }
+                return false;
             }
         });
     }

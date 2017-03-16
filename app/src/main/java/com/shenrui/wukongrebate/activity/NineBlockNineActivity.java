@@ -53,6 +53,7 @@ public class NineBlockNineActivity extends BaseActivity{
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         initTabs();
     }
 

@@ -1,14 +1,11 @@
 package com.shenrui.wukongrebate.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -47,6 +44,7 @@ public class NineSearchActivity extends BaseActivity {
     List<String> searchHistory;
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         //禁止自动弹出键盘
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         texts_search_recommend = new String[]{"袜子","拖鞋","耳机","鼠标","羽绒服",
@@ -90,6 +88,24 @@ public class NineSearchActivity extends BaseActivity {
                 }
             }
         });
+        etSearch.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER){
+                    String str = etSearch.getText().toString().trim();
+                    if (str.isEmpty()){
+                        Toast.makeText(NineSearchActivity.this, getString(R.string.word_empty_search), Toast.LENGTH_SHORT).show();
+                    }else{
+                        ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow(NineSearchActivity.this.getCurrentFocus().getWindowToken()
+                                ,InputMethodManager.HIDE_NOT_ALWAYS);
+                        SharedPreferenceUtils.getInstance(NineSearchActivity.this).putNineSearchHistory(str);
+                        gotoSearchResultActivity(str.trim());
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -108,7 +124,7 @@ public class NineSearchActivity extends BaseActivity {
             case R.id.tv_nine_search:
                 String goods = etSearch.getText().toString().trim();
                 if (goods.isEmpty()){
-                    Toast.makeText(this, "请输入搜索内容", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.word_empty_search), Toast.LENGTH_SHORT).show();
                 }else{
                     //将搜索关键词放入首选项
                     SharedPreferenceUtils.getInstance(this).putNineSearchHistory(goods);

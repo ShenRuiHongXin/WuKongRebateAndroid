@@ -57,6 +57,7 @@ public class BrandActivity extends Activity {
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         initView();
         initData(ACTION_DOWNLOAD,1);
         setListener();

@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.SuperActivity_;
+import com.shenrui.wukongrebate.activity.TimeLimitActivity_;
 import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.Click;
@@ -81,7 +82,7 @@ public class RebateItemView extends LinearLayout {
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.ll_time_limit:
-                Toast.makeText(getContext(), "限时秒", Toast.LENGTH_SHORT).show();
+                MFGT.startActivity(getContext(), TimeLimitActivity_.class);
                 break;
             case R.id.ll_super:
                 MFGT.startActivity(getContext(), SuperActivity_.class);

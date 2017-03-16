@@ -128,4 +128,9 @@ public class Constants {
 
     //某品牌选品库id
     public static final String FAVORITES_ID = "favorites_id";
+
+    //周刊数据
+    public static final String FOOD_ARTICLE = "article";
+    //视频数据
+    public static final String FOOD_VIDEO = "video";
 }

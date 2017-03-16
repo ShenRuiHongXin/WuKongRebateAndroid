@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.utils.MFGT;
 
 public class SplashActivity extends Activity {
 
@@ -27,4 +26,5 @@ public class SplashActivity extends Activity {
             }
         }, 1500);
     }
+
 }

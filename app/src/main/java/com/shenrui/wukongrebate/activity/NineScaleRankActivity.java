@@ -61,6 +61,7 @@ public class NineScaleRankActivity extends Activity {
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         context = this;
         initTab();
         initView();

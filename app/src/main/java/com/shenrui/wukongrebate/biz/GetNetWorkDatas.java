@@ -178,7 +178,7 @@ public class GetNetWorkDatas {
         map.put("page_size","20");
         map.put("start_price","1");
         map.put("end_price","49");
-        map.put("start_tk_rate","2000");//淘宝客佣金比率20%-90%
+        map.put("start_tk_rate","3000");//淘宝客佣金比率30%-90%
         map.put("end_tk_rate","9000");
 
         String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);

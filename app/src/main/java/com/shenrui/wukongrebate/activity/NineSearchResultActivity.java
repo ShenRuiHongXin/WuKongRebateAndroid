@@ -43,8 +43,6 @@ public class NineSearchResultActivity extends Activity {
     TextView tv_search_result;//显示搜索结果的商品名称和数量
     @ViewById(R.id.srl_nine_search_result)
     SwipeRefreshLayout srl;
-    @ViewById(R.id.tv_nine_search_result_refresh)
-    TextView tv_refresh;
     @ViewById(R.id.rv_nine_search_result)
     RecyclerView rv;
     @ViewById(R.id.layout_nine_circle)
@@ -63,6 +61,7 @@ public class NineSearchResultActivity extends Activity {
 
     @AfterViews
     void init(){
+        getWindow().setBackgroundDrawable(null);
         //获得搜索界面传过来的关键字
         goods = getIntent().getStringExtra("search_goods");
         tv_search_result.setText(goods);
@@ -86,7 +85,6 @@ public class NineSearchResultActivity extends Activity {
                 public void run() {
                     Toast.makeText(NineSearchResultActivity.this, "请检查网络设置", Toast.LENGTH_SHORT).show();
                     srl.setRefreshing(false);
-                    tv_refresh.setVisibility(View.GONE);
                 }
             });
         }
@@ -104,7 +102,6 @@ public class NineSearchResultActivity extends Activity {
             case ACTION_PULL_DOWN://下拉
                 srl.setRefreshing(false);
                 adapter.initData(list);
-                tv_refresh.setVisibility(View.GONE);
                 break;
             case ACTION_PULL_UP://上拉
                 adapter.addData(list);
@@ -117,7 +114,6 @@ public class NineSearchResultActivity extends Activity {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                tv_refresh.setVisibility(View.VISIBLE);
                 downloadGoodsList(ACTION_PULL_DOWN,1);
             }
         });

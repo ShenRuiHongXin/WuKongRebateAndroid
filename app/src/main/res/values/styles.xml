@@ -35,13 +35,28 @@
     <style name="main_bottom_tabs">
         <item name="android:textSize">10sp</item>
         <item name="android:drawablePadding">3dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
         <item name="android:button">@null</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@null</item>
+        <item name="android:textColor">@color/main_bottom_text_color</item>
+    </style>
+
+    <style name="food_text">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="mProgress_horizontal" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progressbar_color</item>
+        <item name="android:maxHeight">8dip</item>
+        <item name="android:minHeight">8dip</item>
+    </style>
+
+    <style name="time_tab_item">
+        <item name="android:textColor">@drawable/time_tab_color</item>
     </style>
 </resources>

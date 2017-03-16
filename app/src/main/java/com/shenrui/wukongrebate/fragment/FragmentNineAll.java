@@ -41,7 +41,6 @@ public class FragmentNineAll extends BaseFragment {
     private static final int ACTION_PULL_UP = 2;
     RecyclerView rv;
     SwipeRefreshLayout srl;
-    TextView layoutRefresh;
     int[] cids;
     int pageNo = 1;
     Context context;
@@ -83,7 +82,6 @@ public class FragmentNineAll extends BaseFragment {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                layoutRefresh.setVisibility(View.VISIBLE);
                 downloadGoods(ACTION_PULL_DOWN,1);
             }
         });
@@ -118,7 +116,6 @@ public class FragmentNineAll extends BaseFragment {
         rv = (RecyclerView) view.findViewById(R.id.nine_all_rv);
         srl = (SwipeRefreshLayout) view.findViewById(R.id.nine_all_srl);
         srl.setColorSchemeColors(getResources().getColor(R.color.green));
-        layoutRefresh = (TextView) view.findViewById(R.id.layout_nine_refresh);
         adapter = new NineAllAdapter(goodsList);
         layoutManager = new GridLayoutManager(context,2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -155,7 +152,6 @@ public class FragmentNineAll extends BaseFragment {
             case ACTION_PULL_DOWN:
                 adapter.initData(goodsList);
                 srl.setRefreshing(false);
-                layoutRefresh.setVisibility(View.GONE);
                 break;
             case ACTION_PULL_UP:
                 adapter.addData(goodsList);

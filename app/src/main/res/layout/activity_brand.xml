@@ -41,13 +41,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/brand_rv"/>
+        android:id="@+id/brand_rv"
+        android:background="@color/mineGrey"/>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
-        android:layout_height="50dp"
-        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:fabSize="mini"
         app:layout_anchor="@id/appBarLayout"
         app:layout_anchorGravity="bottom|right|end"
         android:src="@drawable/login_btn_qq_n"
-        android:clickable="true" />
+        android:clickable="true"/>
 </android.support.design.widget.CoordinatorLayout>

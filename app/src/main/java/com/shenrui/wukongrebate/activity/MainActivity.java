@@ -4,35 +4,23 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.fragment.FragmentFood_;
-import com.shenrui.wukongrebate.fragment.FragmentHaitao_;
-import com.shenrui.wukongrebate.fragment.FragmentMine;
+import com.shenrui.wukongrebate.fragment.FragmentMine_;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
 import com.shenrui.wukongrebate.fragment.FragmentZhi_;
-import com.shenrui.wukongrebate.utils.LogUtil;
-import com.shenrui.wukongrebate.view.NoScrollViewPager;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.androidannotations.annotations.ViewsById;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +38,6 @@ public class MainActivity extends BaseActivity{
     @ViewById(R.id.rb_wukong)
     RadioButton rbWuKong;
 
-    private RadioButton[] rbs;
     private List<Fragment> fragmentList;
 
     MyReceiver receiver;
@@ -58,11 +45,13 @@ public class MainActivity extends BaseActivity{
     @AfterViews
     void init() {
         context = this;
+        //去除系统提供的默认背景
+        getWindow().setBackgroundDrawable(null);
         fragmentList = new ArrayList<>();
         fragmentList.add(new FragmentRebate_());
         fragmentList.add(new FragmentZhi_());
         fragmentList.add(new FragmentFood_());
-        fragmentList.add(new FragmentMine());
+        fragmentList.add(new FragmentMine_());
 
         //设置默认显示的Fragment
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -120,7 +109,7 @@ public class MainActivity extends BaseActivity{
     }
 
     private void initViewStatus(){
-        rbs = new RadioButton[4];
+        RadioButton[] rbs = new RadioButton[4];
         rbs[0] = rbRebate;
         rbs[1] = rbZhi;
         rbs[2] = rbFood;

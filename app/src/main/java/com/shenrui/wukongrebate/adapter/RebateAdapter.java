@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.DuoBaoActivity_;
 import com.shenrui.wukongrebate.activity.NineBlockNineActivity_;
 import com.shenrui.wukongrebate.activity.SignActivity_;
 import com.shenrui.wukongrebate.activity.SuperActivity_;
@@ -176,7 +177,7 @@ public class RebateAdapter extends RecyclerView.Adapter {
                     context.sendBroadcast(intent);
                     break;
                 case R.id.tv_duo:
-                    Toast.makeText(context, "夺宝", Toast.LENGTH_SHORT).show();
+                    MFGT.startActivity(context, DuoBaoActivity_.class);
                     break;
                 case R.id.tv_sign:
                     MFGT.startActivity(context,SignActivity_.class);

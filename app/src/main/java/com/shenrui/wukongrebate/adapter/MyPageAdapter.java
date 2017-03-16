@@ -12,8 +12,8 @@ import java.util.List;
  */
 
 public class MyPageAdapter extends FragmentPagerAdapter{
-    List<Fragment> fragments;
-    List<String> titles;
+    private List<Fragment> fragments;
+    private List<String> titles;
     public MyPageAdapter(FragmentManager fm, List<Fragment> fragmentList, List<String> titleList) {
         super(fm);
         this.fragments = fragmentList;

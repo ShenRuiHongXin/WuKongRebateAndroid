@@ -15,7 +15,7 @@
             android:id="@+id/tv_time_limit_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
             android:text="限时秒"
             android:drawablePadding="5dp"
@@ -33,10 +33,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:contentDescription="@null"
             android:src="@drawable/img_left_bag" />
     </LinearLayout>
     <View
-        android:layout_width="1dp"
+        android:layout_width="0.5dp"
         android:layout_height="match_parent"
         android:background="@color/mineGrey"/>
     <LinearLayout
@@ -60,7 +61,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_fanli"/>
+                    android:src="@drawable/icon_fanli"
+                    android:contentDescription="@null"/>
                 <TextView
                     android:id="@+id/tv_super_title"
                     android:layout_width="wrap_content"
@@ -74,18 +76,20 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:src="@drawable/img_right_brush"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"/>
             <ImageView
                 android:id="@+id/iv_super_good2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/img_right_cosmetics" />
+                android:src="@drawable/img_right_cosmetics"
+                android:contentDescription="@null"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@color/mineGrey"/>
         <LinearLayout
             android:id="@+id/ll_group"
@@ -101,7 +105,8 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_tuangou"/>
+                    android:src="@drawable/icon_tuangou"
+                    android:contentDescription="@null"/>
                 <TextView
                     android:id="@+id/tv_group_title"
                     android:layout_width="wrap_content"
@@ -115,14 +120,16 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:src="@drawable/img_right_cup"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null"/>
             <ImageView
                 android:id="@+id/iv_group_good2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/img_right_light" />
+                android:src="@drawable/img_right_light"
+                android:contentDescription="@null"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

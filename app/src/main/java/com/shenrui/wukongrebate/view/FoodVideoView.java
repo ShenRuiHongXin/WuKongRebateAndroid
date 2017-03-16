@@ -16,32 +16,9 @@ import org.androidannotations.annotations.ViewById;
 
 @EViewGroup(R.layout.food_video_view)
 public class FoodVideoView extends RelativeLayout {
-    @ViewById(R.id.tv_food_video_more)
-    TextView tvVideoMore;
 
-    @ViewById(R.id.tv_food_video_title)
-    TextView tvFoodVideoTitle;
-
-    @ViewById(R.id.tv_food_video_synopsis)
-    TextView tvFoodVideoSynopsis;
 
     public FoodVideoView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public void setMoreOnclickListener(OnClickListener onclickListener){
-        tvVideoMore.setOnClickListener(onclickListener);
-    }
-
-    public void setMoreVisibility(int visibility){
-        tvVideoMore.setVisibility(visibility);
-    }
-
-    public void setFoodVideoTitle(String foodVideoTitle){
-        tvFoodVideoTitle.setText(foodVideoTitle);
-    }
-
-    public void setFoodVideoSynopsis(String foodVideoSynopsis){
-        tvFoodVideoSynopsis.setText(foodVideoSynopsis);
     }
 }

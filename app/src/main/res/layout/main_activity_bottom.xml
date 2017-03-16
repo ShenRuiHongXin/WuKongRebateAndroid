@@ -5,37 +5,32 @@
     android:orientation="vertical">
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/mineGrey"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <RadioButton
             android:id="@+id/rb_rebate"
             android:drawableTop="@drawable/selector_tab_rebate"
             android:checked="true"
             android:text="悟空返利"
-            android:textColor="@color/main_bottom_text_color"
             style="@style/main_bottom_tabs"/>
         <RadioButton
             android:id="@+id/rb_zhi"
             android:drawableTop="@drawable/selector_tab_zhi"
             android:text="值得买"
-            android:textColor="@color/main_bottom_text_color"
             style="@style/main_bottom_tabs"/>
         <RadioButton
             android:id="@+id/rb_food"
             android:drawableTop="@drawable/selector_tab_food"
             android:text="美食馆"
-            android:textColor="@color/main_bottom_text_color"
             style="@style/main_bottom_tabs"/>
         <RadioButton
             android:id="@+id/rb_wukong"
             android:drawableTop="@drawable/selector_tab_wukong"
             android:text="悟空"
-            android:textColor="@color/main_bottom_text_color"
             style="@style/main_bottom_tabs"/>
     </LinearLayout>
 </LinearLayout>
