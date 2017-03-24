@@ -54,7 +54,7 @@ public class SuperActivity extends BaseActivity{
     void init(){
         getWindow().setBackgroundDrawable(null);
         initTabs();
-        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -149,7 +149,8 @@ public class SuperActivity extends BaseActivity{
             }
         });
         pop.setOutsideTouchable(false);
-        pop.showAsDropDown(tabs,0,0);
+        //7.0系统中显示位置有些问题
+        pop.showAsDropDown(tabs);
     }
 
     //显示/隐藏搜索栏

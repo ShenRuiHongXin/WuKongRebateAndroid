@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.MyToast;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -138,6 +139,7 @@ public class FindPasswordActivity extends BaseActivity {
                 break;
             case R.id.toolbar_right_text:
                 startActivity(new Intent(this,RegisterActivity_.class));
+                MFGT.finish(this);
                 break;
             case R.id.btn_find_getCode:
                 phoneNumber = etPhoneNumber.getText().toString();
@@ -146,6 +148,8 @@ public class FindPasswordActivity extends BaseActivity {
                     SMSSDK.getVerificationCode("86", phoneNumber);
                     Toast.makeText(this, "短信已发送", Toast.LENGTH_SHORT).show();
                     countTime();
+                }else{
+                    MyToast.showToast(this,"请输入手机号");
                 }
                 break;
             case R.id.btn_find_check:
@@ -153,6 +157,8 @@ public class FindPasswordActivity extends BaseActivity {
                 //开始验证
                 if(!messageCode.isEmpty()){
                     SMSSDK.submitVerificationCode("86",phoneNumber,messageCode);
+                }else{
+                    MyToast.showToast(this,"请输入验证码");
                 }
                 break;
             case R.id.btn_find_sure:
@@ -219,22 +225,17 @@ public class FindPasswordActivity extends BaseActivity {
 
     private boolean checkFormat() {
         if(password.isEmpty()){
-            etPassword.setError("密码不能为空");
+            MyToast.showToast(this,"密码不能为空");
             etPassword.requestFocus();
             return false;
         }
         if(!password.matches("[a-zA-Z0-9]{8,16}")){
-            etPassword.setError("密码格式错误");
+            MyToast.showToast(this,"密码格式错误");
             etPassword.requestFocus();
             return false;
         }
-        if(rePassword.isEmpty()){
-            etRePassword.setError("密码不能为空");
-            etRePassword.requestFocus();
-            return false;
-        }
-        if(!password.equals(rePassword)){
-            etRePassword.setError("两次密码不一致");
+        if(!password.equals(rePassword) || rePassword.isEmpty()){
+            MyToast.showToast(this,"两次密码不一致");
             etRePassword.requestFocus();
             return false;
         }
@@ -248,6 +249,7 @@ public class FindPasswordActivity extends BaseActivity {
         handler = null;
         timeHandler = null;
         OkHttpUtils.release();
+        MyToast.cancelToast();
     }
 
     @Override

@@ -1,14 +1,12 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +19,7 @@ import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.MyToast;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -138,6 +137,8 @@ public class RegisterActivity extends BaseActivity {
                 //获取短信验证码
                 if(!phoneNumber.isEmpty()){
                     checkPhone();
+                }else{
+                    MyToast.showToast(this,"请输入手机号");
                 }
                 break;
             case R.id.btn_check:
@@ -145,6 +146,8 @@ public class RegisterActivity extends BaseActivity {
                 //开始验证
                 if(!messageCode.isEmpty()){
                     SMSSDK.submitVerificationCode("86",phoneNumber,messageCode);
+                }else{
+                    MyToast.showToast(this,"请输入收到的短信验证码");
                 }
                 break;
             case R.id.btn_register:
@@ -256,27 +259,27 @@ public class RegisterActivity extends BaseActivity {
         phoneNumber = etPhoneNumber.getText().toString();
         String rePassword = etRePassword.getText().toString();
         if(nick.isEmpty()){
-            etNick.setError("密码不能为空");
+            MyToast.showToast(this,"昵称不能为空");
             etNick.requestFocus();
             return false;
         }
         if(password.isEmpty()){
-            etPassword.setError("密码不能为空");
+            MyToast.showToast(this,"密码不能为空");
             etPassword.requestFocus();
             return false;
         }
         if(!password.matches("[a-zA-Z0-9]{8,16}")){
-            etPassword.setError("密码格式错误");
+            MyToast.showToast(this,"密码太过简单，请输入8-16位字母加数字组合密码");
             etPassword.requestFocus();
             return false;
         }
-        if(rePassword.isEmpty()){
-            etRePassword.setError("确认密码不能为空");
-            etRePassword.requestFocus();
-            return false;
-        }
-        if(!rePassword.equals(password)){
-            etRePassword.setError("两次密码不一致");
+//        if(rePassword.isEmpty()){
+//            etRePassword.setError("确认密码不能为空");
+//            etRePassword.requestFocus();
+//            return false;
+//        }
+        if(!rePassword.equals(password) || rePassword.isEmpty()){
+            MyToast.showToast(this,"两次密码不一致");
             etRePassword.requestFocus();
             return false;
         }
@@ -294,6 +297,7 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        MyToast.cancelToast();
         MFGT.finish(this);
     }
 }

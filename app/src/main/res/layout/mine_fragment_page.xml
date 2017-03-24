@@ -2,6 +2,7 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:id="@+id/mine_srl">
     <LinearLayout
@@ -31,6 +32,8 @@
                 android:id="@+id/iv_mine_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                app:border_color="#00000000"
+                app:border_width="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
                 android:src="@drawable/home_img_user"/>

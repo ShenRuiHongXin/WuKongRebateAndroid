@@ -1,12 +1,7 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.app.Activity;
-import android.os.Build;
-import android.telephony.TelephonyManager;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -28,7 +23,7 @@ public class TestActivity extends Activity {
         settings.setSupportZoom(true);          //支持缩放
         settings.setJavaScriptEnabled(true);    //启用JS脚本
 
-        webView.loadUrl("http://192.168.0.4:8080/WKBackstageSys/page/20170314132619.html");
+        webView.loadUrl("http://192.168.0.4:8080/WKBackstageSys/Resources/page/20170314132619.html");
         webView.requestFocus();
 
         /*DisplayMetrics dm = getResources().getDisplayMetrics();

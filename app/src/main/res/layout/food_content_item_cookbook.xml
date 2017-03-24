@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_food_cookbook_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/food_gl_home_img_tmp"/>
+    <TextView
+        android:id="@+id/tv_food_cookbook_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="营养齐全的【Cobb Salad】"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/iv_food_cookbook_icon" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/mineGrey"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/iv_food_cookbook_icon"/>
+</RelativeLayout>

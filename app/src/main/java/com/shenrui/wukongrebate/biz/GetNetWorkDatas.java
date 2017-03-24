@@ -117,25 +117,28 @@ public class GetNetWorkDatas {
         }
         return goodsDataList;
     }
-
     /**
      * 关键字查询商品
+     * @param q
+     * @param pageNo
+     * @param pageSize
+     * @return
      */
-    public static Map<String,Object> getSearchGoods(String q,int pageNo){
+    public static Map<String,Object> getSearchGoods(String q,int pageNo,int pageSize){
         DecimalFormat df = new DecimalFormat("#####0");
         Map<String,String> map = new HashMap<>();
         map.put("fields", "num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick");
         map.put("page_no",String.valueOf(pageNo));
         map.put("q",q);
-        map.put("page_size","20");
+        map.put("page_size",String.valueOf(pageSize));
         map.put("start_price","1");
         map.put("end_price","1000000");
-        map.put("start_tk_rate","1000");//淘宝客佣金比率10%-95%
-        map.put("end_tk_rate","9500");
+        map.put("start_tk_rate","3000");//淘宝客佣金比率10%-100%
+        map.put("end_tk_rate","10000");
         map.put("sort","total_sales_des");
 
         String url = "http://gw.api.taobao.com/router/rest?" + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
-        Log.e("DeDiWang url",url);
+        LogUtil.d("Request url:"+url);
 
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
@@ -152,8 +155,8 @@ public class GetNetWorkDatas {
             Double results = jsonObject1.getDouble("total_results");
             JSONArray jsonArrayItems = jsonObject2.getJSONArray("n_tbk_item");
             List<TbkItem> goodsList = JSON.parseArray(jsonArrayItems.toString(), TbkItem.class);
-            Log.e("DeDiWang",goodsList.toString());
-            Log.e("DeDiWang",String.valueOf(results));
+            LogUtil.d("getSearchGoods goodsList:"+goodsList.toString());
+            LogUtil.d("getSearchGoods results:"+String.valueOf(results));
             result.put("goodsList",goodsList);
             result.put("totals",df.format(results));
         } catch (IOException e) {
@@ -161,9 +164,19 @@ public class GetNetWorkDatas {
         } catch (JSONException e) {
             e.printStackTrace();
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return result;
+    }
+
+    /**
+     * 关键字查询商品 # 重载
+     * @param q
+     * @param pageNo
+     * @return
+     */
+    public static Map<String,Object> getSearchGoods(String q,int pageNo){
+        return getSearchGoods(q,pageNo,20);
     }
 
     /**

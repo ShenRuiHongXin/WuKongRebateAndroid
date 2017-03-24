@@ -21,6 +21,7 @@ import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.MyToast;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
@@ -38,8 +39,6 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 @EActivity(R.layout.activity_login)
 public class LoginActivity extends BaseActivity {
@@ -67,6 +66,7 @@ public class LoginActivity extends BaseActivity {
     String userName,password;
     static Handler loginHandler = null;//用于第三方登录的Handler
     String userId,userNick,userIcon,userPassword,loginType;//三方帐号信息
+    boolean canLogin = true;
     @AfterViews
     void init(){
         toolbar_left_image.setVisibility(View.GONE);
@@ -132,10 +132,17 @@ public class LoginActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_login:
-                if(CheckFormat()){
-                    //登录操作
-                    login();
+                if (canLogin){
+                    if(CheckFormat()){
+                        //登录操作
+                        btnLogin.setText("登陆中。。。");
+                        canLogin = !canLogin;
+                        login();
+                    }
+                }else{
+                    MyToast.showToast(this,"正在登陆中。。。");
                 }
+
                 break;
             case R.id.tv_find_password:
                 MFGT.startActivity(this,FindPasswordActivity_.class);
@@ -276,6 +283,8 @@ public class LoginActivity extends BaseActivity {
                 }else if(code == Constants.LOGIN_PASSWORD_ERROR){
                     Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                 }
+                btnLogin.setText("登录");
+                canLogin = !canLogin;
             }
 
             @Override
@@ -289,12 +298,14 @@ public class LoginActivity extends BaseActivity {
         userName = etUserName.getText().toString();
         password = etPassword.getText().toString();
         if(userName.isEmpty()){
-            etUserName.setError("手机号不能为空");
+            //etUserName.setError("手机号不能为空");
+            MyToast.showToast(this,"手机号不能为空");
             etUserName.requestFocus();
             return false;
         }
         if(password.isEmpty()){
-            etPassword.setError("密码不能为空");
+//            etPassword.setError("密码不能为空");
+            MyToast.showToast(this,"密码不能为空");
             etUserName.requestFocus();
             return false;
         }
@@ -310,6 +321,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        MyToast.cancelToast();
         MFGT.finish(this);
     }
 

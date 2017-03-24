@@ -201,7 +201,11 @@ public class CycleRotationView extends FrameLayout {
 
         @Override
         public int getCount() {
-            return Integer.MAX_VALUE;
+            if(mList.size() == 1){
+                return 1;
+            }else{
+                return Integer.MAX_VALUE;
+            }
         }
 
         @Override

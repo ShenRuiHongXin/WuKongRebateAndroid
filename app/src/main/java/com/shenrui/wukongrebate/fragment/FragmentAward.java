@@ -1,7 +1,6 @@
 package com.shenrui.wukongrebate.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -71,16 +70,16 @@ public class FragmentAward extends BaseFragment {
                 if (!userAuths.getIdentity_type().equals("phone")){
                     Glide.with(this).load(userInfo.getAvatar()).into(ivAvatar);
                 }else{
-                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(ivAvatar);
+                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).error(R.drawable.home_img_user).into(ivAvatar);
                 }
             }else{
-                ivAvatar.setImageResource(R.drawable.mine_avatar);
+                ivAvatar.setImageResource(R.drawable.home_img_user);
             }
         }else{
             isLogin = false;
             tvUserName.setText("登录/注册");
             tvIntegral.setText("xxxx");
-            ivAvatar.setImageResource(R.drawable.mine_avatar);
+            ivAvatar.setImageResource(R.drawable.home_img_user);
         }
     }
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/zhi_jx_item"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/zhi_jx_item_good_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"/>
+    <TextView
+        android:id="@+id/zhi_jx_item_good_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:textColor="#9D9D9D"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="\u3000&quot;立体猫咪印花设计，搭配经典包型，突出了整体的别出心裁的质感，还显得包包更加的俏皮活泼"/>
+    <ImageView
+        android:id="@+id/zhi_jx_item_good_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/mineGrey"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>

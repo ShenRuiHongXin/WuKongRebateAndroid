@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_food_video_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/food_gl_video_img_tmp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#a06D6D6D"
+        android:layout_alignTop="@+id/iv_food_video_icon"
+        android:layout_alignBottom="@+id/iv_food_video_icon">
+
+        <ImageView
+            android:id="@+id/iv_food_video_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_bofang"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tv_food_video_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="食汇寿司——在家也可以做"
+            android:textColor="@color/white"
+            android:layout_below="@+id/iv_food_video_play"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/mineGrey"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/iv_food_video_icon"/>
+</RelativeLayout>

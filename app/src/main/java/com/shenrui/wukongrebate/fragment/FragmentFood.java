@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import com.shenrui.wukongrebate.R;
 
+import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MyPageAdapter;
 import com.shenrui.wukongrebate.fragment.food.FragmentFoodGL_;
 import com.shenrui.wukongrebate.fragment.food.FragmentFoodJ_;

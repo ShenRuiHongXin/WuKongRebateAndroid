@@ -38,9 +38,9 @@ public class CountTimeView extends LinearLayout{
             super.handleMessage(msg);
             if (msg.what == 1){
                 computeTime();
-                tvHour.setText(mHour+"");
-                tvMin.setText(mMinute+"");
-                tvSec.setText(mSecond+"");
+                tvHour.setText(formatTime(mHour));
+                tvMin.setText(formatTime(mMinute));
+                tvSec.setText(formatTime(mSecond));
                 if (mHour==0&&mMinute==0&&mSecond==0){
                     layoutCountTime.setVisibility(GONE);
                 }
@@ -91,5 +91,9 @@ public class CountTimeView extends LinearLayout{
                 }
             }
         }
+    }
+
+    private String formatTime(int time){
+        return ((time < 10) ? "0" : "") +time;
     }
 }

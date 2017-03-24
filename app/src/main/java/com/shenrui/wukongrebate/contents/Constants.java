@@ -87,9 +87,9 @@ public class Constants {
     };
 
     //服务器根地址
-    public static final String SERVICE_URL = "http://192.168.0.8:8080/WukongServer/";
+    public static final String SERVICE_URL = "http://192.168.0.4:8080/WukongServer/";
     //Host
-    public static final String HOST = "http://192.168.0.8:8080/";
+    public static final String HOST = "http://192.168.0.4:8080/";
     //注册/登录 成功的结果码
     public static final int CODE_SUCCESS = 200;
     //手机号已被注册

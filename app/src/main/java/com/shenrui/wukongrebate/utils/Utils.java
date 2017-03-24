@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import java.text.DecimalFormat;
+
 /**
  * 通用工具类
  * Created by heikki on 2017/1/7.
@@ -44,5 +46,15 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    /**
+     * 格式化double，使其保留两位小数
+     * @param d
+     * @return
+     */
+    public static String transformDouble(double d){
+        DecimalFormat    df   = new DecimalFormat("######0.00");
+        return df.format(d);
     }
 }

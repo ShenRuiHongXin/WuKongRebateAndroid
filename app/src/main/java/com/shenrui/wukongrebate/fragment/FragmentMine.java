@@ -64,7 +64,7 @@ public class FragmentMine extends BaseFragment{
                 if (!userAuths.getIdentity_type().equals("phone")){
                     Glide.with(this).load(userInfo.getAvatar()).into(iv_avatar);
                 }else{
-                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(iv_avatar);
+                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).error(R.drawable.home_img_user).into(iv_avatar);
                 }
             }else{
                 iv_avatar.setImageResource(R.drawable.home_img_user);
@@ -72,7 +72,7 @@ public class FragmentMine extends BaseFragment{
         }else{//当前无用户
             isLogined = false;
             tv_user_name.setText("登录/注册");
-            iv_avatar.setImageResource(R.drawable.mine_avatar);
+            iv_avatar.setImageResource(R.drawable.home_img_user);
             tv_money_yue.setText("xx");
         }
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));

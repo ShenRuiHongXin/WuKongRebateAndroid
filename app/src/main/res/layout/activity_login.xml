@@ -16,10 +16,13 @@
         android:layout_marginTop="20dp"
         android:hint="请输入手机号"
         android:textSize="15sp"
-        android:drawableStart="@drawable/login_btn_user_n"
+        android:drawableStart="@drawable/icon_user"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:drawablePadding="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:background="@drawable/red_edit"/>
     <EditText
         android:id="@+id/et_userPassword"
@@ -29,10 +32,13 @@
         android:textSize="15sp"
         android:inputType="textPassword"
         android:layout_marginTop="3dp"
-        android:drawableStart="@drawable/mine_set_icon_privacy"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:drawableStart="@drawable/icon_password"
         android:drawablePadding="10dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:background="@drawable/red_edit"/>
     <Button
         android:id="@+id/btn_login"
@@ -40,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="登录"
         android:textColor="@color/white"
         android:textSize="18sp"

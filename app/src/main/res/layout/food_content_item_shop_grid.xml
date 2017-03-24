@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:clickable="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_food_j_shop_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@drawable/food_j_shop_home_img_tmp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/iv_food_j_shop_img">
+        <TextView
+            android:id="@+id/tv_food_j_shop_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soulmate coffee"/>
+        <TextView
+            android:id="@+id/tv_food_j_shop_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/tv_food_j_shop_name"
+            android:textColor="@color/text_color_grey"
+            android:text="客运港/江滩·咖啡厅"/>
+        <TextView
+            android:id="@+id/tv_food_j_shop_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_food_j_shop_location"
+            android:textColor="@color/text_color_grey"
+            android:textSize="12sp"
+            android:layout_marginTop="5dp"
+            android:text="人均:¥67"/>
+    </RelativeLayout>
+
+</RelativeLayout>

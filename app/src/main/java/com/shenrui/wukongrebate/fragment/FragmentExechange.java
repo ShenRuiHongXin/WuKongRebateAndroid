@@ -31,9 +31,9 @@ public class FragmentExechange extends BaseFragment {
 
     @AfterViews
     void init(){
-       /* //轮播图
-        int[] imgs = {R.drawable.food_banner1,R.drawable.food_banner2,R.drawable.index_banner1,R.drawable.index_banner2};
-        crvJfExchange.setImages(imgs);*/
+        //轮播图
+        int[] imgs = {R.drawable.index_banner1,R.drawable.index_banner2};
+        crvJfExchange.setImages(imgs);
         //奖品
         List exchangeList = new ArrayList();
         exchangeList.add(new SignRecyItemData(new JfExchangeGoods("商品名称",R.drawable.index_sign_reward_img1,1000),SignRecyItemData.JF_EXCHANG));

@@ -227,8 +227,11 @@
         <activity
             android:name=".activity.DuoBaoActivity_"
             android:launchMode="singleInstance" />
-        <activity android:name=".activity.TimeLimitActivity_"
-            android:launchMode="singleInstance"/>
+        <activity
+            android:name=".activity.TimeLimitActivity_"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activity.FoodJCommonActivity_" />
+        <activity android:name=".activity.ShopDetailActivity_"/>
     </application>
 
 </manifest>

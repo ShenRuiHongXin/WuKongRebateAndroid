@@ -1,6 +1,5 @@
 package com.shenrui.wukongrebate.activity;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +13,7 @@ import com.alibaba.baichuan.android.trade.adapter.login.AlibcLogin;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.ScreenUtils;
 import com.shenrui.wukongrebate.utils.SharedPreferenceUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -42,14 +42,14 @@ public class SettingsActivity extends BaseActivity{
     LinearLayout personalInfo;
     @ViewById(R.id.security)
     LinearLayout security;
-    @ViewById(R.id.secret)
-    LinearLayout secret;
+//    @ViewById(R.id.secret)
+//    LinearLayout secret;
     @ViewById(R.id.message)
     LinearLayout message;
-    @ViewById(R.id.common)
-    LinearLayout common;
-    @ViewById(R.id.area)
-    LinearLayout area;
+//    @ViewById(R.id.common)
+//    LinearLayout common;
+//    @ViewById(R.id.area)
+//    LinearLayout area;
     @ViewById(R.id.about)
     LinearLayout about;
     @ViewById(R.id.btn_exit)
@@ -60,6 +60,7 @@ public class SettingsActivity extends BaseActivity{
     void initView() {
         toolbar_left_image.setVisibility(View.VISIBLE);
         toolbar_left_image.setImageResource(R.drawable.nav_icon_back);
+        toolbar_left_image.setPadding(ScreenUtils.dp2px(this,10),0,ScreenUtils.dp2px(this,10),0);
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("设置");
         toolbar_right_image.setVisibility(View.GONE);
@@ -77,7 +78,7 @@ public class SettingsActivity extends BaseActivity{
         }
     }
 
-    @Click({R.id.btn_exit,R.id.toolbar_left_image,R.id.personalInfo,R.id.security,R.id.secret,R.id.message,R.id.common,R.id.area,R.id.about})
+    @Click({R.id.btn_exit,R.id.toolbar_left_image,R.id.personalInfo,R.id.security})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.toolbar_left_image:
@@ -137,22 +138,22 @@ public class SettingsActivity extends BaseActivity{
                     MFGT.startActivity(this,LoginActivity_.class);
                 }
                 break;
-            //隐私
-            case R.id.secret:
-
-                break;
+//            //隐私
+//            case R.id.secret:
+//
+//                break;
             //消息与通知
             case R.id.message:
 
                 break;
-            //通用
-            case R.id.common:
-                MFGT.startActivity(this,CommonActivity_.class);
-                break;
-            //地区
-            case R.id.area:
-
-                break;
+//            //通用
+//            case R.id.common:
+//                MFGT.startActivity(this,CommonActivity_.class);
+//                break;
+//            //地区
+//            case R.id.area:
+//
+//                break;
             //关于悟空返利
             case R.id.about:
                 MFGT.startActivity(this,AboutActivity_.class);
