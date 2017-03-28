@@ -1,6 +1,8 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +48,7 @@ public class FoodJCommonActivity extends BaseActivity{
     @ViewById(R.id.food_j_common_rv)
     RecyclerView rv;
     LinearLayoutManager layoutManager;
+    GridLayoutManager gridLayoutManager = null;
     FoodAdapter adapter;
     List shopDatas;
     int mainDataType = -1;
@@ -79,12 +82,12 @@ public class FoodJCommonActivity extends BaseActivity{
             mainDataType = 1;
             tvCondition1.setText("角色");
             roles = new String[]{"朋友","恋人","同事","家人","其他"};
-            layoutManager = new GridLayoutManager(this, 2);
+            gridLayoutManager = new GridLayoutManager(this, 2);
         }else if ("刁角美食".equals(dataType)){
             mainDataType = 2;
             tvCondition1.setText("种类");
             roles = new String[]{"甜品","小吃","酒水饮料","其他",""};
-            layoutManager = new GridLayoutManager(this, 2);
+            gridLayoutManager = new GridLayoutManager(this, 2);
         }else if ("精品美食".equals(dataType)){
             mainDataType = 3;
             tvCondition1.setText("环境");
@@ -92,17 +95,70 @@ public class FoodJCommonActivity extends BaseActivity{
             layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         }
         initData(mainDataType);
-        rv.setLayoutManager(layoutManager);
+        if (gridLayoutManager != null){
+            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                @Override
+                public int getSpanSize(int position) {
+                    return (position == adapter.getItemCount()-1) ? 2 : 1;
+                }
+            });
+        }
+        rv.setLayoutManager((gridLayoutManager == null) ? layoutManager : gridLayoutManager);
         adapter = new FoodAdapter(this,shopDatas);
+        setLoadMoreListener();
         rv.setAdapter(adapter);
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
         setListener();
+    }
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case FoodAdapter.LOAD_STATE_DEFAULT:
+                    adapter.setLoadDefaultUI();
+                    adapter.setLoadState(FoodAdapter.LOAD_STATE_DEFAULT);
+                    break;
+                case FoodAdapter.LOAD_STATE_FAILURE:
+                    adapter.setLoadFailUI();
+                    adapter.setLoadState(FoodAdapter.LOAD_STATE_FAILURE);
+                    break;
+                case FoodAdapter.LOAD_STATE_FINISH:
+                    adapter.setLoadFinishUI();
+                    adapter.setLoadState(FoodAdapter.LOAD_STATE_FINISH);
+                    break;
+            }
+        }
+    };
+    private void setLoadMoreListener(){
+        adapter.setLoadMoreListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (adapter.getLoadState()){
+                    case FoodAdapter.LOAD_STATE_DEFAULT:
+                        adapter.setloadingUI();
+                        adapter.setLoadState(FoodAdapter.LOAD_STATE_LOADING);
+                        handler.sendEmptyMessageDelayed(FoodAdapter.LOAD_STATE_FAILURE,3000);
+                        break;
+                    case FoodAdapter.LOAD_STATE_FAILURE:
+                        adapter.setloadingUI();
+                        adapter.setLoadState(FoodAdapter.LOAD_STATE_LOADING);
+                        handler.sendEmptyMessageDelayed(FoodAdapter.LOAD_STATE_FINISH,3000);
+                        break;
+                    case FoodAdapter.LOAD_STATE_FINISH:
+                        adapter.setloadingUI();
+                        adapter.setLoadState(FoodAdapter.LOAD_STATE_LOADING);
+                        handler.sendEmptyMessageDelayed(FoodAdapter.LOAD_STATE_FINISH,3000);
+                        break;
+                }
+            }
+        });
     }
     private void setListener() {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 srl.setRefreshing(false);
+                handler.sendEmptyMessageDelayed(FoodAdapter.LOAD_STATE_DEFAULT,0);
             }
         });
     }

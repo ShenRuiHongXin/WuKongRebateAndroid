@@ -37,7 +37,7 @@ public class MFGT {
 
     //activity退出时从屏幕右边退出
     public static void finish(Activity activity){
-        if (Build.VERSION.SDK_INT <= 19){
+        if (Build.VERSION.SDK_INT <= 23){
             activity.finish();
             activity.overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
         }else{

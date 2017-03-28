@@ -59,4 +59,7 @@
     <style name="time_tab_item">
         <item name="android:textColor">@drawable/time_tab_color</item>
     </style>
+    <style name="ProgressBar.Horizontal" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+
+    </style>
 </resources>

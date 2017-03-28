@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,16 +37,28 @@ public class FoodAdapter extends RecyclerView.Adapter {
     public static final int TYPE_SHOP       = 3;
     public static final int TYPE_SHOP_GRID  = 4;
     public static final int TYPE_SHOP_JP    = 5;
+    public static final int TYPE_FOOTER     = 6;
+
+    public static final int LOAD_STATE_DEFAULT = 10;   //默认情况
+    public static final int LOAD_STATE_LOADING = 11;     //正在加载
+    public static final int LOAD_STATE_FAILURE = 12;     //加载失败
+    public static final int LOAD_STATE_SUCCESS = 13;     //加载成功
+    public static final int LOAD_STATE_FINISH = 14;      //没有更多数据了
 
     Context context;
     List foodContentDatas;
     int[] bannerDatas;
     List btnDatas;
     boolean hasHeader = false;
+    private int loadState = LOAD_STATE_DEFAULT;
+    private FooterHolder footerHolder = null;
+    private FoodAdapter curAdapter;
+    private View.OnClickListener loadMoreListener;
 
     public FoodAdapter(Context context, List foodContentDatas) {
         this.context = context;
         this.foodContentDatas = foodContentDatas;
+        curAdapter = this;
     }
 
     public FoodAdapter(Context context, List foodContentDatas, int[] bannerDatas, List btnDatas) {
@@ -53,26 +66,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
         this.foodContentDatas = foodContentDatas;
         this.bannerDatas = bannerDatas;
         this.btnDatas = btnDatas;
-    }
-
-    public void setHasHeader(boolean hasHeader){
-        this.hasHeader = hasHeader;
-    }
-
-    /**
-     * 设置轮播图
-     * @param bannerDatas
-     */
-    public void setHeadDatas(int[] bannerDatas) {
-        this.bannerDatas = bannerDatas;
-    }
-
-    /**
-     * 设置按钮跳转事件
-     * @param btnDatas
-     */
-    public void setBtnDatas(List btnDatas) {
-        this.btnDatas = btnDatas;
+        curAdapter = this;
     }
 
     @Override
@@ -84,6 +78,10 @@ public class FoodAdapter extends RecyclerView.Adapter {
             case TYPE_HEADER:
                 view = inflater.inflate(R.layout.food_fragment_header,null);
                 holder = new HeaderHolder(view);
+                break;
+            case TYPE_FOOTER:
+                view = inflater.inflate(R.layout.footer_layout,null);
+                holder = new FooterHolder(view);
                 break;
             case TYPE_COOKBOOK:
                 view = inflater.inflate(R.layout.food_content_item_cookbook,null);
@@ -122,6 +120,13 @@ public class FoodAdapter extends RecyclerView.Adapter {
                     FoodFragmentBtnItem btnItem = (FoodFragmentBtnItem) btnDatas.get(i);
                     headerHolder.setBtn(btn,btnItem);
                 }
+                break;
+            case TYPE_FOOTER:
+                FooterHolder footerHolder = (FooterHolder) holder;
+                this.footerHolder = footerHolder;
+                footerHolder.setLoadMoreOnclickListener(this.loadMoreListener);
+                footerHolder.mProgressBar.setVisibility(View.GONE);
+                footerHolder.tvFooter.setText("点击加载更多");
                 break;
             case TYPE_COOKBOOK:
                 int tmpPositon = hasHeader ? position - 1 : position;
@@ -184,7 +189,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return hasHeader ? foodContentDatas.size()+1 : foodContentDatas.size();
+        return hasHeader ? foodContentDatas.size()+2 : foodContentDatas.size()+1;
     }
 
     @Override
@@ -192,7 +197,64 @@ public class FoodAdapter extends RecyclerView.Adapter {
         if (position == 0 && hasHeader){
             return TYPE_HEADER;
         }
+        if((position == foodContentDatas.size()+1 && hasHeader) || (position == foodContentDatas.size() && !hasHeader)){
+            return TYPE_FOOTER;
+        }
         return ((FoodContentItem)foodContentDatas.get(hasHeader ? position-1 : position)).getType();
+    }
+
+    /**************************************** 自定义方法专区 ********************************************/
+    /**
+     * 设置是否有头部
+     * @param hasHeader
+     */
+    public void setHasHeader(boolean hasHeader){
+        this.hasHeader = hasHeader;
+    }
+
+    /**
+     * 设置轮播图
+     * @param bannerDatas
+     */
+    public void setHeadDatas(int[] bannerDatas) {
+        this.bannerDatas = bannerDatas;
+    }
+
+    /**
+     * 设置按钮跳转事件
+     * @param btnDatas
+     */
+    public void setBtnDatas(List btnDatas) {
+        this.btnDatas = btnDatas;
+    }
+
+    public int getLoadState() {
+        return loadState;
+    }
+
+    public void setLoadState(int loadState) {
+        this.loadState = loadState;
+    }
+
+    public void setLoadMoreListener(View.OnClickListener loadMoreListener) {
+        this.loadMoreListener = loadMoreListener;
+    }
+
+    public void setLoadDefaultUI(){
+        footerHolder.setProgressBarVisiable(View.GONE);
+        footerHolder.setProgressBarInfoText("点击加载更多");
+    }
+    public void setloadingUI(){
+        footerHolder.setProgressBarVisiable(View.VISIBLE);
+        footerHolder.setProgressBarInfoText("加载中。。。");
+    }
+    public void setLoadFailUI(){
+        footerHolder.setProgressBarVisiable(View.GONE);
+        footerHolder.setProgressBarInfoText("加载失败，点击重试");
+    }
+    public void setLoadFinishUI(){
+        footerHolder.setProgressBarVisiable(View.GONE);
+        footerHolder.setProgressBarInfoText("没有更多数据了o(╯□╰)o");
     }
 
     /**************************************** ViewHolder 专区 ********************************************/
@@ -298,6 +360,26 @@ public class FoodAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
+        }
+    }
+
+    private class FooterHolder extends RecyclerView.ViewHolder{
+        private ProgressBar mProgressBar;
+        private TextView tvFooter;
+
+        public FooterHolder(View itemView) {
+            super(itemView);
+            mProgressBar = (ProgressBar) itemView.findViewById(R.id.pb_footer);
+            tvFooter = (TextView) itemView.findViewById(R.id.tv_footer);
+        }
+        private void setProgressBarVisiable(int visiable){
+            mProgressBar.setVisibility(visiable);
+        }
+        private void setProgressBarInfoText(String info){
+            tvFooter.setText(info);
+        }
+        public void setLoadMoreOnclickListener(View.OnClickListener onclickListener){
+            itemView.setOnClickListener(onclickListener);
         }
     }
 }
