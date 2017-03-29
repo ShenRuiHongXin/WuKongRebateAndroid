@@ -16,6 +16,11 @@ public class FoodContentItem {
     private boolean isShopCombo;
     private boolean isShopVip;
 
+    public FoodContentItem(int type, String title) {
+        this.type = type;
+        this.title = title;
+    }
+
     public FoodContentItem(int type, String title, int img) {
         this.type = type;
         this.title = title;

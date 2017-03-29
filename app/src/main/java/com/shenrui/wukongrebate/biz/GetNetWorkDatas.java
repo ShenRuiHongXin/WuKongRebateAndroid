@@ -1,6 +1,7 @@
 package com.shenrui.wukongrebate.biz;
 
 import android.util.Log;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
@@ -383,5 +384,15 @@ public class GetNetWorkDatas {
             e.printStackTrace();
         }
         return result;
+    }
+
+
+    /**
+     * 根据类别来获取菜谱
+     * @param classid   类别ID
+     * @param pageSize
+     * @param pageNum
+     */
+    public void getFoodMenuDataByCat(String classid,int pageSize,int pageNum){
     }
 }

@@ -9,6 +9,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MyPageAdapter;
 import com.shenrui.wukongrebate.fragment.food.FragmentFoodGL_;
 import com.shenrui.wukongrebate.fragment.food.FragmentFoodJ_;
+import com.shenrui.wukongrebate.utils.LogUtil;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -36,6 +37,7 @@ public class FragmentFood extends BaseFragment {
     }
 
     private void initTabs() {
+        LogUtil.d("FragmentFood created!");
         titles = new String[]{"美食攻略","美食记"};
         fragments = new ArrayList<>();
         fragments.add(new FragmentFoodGL_());
@@ -46,5 +48,4 @@ public class FragmentFood extends BaseFragment {
         vp.setAdapter(new MyPageAdapter(getFragmentManager(),fragments, Arrays.asList(titles)));
         tabs.setupWithViewPager(vp);
     }
-
 }

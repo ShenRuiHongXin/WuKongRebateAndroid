@@ -5,60 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="@color/transparent"
     tools:context="com.shenrui.wukongrebate.activity.FoodMenuActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
         <ImageView
             android:id="@+id/food_menu_iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:src="@drawable/nav_icon_back"
-            android:layout_gravity="center_vertical"/>
+            android:src="@drawable/nav_icon_back" />
+
         <EditText
             android:id="@+id/food_menu_et_search"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:textCursorDrawable="@null"
+            android:background="@drawable/radius_edit"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/nav_icon_search"
+            android:hint="Cobb Salad"
             android:imeOptions="actionSearch"
             android:maxLines="1"
-            android:background="@drawable/radius_edit"
-            android:drawableStart="@drawable/nav_icon_search"
-            android:paddingStart="10dp"
+            android:singleLine="true"
+            android:inputType="text"
             android:paddingEnd="10dp"
-            android:drawablePadding="10dp"
-            android:hint="Cobb Salad"
-            android:textSize="13sp"/>
+            android:paddingStart="10dp"
+            android:textCursorDrawable="@null"
+            android:textSize="13sp" />
+
         <ImageView
             android:id="@+id/food_menu_iv_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/nav_icon_select"
+            android:contentDescription="@null"
             android:padding="10dp"
-            android:contentDescription="@null"/>
+            android:src="@drawable/nav_icon_select" />
     </LinearLayout>
-    <com.shenrui.wukongrebate.view.MyScrollView
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/food_menu_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.shenrui.wukongrebate.view.CycleRotationView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:id="@+id/food_menu_cycle"/>
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/food_menu_rv"/>
-        </LinearLayout>
-    </com.shenrui.wukongrebate.view.MyScrollView>
+        android:visibility="visible"/>
 </LinearLayout>

@@ -18,12 +18,22 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_menu_food1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="fitXY"
                 android:src="@drawable/img_one"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/iv_menu_food1"
+                android:layout_alignBottom="@+id/iv_menu_food1"
+                android:layout_alignParentStart="@+id/iv_menu_food1"
+                android:layout_alignEnd="@+id/iv_menu_food1"
+                android:background="#a06D6D6D">
             <ImageView
                 android:id="@+id/iv_cha1"
                 android:layout_width="match_parent"
@@ -38,16 +48,25 @@
                 android:gravity="center"
                 android:textColor="@color/window_color"
                 android:layout_marginTop="30dp"/>
+            </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_menu_food2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="fitXY"
                 android:src="@drawable/img_one"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/iv_menu_food2"
+            android:layout_alignBottom="@+id/iv_menu_food2"
+            android:background="#a06D6D6D">
             <ImageView
                 android:id="@+id/iv_cha2"
                 android:layout_width="match_parent"
@@ -60,18 +79,27 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:gravity="center"
-                android:textColor="@color/window_color"
-                android:layout_marginTop="30dp"/>
+                android:textColor="@color/window_color"/>
+        </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1">
             <ImageView
                 android:id="@+id/iv_menu_food3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="fitXY"
                 android:src="@drawable/img_one"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@+id/iv_menu_food3"
+            android:layout_alignBottom="@+id/iv_menu_food3"
+            android:background="#a06D6D6D">
             <ImageView
                 android:id="@+id/iv_cha3"
                 android:layout_width="match_parent"
@@ -86,6 +114,7 @@
                 android:gravity="center"
                 android:textColor="@color/window_color"
                 android:layout_marginTop="30dp"/>
+        </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
     <View

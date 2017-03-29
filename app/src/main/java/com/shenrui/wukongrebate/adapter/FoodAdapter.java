@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.ShopDetailActivity_;
 import com.shenrui.wukongrebate.entities.FoodContentItem;
@@ -31,42 +33,35 @@ import java.util.List;
  */
 
 public class FoodAdapter extends RecyclerView.Adapter {
-    public static final int TYPE_HEADER     = 0;
-    public static final int TYPE_COOKBOOK   = 1;
-    public static final int TYPE_VIDEO      = 2;
-    public static final int TYPE_SHOP       = 3;
-    public static final int TYPE_SHOP_GRID  = 4;
-    public static final int TYPE_SHOP_JP    = 5;
-    public static final int TYPE_FOOTER     = 6;
+    public static final int TYPE_HEADER         = 0;    //头部，轮播、按钮
+    public static final int TYPE_COOKBOOK       = 1;    //菜谱，美食攻略首页
+    public static final int TYPE_VIDEO          = 2;    //视频
+    public static final int TYPE_SHOP           = 3;    //店铺，美食记首页
+    public static final int TYPE_SHOP_GRID      = 4;    //店铺，美食记聚会、刁角美食
+    public static final int TYPE_SHOP_JP        = 5;    //店铺，美食记精品美食
+    public static final int TYPE_FOOTER         = 6;    //底部，点击加载
+    public static final int TYPE_COOKBOOK_MENU  = 7;    //菜谱，美食攻略菜谱
+    public static final int TYPE_COOKBOOK_CATS  = 8;    //类别，美食攻略菜谱类别
 
-    public static final int LOAD_STATE_DEFAULT = 10;   //默认情况
-    public static final int LOAD_STATE_LOADING = 11;     //正在加载
-    public static final int LOAD_STATE_FAILURE = 12;     //加载失败
-    public static final int LOAD_STATE_SUCCESS = 13;     //加载成功
-    public static final int LOAD_STATE_FINISH = 14;      //没有更多数据了
+    public static final int LOAD_STATE_DEFAULT  = 10;   //默认情况
+    public static final int LOAD_STATE_LOADING  = 11;     //正在加载
+    public static final int LOAD_STATE_FAILURE  = 12;     //加载失败
+    public static final int LOAD_STATE_SUCCESS  = 13;     //加载成功
+    public static final int LOAD_STATE_FINISH   = 14;      //没有更多数据了
 
     Context context;
     List foodContentDatas;
     int[] bannerDatas;
     List btnDatas;
     boolean hasHeader = false;
+    boolean hasFooter = true;
     private int loadState = LOAD_STATE_DEFAULT;
     private FooterHolder footerHolder = null;
-    private FoodAdapter curAdapter;
     private View.OnClickListener loadMoreListener;
 
     public FoodAdapter(Context context, List foodContentDatas) {
         this.context = context;
         this.foodContentDatas = foodContentDatas;
-        curAdapter = this;
-    }
-
-    public FoodAdapter(Context context, List foodContentDatas, int[] bannerDatas, List btnDatas) {
-        this.context = context;
-        this.foodContentDatas = foodContentDatas;
-        this.bannerDatas = bannerDatas;
-        this.btnDatas = btnDatas;
-        curAdapter = this;
     }
 
     @Override
@@ -86,6 +81,14 @@ public class FoodAdapter extends RecyclerView.Adapter {
             case TYPE_COOKBOOK:
                 view = inflater.inflate(R.layout.food_content_item_cookbook,null);
                 holder = new CookbookHolder(view);
+                break;
+            case TYPE_COOKBOOK_MENU:
+                view = inflater.inflate(R.layout.food_content_item_cookbook_menu,null);
+                holder = new CookbookMenuHolder(view);
+                break;
+            case TYPE_COOKBOOK_CATS:
+                view = inflater.inflate(R.layout.food_content_item_cookbook_menu_cats,null);
+                holder = new CookbookMenuCatsHolder(view);
                 break;
             case TYPE_VIDEO:
                 view = inflater.inflate(R.layout.food_content_item_video,parent,false);
@@ -115,24 +118,45 @@ public class FoodAdapter extends RecyclerView.Adapter {
                 HeaderHolder headerHolder = (HeaderHolder) holder;
                 headerHolder.setIsRecyclable(false);
                 headerHolder.crv.setImages(bannerDatas);
-                for(int i = 0; i<3; i++){
-                    TextView btn = (TextView) headerHolder.btnList.get(i);
-                    FoodFragmentBtnItem btnItem = (FoodFragmentBtnItem) btnDatas.get(i);
-                    headerHolder.setBtn(btn,btnItem);
+                if (btnDatas != null){
+                    headerHolder.llBtnGroup.setVisibility(View.VISIBLE);
+                    for(int i = 0; i<3; i++){
+                        TextView btn = (TextView) headerHolder.btnList.get(i);
+                        FoodFragmentBtnItem btnItem = (FoodFragmentBtnItem) btnDatas.get(i);
+                        headerHolder.setBtn(btn,btnItem);
+                    }
                 }
                 break;
             case TYPE_FOOTER:
-                FooterHolder footerHolder = (FooterHolder) holder;
-                this.footerHolder = footerHolder;
-                footerHolder.setLoadMoreOnclickListener(this.loadMoreListener);
-                footerHolder.mProgressBar.setVisibility(View.GONE);
-                footerHolder.tvFooter.setText("点击加载更多");
+                    FooterHolder footerHolder = (FooterHolder) holder;
+                if (hasFooter){
+                    this.footerHolder = footerHolder;
+                    footerHolder.setLoadMoreOnclickListener(this.loadMoreListener);
+                    footerHolder.mProgressBar.setVisibility(View.GONE);
+                    footerHolder.tvFooter.setText("点击加载更多");
+                }else{
+                    footerHolder.itemView.setVisibility(View.GONE);
+                }
                 break;
             case TYPE_COOKBOOK:
                 int tmpPositon = hasHeader ? position - 1 : position;
                 CookbookHolder cookbookHolder = (CookbookHolder) holder;
                 cookbookHolder.ivCookbookIcon.setImageResource(((FoodContentItem)foodContentDatas.get(tmpPositon)).getImg());
                 cookbookHolder.tvCookbookTitle.setText(((FoodContentItem)foodContentDatas.get(tmpPositon)).getTitle());
+                break;
+            case TYPE_COOKBOOK_MENU:
+                int tmpPositon1 = hasHeader ? position - 1 : position;
+                CookbookMenuHolder cookbookMenuHolder = (CookbookMenuHolder) holder;
+//                cookbookMenuHolder.ivCookbookImg.setImageResource(((FoodContentItem)foodContentDatas.get(tmpPositon1)).getImg());
+                Glide.with(context)
+                        .load("http://api.jisuapi.com/recipe/upload/20160720/113938_92715.jpg")
+                        .into(cookbookMenuHolder.ivCookbookImg);
+                cookbookMenuHolder.tvCookbookTitle.setText(((FoodContentItem)foodContentDatas.get(tmpPositon1)).getTitle());
+                break;
+            case TYPE_COOKBOOK_CATS:
+                int tmpPositon4 = hasHeader ? position - 1 : position;
+                CookbookMenuCatsHolder cookbookMenuCatsHolder = (CookbookMenuCatsHolder) holder;
+                cookbookMenuCatsHolder.tvCookbookCats.setText(((FoodContentItem)foodContentDatas.get(tmpPositon4)).getTitle());
                 break;
             case TYPE_VIDEO:
                 int tmpPositon2 = hasHeader ? position - 1 : position;
@@ -212,11 +236,16 @@ public class FoodAdapter extends RecyclerView.Adapter {
         this.hasHeader = hasHeader;
     }
 
+    public void setHasFooter(boolean hasFooter) {
+        this.hasFooter = hasFooter;
+    }
+
     /**
      * 设置轮播图
      * @param bannerDatas
      */
     public void setHeadDatas(int[] bannerDatas) {
+        hasHeader = true;
         this.bannerDatas = bannerDatas;
     }
 
@@ -331,6 +360,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
         private TextView tvBtn1;
         private TextView tvBtn2;
         private TextView tvBtn3;
+        private LinearLayout llBtnGroup;
         List btnList = new ArrayList();
         public HeaderHolder(View itemView) {
             super(itemView);
@@ -338,6 +368,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
             tvBtn1 = (TextView) itemView.findViewById(R.id.tv_btn_1);
             tvBtn2 = (TextView) itemView.findViewById(R.id.tv_btn_2);
             tvBtn3 = (TextView) itemView.findViewById(R.id.tv_btn_3);
+            llBtnGroup = (LinearLayout) itemView.findViewById(R.id.ll_header_btn_group);
             btnList.add(tvBtn1);
             btnList.add(tvBtn2);
             btnList.add(tvBtn3);
@@ -380,6 +411,25 @@ public class FoodAdapter extends RecyclerView.Adapter {
         }
         public void setLoadMoreOnclickListener(View.OnClickListener onclickListener){
             itemView.setOnClickListener(onclickListener);
+        }
+    }
+
+    private class CookbookMenuHolder extends RecyclerView.ViewHolder{
+        private ImageView ivCookbookImg;
+        private TextView tvCookbookTitle;
+
+        public CookbookMenuHolder(View itemView) {
+            super(itemView);
+            ivCookbookImg = (ImageView) itemView.findViewById(R.id.iv_cookbook_menu_img);
+            tvCookbookTitle = (TextView) itemView.findViewById(R.id.tv_cookbook_menu_title);
+        }
+    }
+
+    private class CookbookMenuCatsHolder extends RecyclerView.ViewHolder{
+        private TextView tvCookbookCats;
+        public CookbookMenuCatsHolder(View itemView) {
+            super(itemView);
+            tvCookbookCats = (TextView) itemView.findViewById(R.id.tv_cookbook_menu_cats);
         }
     }
 }

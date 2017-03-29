@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
@@ -121,6 +122,11 @@ public class MainActivity extends BaseActivity{
                 rbs[i].setChecked(false);
             }
         }
+    }
+
+    //创建APP通用数据库
+    private void createCommonDatabase(){
+        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(Constants.DATABASE_PATH,null);
     }
 
     private long exitTime = 0;

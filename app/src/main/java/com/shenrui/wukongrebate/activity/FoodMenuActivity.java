@@ -1,36 +1,27 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.app.Activity;
-
-import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.FoodMenuAdapter;
-import com.shenrui.wukongrebate.entities.MenuFoodItem;
-import com.shenrui.wukongrebate.utils.FullyLinearLayoutManager;
+import com.shenrui.wukongrebate.adapter.FoodAdapter;
+import com.shenrui.wukongrebate.entities.FoodContentItem;
 import com.shenrui.wukongrebate.utils.MFGT;
-import com.shenrui.wukongrebate.view.CycleRotationView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -42,8 +33,6 @@ import java.util.List;
 
 @EActivity(R.layout.activity_food_menu)
 public class FoodMenuActivity extends Activity {
-    @ViewById(R.id.food_menu_cycle)
-    CycleRotationView crv;
     @ViewById(R.id.food_menu_rv)
     RecyclerView rv;
     @ViewById(R.id.food_menu_iv_select)
@@ -51,10 +40,10 @@ public class FoodMenuActivity extends Activity {
     @ViewById(R.id.food_menu_et_search)
     EditText et;
 
-    List<String> categoryList;
-    List<List<MenuFoodItem>> foodList;
-    FoodMenuAdapter adapter;
-    FullyLinearLayoutManager layoutManager;
+    List<FoodContentItem> foodContentItems;
+    int[] headerDatas;
+    FoodAdapter adapter;
+    GridLayoutManager layoutManager;
     PopupWindow pop;
     boolean isExpand = false;
     String[] category_texts;
@@ -62,12 +51,8 @@ public class FoodMenuActivity extends Activity {
 
     @AfterViews
     void init(){
-        Window window = getWindow();
-        window.setBackgroundDrawable(null);
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        initCycle();
-        initView();
         initData();
+        initView();
         setListener();
     }
 
@@ -91,39 +76,43 @@ public class FoodMenuActivity extends Activity {
     }
 
     private void initData(){
-        categoryList.add("精选早餐");
-        categoryList.add("省时快炒好菜");
-        categoryList.add("滋补好汤");
-        categoryList.add("精致小食");
-        List<MenuFoodItem> foods1 = new ArrayList<>();
-        foods1.add(new MenuFoodItem("果蔬沙拉",R.drawable.img_one,null));
-        foods1.add(new MenuFoodItem("简易早餐包",R.drawable.img_two,null));
-        foods1.add(new MenuFoodItem("鸡蛋糯米卷",R.drawable.img_three,null));
-        List<MenuFoodItem> foods2 = new ArrayList<>();
-        foods2.add(new MenuFoodItem("老醋菠菜",R.drawable.img_four,null));
-        foods2.add(new MenuFoodItem("锅包鱼片",R.drawable.img_five,null));
-        foods2.add(new MenuFoodItem("农家小炒肉",R.drawable.img_six,null));
-        List<MenuFoodItem> foods3 = new ArrayList<>();
-        foods3.add(new MenuFoodItem("红枣银耳汤",R.drawable.img_seven,null));
-        foods3.add(new MenuFoodItem("萝卜排骨汤",R.drawable.img_eight,null));
-        foods3.add(new MenuFoodItem("鱼汤",R.drawable.img_nine,null));
-        List<MenuFoodItem> foods4 = new ArrayList<>();
-        foods4.add(new MenuFoodItem("草莓香草蛋糕",R.drawable.img_ten,null));
-        foods4.add(new MenuFoodItem("香芋芒果塔",R.drawable.img_eleven,null));
-        foods4.add(new MenuFoodItem("松软熙凤蛋糕",R.drawable.img_tweleve,null));
-        foodList.add(foods1);
-        foodList.add(foods2);
-        foodList.add(foods3);
-        foodList.add(foods4);
-        adapter.initData(categoryList,foodList);
+        headerDatas = new int[]{R.drawable.banner,R.drawable.banner,R.drawable.banner};
+
+        foodContentItems = new ArrayList<>();
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_CATS,"精选早餐"));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"果蔬沙拉",R.drawable.img_one));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"简易早餐包",R.drawable.img_two));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"鸡蛋糯米卷",R.drawable.img_three));
+
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_CATS,"省时快炒好菜"));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"老醋菠菜",R.drawable.img_four));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"锅包鱼片",R.drawable.img_five));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"农家小炒肉",R.drawable.img_six));
+
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_CATS,"滋补好汤"));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"红枣银耳汤",R.drawable.img_seven));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"萝卜排骨汤",R.drawable.img_eight));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"鱼汤",R.drawable.img_nine));
+
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_CATS,"精致小食"));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"草莓香草蛋糕",R.drawable.img_ten));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"香芋芒果塔",R.drawable.img_eleven));
+        foodContentItems.add(new FoodContentItem(FoodAdapter.TYPE_COOKBOOK_MENU,"松软熙凤蛋糕",R.drawable.img_tweleve));
     }
 
     private void initView() {
-        categoryList = new ArrayList<>();
-        foodList = new ArrayList<>();
-        adapter = new FoodMenuAdapter(this,categoryList,foodList);
+        adapter = new FoodAdapter(this,foodContentItems);
+        adapter.setHeadDatas(headerDatas);
+        adapter.setHasFooter(false);
         rv.setAdapter(adapter);
-        layoutManager = new FullyLinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        layoutManager = new GridLayoutManager(this, 3);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position == 0 || position == 1 || position%4 == 1) return 3;
+                return (position == adapter.getItemCount()-1) ? 3 : 1;
+            }
+        });
         rv.setLayoutManager(layoutManager);
     }
 
@@ -171,12 +160,6 @@ public class FoodMenuActivity extends Activity {
         pop = new PopupWindow(layout, WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
         pop.setOutsideTouchable(false);
         pop.showAsDropDown(ivSelect,0,0);
-    }
-
-    //初始化轮播
-    private void initCycle() {
-        int[] images = {R.drawable.banner,R.drawable.banner,R.drawable.banner};
-        crv.setImages(images);
     }
 
     @Override

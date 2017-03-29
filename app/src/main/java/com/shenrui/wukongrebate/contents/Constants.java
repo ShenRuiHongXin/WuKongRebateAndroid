@@ -90,6 +90,23 @@ public class Constants {
     public static final String SERVICE_URL = "http://192.168.0.4:8080/WukongServer/";
     //Host
     public static final String HOST = "http://192.168.0.4:8080/";
+    //数据库路径
+    public static final String DATABASE_PATH = "/data/data/com.shenrui.wukongrebate/databases/common_info.db";
+    //菜谱API host
+    public static final String FOODMENU_HOST = "http://jisusrecipe.market.alicloudapi.com";
+    //菜谱分类API path
+    public static final String FOODMENU_CATS = "/recipe/class";
+    //菜谱搜索API path
+    public static final String FOODMENU_SEARCH = "/recipe/search";
+    //菜谱详情API path
+    public static final String FOODMENU_DETAIL = "/recipe/detail";
+    //菜谱分类检索API path
+    public static final String FOODMENU_BY_CATS = "/recipe/byclass";
+    //菜谱API AppCode
+    public static final String FOODMENU_APPCODE = "9c5b9f4618c4425eb871638160b9237c";
+
+
+
     //注册/登录 成功的结果码
     public static final int CODE_SUCCESS = 200;
     //手机号已被注册
