@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.biz.GetNetWorkDatas;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.RebateMenuData;
 import com.shenrui.wukongrebate.entities.UatmTbkItem;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.Utils;
 
@@ -149,7 +150,10 @@ public class FragmentRebate extends BaseFragment{
             String[] urls = {"http://p1.so.qhmsg.com/t01514641c357a98c81.jpg", "http://p4.so.qhmsg.com/t01244e62a3f44edf24.jpg", "http://p4.so.qhmsg.com/t01f017b2c06cc1124e.jpg"};
             rebateMenuData.setCycleList(urls);//轮播图
             Map<String, Object> map = GetNetWorkDatas.getFavoritesGoods(3529818,1,Constants.PAGE_SIZE);
+//            LogUtil.d("返回数据map:"+map.toString());
             goodsData= (List<UatmTbkItem>) map.get(Constants.GOODS);
+//            LogUtil.d("返回数据goodsData:"+map.toString());
+            LogUtil.d("是否有key totals:"+map.containsKey(Constants.TOTALS));
             totals = (int) map.get(Constants.TOTALS);
             if(goodsData == null){
                 showProgressBar();

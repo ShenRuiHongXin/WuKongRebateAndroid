@@ -7,7 +7,10 @@ package com.shenrui.wukongrebate.entities;
 public class FoodContentItem {
     private int type;
     private String title;
+    private String content;
     private int img;
+    private String pic;
+    private CookBookBean cookBookBean;
 
     private String shopName;
     private String shopLocation;
@@ -27,7 +30,19 @@ public class FoodContentItem {
         this.img = img;
     }
 
-    public FoodContentItem(int type,int img, String shopName, String shopLocation, double shopPrice) {
+    public FoodContentItem(int type, CookBookBean cookBookBean) {
+        this.type = type;
+        this.cookBookBean = cookBookBean;
+    }
+
+    public FoodContentItem(int type, String title, String content, String pic) {
+        this.type = type;
+        this.title = title;
+        this.content = content;
+        this.pic = pic;
+    }
+
+    public FoodContentItem(int type, int img, String shopName, String shopLocation, double shopPrice) {
         this.type = type;
         this.img = img;
         this.shopName = shopName;
@@ -53,6 +68,30 @@ public class FoodContentItem {
         this.isShopPromotion = isShopPromotion;
         this.isShopCombo = isShopCombo;
         this.isShopVip = isShopVip;
+    }
+
+    public CookBookBean getCookBookBean() {
+        return cookBookBean;
+    }
+
+    public void setCookBookBean(CookBookBean cookBookBean) {
+        this.cookBookBean = cookBookBean;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     public boolean isShopPromotion() {
@@ -125,5 +164,22 @@ public class FoodContentItem {
 
     public void setImg(int img) {
         this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "FoodContentItem{" +
+                "type=" + type +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", img=" + img +
+                ", pic='" + pic + '\'' +
+                ", shopName='" + shopName + '\'' +
+                ", shopLocation='" + shopLocation + '\'' +
+                ", shopPrice=" + shopPrice +
+                ", isShopPromotion=" + isShopPromotion +
+                ", isShopCombo=" + isShopCombo +
+                ", isShopVip=" + isShopVip +
+                '}';
     }
 }

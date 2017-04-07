@@ -38,4 +38,6 @@
     <color name="textcolor_primary">#767676</color>
     <color name="transparent">#00000000</color>
     <color name="text_color_grey">#9D9D9D</color>
+    <color name="f54949">#f54949</color>
+    <color name="cats_bg">#42B5E7</color>
 </resources>

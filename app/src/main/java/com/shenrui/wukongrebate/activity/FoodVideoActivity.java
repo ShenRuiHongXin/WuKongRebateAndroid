@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.FoodAdapter;
@@ -86,7 +87,7 @@ public class FoodVideoActivity extends BaseActivity {
                 MFGT.finish(this);
                 break;
             case R.id.tv_food_video_search:
-
+                Toast.makeText(this,"search video",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

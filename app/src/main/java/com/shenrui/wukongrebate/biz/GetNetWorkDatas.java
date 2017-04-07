@@ -386,13 +386,4 @@ public class GetNetWorkDatas {
         return result;
     }
 
-
-    /**
-     * 根据类别来获取菜谱
-     * @param classid   类别ID
-     * @param pageSize
-     * @param pageNum
-     */
-    public void getFoodMenuDataByCat(String classid,int pageSize,int pageNum){
-    }
 }

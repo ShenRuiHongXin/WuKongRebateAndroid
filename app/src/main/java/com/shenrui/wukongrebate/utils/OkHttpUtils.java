@@ -8,6 +8,8 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.shenrui.wukongrebate.contents.MyApplication;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -237,6 +239,25 @@ public class OkHttpUtils<T> {
         return this;
     }
 
+    boolean mJsonNeedTrans = false;
+
+    /**
+     * 设置json是否需要转换
+     * @param jsonNeedTrans
+     * @return
+     */
+    public OkHttpUtils<T> transfromJson(boolean jsonNeedTrans){
+        mJsonNeedTrans = jsonNeedTrans;
+        return this;
+    }
+
+    boolean mRecomJsonTrans = false;
+
+    public OkHttpUtils<T> transfromRecomJson(boolean jsonRecomTrans){
+        mRecomJsonTrans = jsonRecomTrans;
+        return this;
+    }
+
     /**
      * 添加请求参数至url，包括GET和POST请求
      * 不包括POST请求中上传文件的同时向Form中添加其它参数的情况
@@ -344,6 +365,53 @@ public class OkHttpUtils<T> {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
+                if (mJsonNeedTrans){
+                    String tmpJson = StringEscapeUtils.unescapeJava(json);
+                    String tmpJson2 = StringEscapeUtils.unescapeJava(tmpJson);
+                    StringBuffer tmpJsonSb = new StringBuffer(tmpJson2);
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(":")+1);
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.length()-2);
+                    json = tmpJsonSb.toString();
+//                    LogUtil.d("返回json:"+json);
+                    if ("{\"respData\":}".equals(json)){
+                        Message msg = Message.obtain();
+                        msg.what = RESULT_ERROR;
+                        msg.obj = json;
+                        mHandler.sendMessage(msg);
+                        return;
+                    }
+                }
+                if (mRecomJsonTrans){
+                    String tmpJson = StringEscapeUtils.unescapeJava(json);
+                    String tmpJson2 = StringEscapeUtils.unescapeJava(tmpJson);
+                    StringBuffer tmpJsonSb = new StringBuffer(tmpJson2.trim());
+
+                    String friedDishes = "\"friedDishes\":";
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(friedDishes)+friedDishes.length());
+
+                    String breakfast = "\"breakfast\":";
+                    LogUtil.d("breakfast:"+tmpJsonSb.indexOf(breakfast));
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(breakfast)-2);
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(breakfast)+breakfast.length());
+
+                    String snacks = "\"snacks\":";
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(snacks)-2);
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(snacks)+snacks.length());
+
+                    String soup = "\"soup\":";
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(soup)-2);
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.indexOf(soup)+soup.length());
+                    tmpJsonSb.deleteCharAt(tmpJsonSb.length()-2);
+                    json = tmpJsonSb.toString();
+//                    LogUtil.d("返回json:"+json);
+                    if ("{\"friedDishes\":,\"breakfast\":,\"snacks\":,\"soup\":}".equals(json)){
+                        Message msg = Message.obtain();
+                        msg.what = RESULT_ERROR;
+                        msg.obj = json;
+                        mHandler.sendMessage(msg);
+                        return;
+                    }
+                }
                 if(mClazz.equals(String.class)){
                     Message msg = Message.obtain();
                     msg.what = RESULT_SUCCESS;

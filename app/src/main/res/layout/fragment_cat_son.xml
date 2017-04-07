@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_cat_son"
+    android:orientation="vertical">
+    <com.shenrui.wukongrebate.view.MyRecycleView
+        android:id="@+id/rv_cat_son"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <!--<GridView-->
+        <!--android:id="@+id/gv_cat_son"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:numColumns="3"/>-->
+</RelativeLayout>

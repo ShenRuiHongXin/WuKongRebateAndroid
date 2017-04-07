@@ -1,6 +1,9 @@
 package com.shenrui.wukongrebate.activity;
 
-import android.app.Activity;
+import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -20,8 +23,14 @@ import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.FoodAdapter;
+import com.shenrui.wukongrebate.adapter.MyPageAdapter;
 import com.shenrui.wukongrebate.entities.FoodContentItem;
+import com.shenrui.wukongrebate.fragment.foodmenu.FragmentCookbookCats_;
+import com.shenrui.wukongrebate.fragment.foodmenu.FragmentCookbookRecommend_;
+import com.shenrui.wukongrebate.fragment.foodmenu.FragmentCookbookThreeMeal_;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.MyToast;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -29,16 +38,22 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @EActivity(R.layout.activity_food_menu)
-public class FoodMenuActivity extends Activity {
+public class FoodMenuActivity extends BaseActivity {
     @ViewById(R.id.food_menu_rv)
     RecyclerView rv;
-    @ViewById(R.id.food_menu_iv_select)
-    ImageView ivSelect;
+//    @ViewById(R.id.food_menu_iv_select)
+//    ImageView ivSelect;
     @ViewById(R.id.food_menu_et_search)
     EditText et;
+
+    @ViewById(R.id.tl_cookbook_cats)
+    TabLayout tlCats;
+    @ViewById(R.id.vp_cookbook_content)
+    ViewPager vpContent;
 
     List<FoodContentItem> foodContentItems;
     int[] headerDatas;
@@ -49,11 +64,30 @@ public class FoodMenuActivity extends Activity {
     String[] category_texts;
     int[] category_images;
 
+    String[] titles;
+    List<Fragment> fragments;
+
     @AfterViews
     void init(){
+        initTabs();
         initData();
         initView();
         setListener();
+    }
+
+    private void initTabs() {
+        LogUtil.d("FragmentFood created!");
+        titles = new String[]{"每日推荐","一日三餐","菜谱分类"};
+        fragments = new ArrayList<>();
+        fragments.add(new FragmentCookbookRecommend_());
+        fragments.add(new FragmentCookbookThreeMeal_());
+        fragments.add(new FragmentCookbookCats_());
+        for (int i=0;i<titles.length;i++){
+            tlCats.addTab(tlCats.newTab().setText(titles[i]));
+        }
+        vpContent.setAdapter(new MyPageAdapter(getSupportFragmentManager(),fragments, Arrays.asList(titles)));
+        vpContent.setOffscreenPageLimit(2);
+        tlCats.setupWithViewPager(vpContent);
     }
 
     private void setListener() {
@@ -116,7 +150,7 @@ public class FoodMenuActivity extends Activity {
         rv.setLayoutManager(layoutManager);
     }
 
-    @Click({R.id.food_menu_iv_back,R.id.food_menu_et_search,R.id.food_menu_iv_select})
+    @Click({R.id.food_menu_iv_back,R.id.food_menu_et_search,R.id.tv_food_menu_search})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.food_menu_iv_back:
@@ -125,17 +159,13 @@ public class FoodMenuActivity extends Activity {
             case R.id.food_menu_et_search:
 
                 break;
-            case R.id.food_menu_iv_select:
-                if (pop==null){
-                    initPop();
-                }else{
-                    if (isExpand){
-                        pop.dismiss();
-                    }else{
-                        pop.showAsDropDown(ivSelect,0,0);
-                    }
+            case R.id.tv_food_menu_search:
+                if (!et.getText().toString().trim().equals("") && et.getText().toString().trim() != null){
+                    MyToast.showToast(this,et.getText().toString().trim());
+                    Intent intent = new Intent(this,FoodMenuSearchActivity_.class);
+                    intent.putExtra("keyWord",et.getText().toString().trim());
+                    MFGT.startActivity(this,intent);
                 }
-                isExpand = !isExpand;
                 break;
         }
     }
@@ -159,7 +189,7 @@ public class FoodMenuActivity extends Activity {
         });
         pop = new PopupWindow(layout, WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.WRAP_CONTENT);
         pop.setOutsideTouchable(false);
-        pop.showAsDropDown(ivSelect,0,0);
+//        pop.showAsDropDown(ivSelect,0,0);
     }
 
     @Override

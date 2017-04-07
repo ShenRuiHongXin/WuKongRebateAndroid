@@ -136,6 +136,8 @@ dependencies {
     compile files('libs/commons-lang3-3.5.jar')
     compile files('libs/httpclient-4.5.3.jar')
     compile files('libs/httpcore-4.4.6.jar')
+    compile 'me.kaelaela:verticalviewpager:1.0.0@aar'
+    compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
 }
 
 /*

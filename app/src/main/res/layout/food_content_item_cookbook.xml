@@ -2,26 +2,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
+    android:paddingTop="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true">
 
     <ImageView
         android:id="@+id/iv_food_cookbook_icon"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
         android:src="@drawable/food_gl_home_img_tmp"/>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.5">
     <TextView
         android:id="@+id/tv_food_cookbook_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="营养齐全的【Cobb Salad】"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"/>
+    <TextView
+        android:id="@+id/tv_food_cookbook_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_food_cookbook_title"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/iv_food_cookbook_icon" />
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        android:text="内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介"/>
+    </RelativeLayout>
+</LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/mineGrey"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/iv_food_cookbook_icon"/>
+        android:layout_below="@+id/ll"/>
 </RelativeLayout>

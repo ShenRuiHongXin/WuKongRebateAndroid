@@ -223,7 +223,7 @@
         <activity android:name=".activity.TestActivity_" />
         <activity
             android:name=".activity.FoodMenuActivity_"
-            android:launchMode="singleInstance" />
+            android:launchMode="standard" />
         <activity
             android:name=".activity.DuoBaoActivity_"
             android:launchMode="singleInstance" />
@@ -232,6 +232,8 @@
             android:launchMode="singleInstance" />
         <activity android:name=".activity.FoodJCommonActivity_" />
         <activity android:name=".activity.ShopDetailActivity_"/>
+        <activity android:name=".activity.CookbookDetailActivity_"/>
+        <activity android:name=".activity.FoodMenuSearchActivity_"/>
     </application>
 
 </manifest>

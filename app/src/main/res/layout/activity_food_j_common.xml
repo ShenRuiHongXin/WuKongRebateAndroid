@@ -27,11 +27,11 @@
             android:background="@drawable/radius_edit"
             android:drawablePadding="10dp"
             android:drawableStart="@drawable/nav_icon_search"
-            android:focusable="false"
-            android:focusableInTouchMode="true"
             android:hint="蜜三刀"
             android:imeOptions="actionSearch"
             android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="text"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:textCursorDrawable="@null"
@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="搜索"
+            android:clickable="true"
             android:textColor="@color/black"
             android:textSize="15sp" />
     </LinearLayout>

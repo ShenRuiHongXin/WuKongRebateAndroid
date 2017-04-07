@@ -88,6 +88,8 @@ public class Constants {
 
     //服务器根地址
     public static final String SERVICE_URL = "http://192.168.0.4:8080/WukongServer/";
+    //服务器根地址 测试
+    public static final String SERVICE_DEBUG_URL = "http://192.168.0.6:8080/WukongServer/";
     //Host
     public static final String HOST = "http://192.168.0.4:8080/";
     //数据库路径

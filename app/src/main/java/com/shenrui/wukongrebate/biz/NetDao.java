@@ -1,16 +1,15 @@
 package com.shenrui.wukongrebate.biz;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.entities.CookbookCatRespBox;
+import com.shenrui.wukongrebate.entities.CookbookRecomResp;
+import com.shenrui.wukongrebate.entities.CookbookRespBox;
 import com.shenrui.wukongrebate.entities.LoginInfo;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.SignResponseResult;
@@ -19,7 +18,6 @@ import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
 import com.shenrui.wukongrebate.utils.TaobaoReqUtil;
 
-import java.io.File;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -29,8 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-
-import cn.smssdk.gui.layout.Res;
 
 import static android.content.Context.TELEPHONY_SERVICE;
 
@@ -222,8 +218,7 @@ public class NetDao {
     }*/
 
     //用户签到
-    public static void sign(Context context,UserInfo userInfo,
-                            OkHttpUtils.OnCompleteListener<SignResponseResult> listener){
+    public static void sign(Context context,UserInfo userInfo,OkHttpUtils.OnCompleteListener<SignResponseResult> listener){
         Gson gson = new Gson();
         String userInfoJson = gson.toJson(userInfo);
         OkHttpUtils<SignResponseResult> utils = new OkHttpUtils<>(context);
@@ -264,6 +259,74 @@ public class NetDao {
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.url(url)
                 .targetClass(String.class)
+                .execute(listener);
+    }
+
+
+
+    /**
+     * 根据关键字来获取菜谱
+     * @param keyword
+     * @param num
+     */
+    public static void getFoodMenuDataByCat(Context context,String keyword,int num,OkHttpUtils.OnCompleteListener<CookbookRespBox> listener){
+        OkHttpUtils<CookbookRespBox> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_search")
+                .post()
+                .addParam("keyword",keyword)
+                .addParam("num",String.valueOf(num))
+                .transfromJson(true)
+                .targetClass(CookbookRespBox.class)
+                .execute(listener);
+    }
+
+    public static void getFoodMenuDataBySearch(Context context,String keyword,String classid,int num,OkHttpUtils.OnCompleteListener<CookbookRespBox> listener){
+        OkHttpUtils<CookbookRespBox> utils = new OkHttpUtils<>(context);
+        if (keyword != null){
+            utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_search")
+                    .post()
+                    .addParam("keyword",keyword)
+                    .addParam("num",String.valueOf(num))
+                    .transfromJson(true)
+                    .targetClass(CookbookRespBox.class)
+                    .execute(listener);
+        }else if (classid != null){
+            utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_byclass")
+                    .post()
+                    .addParam("classid",classid)
+                    .addParam("num",String.valueOf(num))
+                    .addParam("start","0")
+                    .transfromJson(true)
+                    .targetClass(CookbookRespBox.class)
+                    .execute(listener);
+        }
+    }
+
+    /**
+     * 获取菜谱页推荐内容
+     * @param context
+     * @param listener
+     */
+    public static void getCookbookRecommend(Context context,OkHttpUtils.OnCompleteListener<CookbookRecomResp> listener){
+        OkHttpUtils<CookbookRecomResp> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_recommend")
+                .post()
+                .transfromRecomJson(true)
+                .targetClass(CookbookRecomResp.class)
+                .execute(listener);
+    }
+
+    /**
+     * 获取所有菜谱分类
+     * @param context
+     * @param listener
+     */
+    public static void getCookbookAllCats(Context context,OkHttpUtils.OnCompleteListener<CookbookCatRespBox> listener){
+        OkHttpUtils<CookbookCatRespBox> utils = new OkHttpUtils<>(context);
+        utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_class")
+                .post()
+                .transfromJson(true)
+                .targetClass(CookbookCatRespBox.class)
                 .execute(listener);
     }
 }

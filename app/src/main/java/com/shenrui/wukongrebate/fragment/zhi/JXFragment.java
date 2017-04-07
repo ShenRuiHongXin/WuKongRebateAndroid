@@ -117,7 +117,7 @@ public class JXFragment extends Fragment {
     void updateUi(int action,List<ZhiJxItem> zhiJxItems) {
         switch (action){
             case ACTION_DOWNLOAD:
-                int[] imgs = {R.drawable.zhi_jx_home_banner};
+                int[] imgs = {R.drawable.zhi_jx_home_banner,R.drawable.zhi_jx_home_banner,R.drawable.zhi_jx_home_banner};
                 adapter = new ZhiAdapter(context,lists,imgs);
                 adapter.setHasCrv(true);
                 rv.setAdapter(adapter);

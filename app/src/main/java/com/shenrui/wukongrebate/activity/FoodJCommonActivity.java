@@ -7,12 +7,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -47,6 +50,8 @@ public class FoodJCommonActivity extends BaseActivity{
     //内容
     @ViewById(R.id.food_j_common_rv)
     RecyclerView rv;
+    @ViewById(R.id.et_food_j_common_search)
+    EditText et;
     LinearLayoutManager layoutManager;
     GridLayoutManager gridLayoutManager = null;
     FoodAdapter adapter;
@@ -59,22 +64,25 @@ public class FoodJCommonActivity extends BaseActivity{
     MyPopWindow popRole;
     @ViewById(R.id.tv_condition_1)
     TextView tvCondition1;
+    String[] roles;
     //下拉列表2
     @ViewById(R.id.rl_mancount)
     RelativeLayout rlManCount;
     MyPopWindow popManCount;
     @ViewById(R.id.tv_condition_2)
     TextView tvCondition2;
-    String[] roles;
+    String[] manCounts = {"单人","双人","3~4人","5~10人","10人以上"};
     //下拉列表3
     @ViewById(R.id.rl_select)
     RelativeLayout rlSelect;
     MyPopWindow popSelect;
     @ViewById(R.id.tv_condition_3)
     TextView tvCondition3;
+    String[] selects = {"好评最高","人均最低","人均最高","",""};
 
     @AfterViews
     void init(){
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Bundle bundle = getIntent().getExtras();
         String dataType = bundle.getString("dataType");
         LogUtil.d("dataType:" + dataType);
@@ -115,8 +123,10 @@ public class FoodJCommonActivity extends BaseActivity{
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case FoodAdapter.LOAD_STATE_DEFAULT:
-                    adapter.setLoadDefaultUI();
-                    adapter.setLoadState(FoodAdapter.LOAD_STATE_DEFAULT);
+                    if (adapter.getFooterHolder() != null){
+                        adapter.setLoadDefaultUI();
+                        adapter.setLoadState(FoodAdapter.LOAD_STATE_DEFAULT);
+                    }
                     break;
                 case FoodAdapter.LOAD_STATE_FAILURE:
                     adapter.setLoadFailUI();
@@ -161,6 +171,15 @@ public class FoodJCommonActivity extends BaseActivity{
                 handler.sendEmptyMessageDelayed(FoodAdapter.LOAD_STATE_DEFAULT,0);
             }
         });
+        et.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER){
+                    dealSearchEvent();
+                }
+                return false;
+            }
+        });
     }
 
     void initData(int mainDataType){
@@ -190,7 +209,7 @@ public class FoodJCommonActivity extends BaseActivity{
         }
     }
 
-    @Click({R.id.iv_food_j_common_back,R.id.rl_role,R.id.rl_mancount,R.id.rl_select})
+    @Click({R.id.iv_food_j_common_back,R.id.rl_role,R.id.rl_mancount,R.id.rl_select,R.id.tv_food_j_common_search})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.iv_food_j_common_back:
@@ -200,12 +219,13 @@ public class FoodJCommonActivity extends BaseActivity{
                 togglePop(1,popRole,rlRole,roles);
                 break;
             case R.id.rl_mancount:
-                String[] manCounts = {"单人","双人","3~4人","5~10人","10人以上"};
                 togglePop(2,popManCount,rlManCount,manCounts);
                 break;
             case R.id.rl_select:
-                String[] selects = {"好评最高","人均最低","人均最高","",""};
                 togglePop(3,popSelect,rlSelect,selects);
+                break;
+            case R.id.tv_food_j_common_search:
+                dealSearchEvent();
                 break;
         }
     }
@@ -222,6 +242,18 @@ public class FoodJCommonActivity extends BaseActivity{
             pop.setExpand(!pop.isExpand());
         }
     }
+
+    private void dealSearchEvent(){
+        if (et.getText().toString().trim().isEmpty()){
+            Toast.makeText(FoodJCommonActivity.this, getString(R.string.word_empty_search), Toast.LENGTH_SHORT).show();
+        }else{
+            //隐藏键盘
+            ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(FoodJCommonActivity.this.getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     void initPopRole(final int tag, View toggle, final String[] datas){
         //final String[] roles = {"朋友","恋人","同事","家人","其他"};
         View layout = LayoutInflater.from(this).inflate(R.layout.pop_select_layout, null);

@@ -1,6 +1,7 @@
 package com.shenrui.wukongrebate.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.res.ResourcesCompat;
@@ -17,7 +18,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.CookbookDetailActivity_;
 import com.shenrui.wukongrebate.activity.ShopDetailActivity_;
+import com.shenrui.wukongrebate.entities.CookBookBean;
 import com.shenrui.wukongrebate.entities.FoodContentItem;
 import com.shenrui.wukongrebate.entities.FoodFragmentBtnItem;
 import com.shenrui.wukongrebate.utils.MFGT;
@@ -34,7 +37,7 @@ import java.util.List;
 
 public class FoodAdapter extends RecyclerView.Adapter {
     public static final int TYPE_HEADER         = 0;    //头部，轮播、按钮
-    public static final int TYPE_COOKBOOK       = 1;    //菜谱，美食攻略首页
+    public static final int TYPE_COOKBOOK       = 1;    //菜谱，美食攻略首页、搜索结果
     public static final int TYPE_VIDEO          = 2;    //视频
     public static final int TYPE_SHOP           = 3;    //店铺，美食记首页
     public static final int TYPE_SHOP_GRID      = 4;    //店铺，美食记聚会、刁角美食
@@ -50,7 +53,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
     public static final int LOAD_STATE_FINISH   = 14;      //没有更多数据了
 
     Context context;
-    List foodContentDatas;
+    List<FoodContentItem> foodContentDatas;
     int[] bannerDatas;
     List btnDatas;
     boolean hasHeader = false;
@@ -59,7 +62,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
     private FooterHolder footerHolder = null;
     private View.OnClickListener loadMoreListener;
 
-    public FoodAdapter(Context context, List foodContentDatas) {
+    public FoodAdapter(Context context, List<FoodContentItem> foodContentDatas) {
         this.context = context;
         this.foodContentDatas = foodContentDatas;
     }
@@ -129,20 +132,31 @@ public class FoodAdapter extends RecyclerView.Adapter {
                 break;
             case TYPE_FOOTER:
                     FooterHolder footerHolder = (FooterHolder) holder;
-                if (hasFooter){
                     this.footerHolder = footerHolder;
                     footerHolder.setLoadMoreOnclickListener(this.loadMoreListener);
                     footerHolder.mProgressBar.setVisibility(View.GONE);
                     footerHolder.tvFooter.setText("点击加载更多");
-                }else{
-                    footerHolder.itemView.setVisibility(View.GONE);
-                }
+                    if (!hasFooter){
+                        footerHolder.itemView.setVisibility(View.GONE);
+                    }
                 break;
             case TYPE_COOKBOOK:
                 int tmpPositon = hasHeader ? position - 1 : position;
                 CookbookHolder cookbookHolder = (CookbookHolder) holder;
-                cookbookHolder.ivCookbookIcon.setImageResource(((FoodContentItem)foodContentDatas.get(tmpPositon)).getImg());
-                cookbookHolder.tvCookbookTitle.setText(((FoodContentItem)foodContentDatas.get(tmpPositon)).getTitle());
+                if(((FoodContentItem)foodContentDatas.get(tmpPositon)).getCookBookBean() != null){
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inJustDecodeBounds = true;
+                    Glide.with(context)
+                            .load(((FoodContentItem)foodContentDatas.get(tmpPositon)).getCookBookBean().getPic())
+                            .dontAnimate()
+                            .into(cookbookHolder.ivCookbookIcon);
+                    cookbookHolder.tvCookbookContent.setText("\u3000\""+((FoodContentItem)foodContentDatas.get(tmpPositon)).getCookBookBean().getContent().replace("<br />","\n\u3000"));
+                    cookbookHolder.tvCookbookTitle.setText(((FoodContentItem)foodContentDatas.get(tmpPositon)).getCookBookBean().getName());
+                    cookbookHolder.setOnItemClick(((FoodContentItem)foodContentDatas.get(tmpPositon)).getCookBookBean());
+                }else{
+                    cookbookHolder.ivCookbookIcon.setImageResource(((FoodContentItem)foodContentDatas.get(tmpPositon)).getImg());
+                    cookbookHolder.tvCookbookTitle.setText(((FoodContentItem)foodContentDatas.get(tmpPositon)).getTitle());
+                }
                 break;
             case TYPE_COOKBOOK_MENU:
                 int tmpPositon1 = hasHeader ? position - 1 : position;
@@ -228,6 +242,10 @@ public class FoodAdapter extends RecyclerView.Adapter {
     }
 
     /**************************************** 自定义方法专区 ********************************************/
+    public FooterHolder getFooterHolder() {
+        return footerHolder;
+    }
+
     /**
      * 设置是否有头部
      * @param hasHeader
@@ -236,6 +254,10 @@ public class FoodAdapter extends RecyclerView.Adapter {
         this.hasHeader = hasHeader;
     }
 
+    /**
+     * 设置是否有底部 加载模块
+     * @param hasFooter
+     */
     public void setHasFooter(boolean hasFooter) {
         this.hasFooter = hasFooter;
     }
@@ -250,7 +272,7 @@ public class FoodAdapter extends RecyclerView.Adapter {
     }
 
     /**
-     * 设置按钮跳转事件
+     * 设置按钮资源
      * @param btnDatas
      */
     public void setBtnDatas(List btnDatas) {
@@ -269,18 +291,33 @@ public class FoodAdapter extends RecyclerView.Adapter {
         this.loadMoreListener = loadMoreListener;
     }
 
+    /**
+     * 设置默认加载UI
+     */
     public void setLoadDefaultUI(){
         footerHolder.setProgressBarVisiable(View.GONE);
         footerHolder.setProgressBarInfoText("点击加载更多");
     }
+
+    /**
+     * 设置加载中UI
+     */
     public void setloadingUI(){
         footerHolder.setProgressBarVisiable(View.VISIBLE);
-        footerHolder.setProgressBarInfoText("加载中。。。");
+        footerHolder.setProgressBarInfoText("加载中...");
     }
+
+    /**
+     * 设置加载失败UI
+     */
     public void setLoadFailUI(){
         footerHolder.setProgressBarVisiable(View.GONE);
         footerHolder.setProgressBarInfoText("加载失败，点击重试");
     }
+
+    /**
+     * 设置加载完成，没有更多数据UI
+     */
     public void setLoadFinishUI(){
         footerHolder.setProgressBarVisiable(View.GONE);
         footerHolder.setProgressBarInfoText("没有更多数据了o(╯□╰)o");
@@ -290,11 +327,25 @@ public class FoodAdapter extends RecyclerView.Adapter {
     private class CookbookHolder extends RecyclerView.ViewHolder{
         private ImageView ivCookbookIcon;
         private TextView tvCookbookTitle;
+        private TextView tvCookbookContent;
 
         public CookbookHolder(View itemView) {
             super(itemView);
             ivCookbookIcon = (ImageView) itemView.findViewById(R.id.iv_food_cookbook_icon);
             tvCookbookTitle = (TextView) itemView.findViewById(R.id.tv_food_cookbook_title);
+            tvCookbookContent = (TextView) itemView.findViewById(R.id.tv_food_cookbook_content);
+        }
+        public void setOnItemClick(final CookBookBean cookBookBean){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    LogUtil.d("context:" + context);
+//                    LogUtil.d("cookBookBean:" + cookBookBean.toString());
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("cookBookBean",cookBookBean);
+                    MFGT.startActivity(context, CookbookDetailActivity_.class,bundle);
+                }
+            });
         }
     }
 
