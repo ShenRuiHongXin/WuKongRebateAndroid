@@ -1,19 +1,16 @@
 package com.shenrui.wukongrebate.activity;
 
-import android.os.Build;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.MainViewPagerAdapter;
-import com.shenrui.wukongrebate.fragment.FragmentAward_;
-import com.shenrui.wukongrebate.fragment.FragmentExechange_;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.view.CycleRotationView;
+import com.shenrui.wukongrebate.view.NineDrawView;
+import com.shenrui.wukongrebate.view.WkYuanbaoTicket;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -21,7 +18,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.ViewsById;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,101 +31,119 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
     @ViewsById({R.id.toolbar_left_text,R.id.toolbar_left_image,R.id.toolbar_title,R.id.toolbar_right_image})
     List<View> listTitleView;
 
-    @ViewById(R.id.vp_sign_content)
-    ViewPager vp_sign_content;
+    //优惠券
+    @ViewById(R.id.wyt_1)
+    WkYuanbaoTicket wkYuanbaoTicket;
+    @ViewById(R.id.wyt_2)
+    WkYuanbaoTicket wkYuanbaoTicket2;
 
-    //底部
-    @ViewsById({R.id.ll_exchange,R.id.ll_award})
-    List list_sign_ll;
+    //
+    @ViewById(R.id.crv_sign)
+    CycleRotationView crvSign;
+    //抽奖
+    @ViewById(R.id.ndv_luck_draw)
+    NineDrawView nineDrawView;
 
-    @ViewsById({R.id.iv_exchange,R.id.iv_award})
-    List list_sign_iv;
+//    @ViewById(R.id.vp_sign_content)
+//    ViewPager vp_sign_content;
+//
+//    //底部
+//    @ViewsById({R.id.ll_exchange,R.id.ll_award})
+//    List list_sign_ll;
+//
+//    @ViewsById({R.id.iv_exchange,R.id.iv_award})
+//    List list_sign_iv;
+//
+//    @ViewsById({R.id.tv_exchange,R.id.tv_award})
+//    List list_sign_tv;
 
-    @ViewsById({R.id.tv_exchange,R.id.tv_award})
-    List list_sign_tv;
-
-    private List<Fragment> fragmentList;
+//    private List<Fragment> fragmentList;
     // ViewPager适配器MainViewPagerAdapter
-    private MainViewPagerAdapter adapter;
+//    private MainViewPagerAdapter adapter;
 
     @AfterViews
     void init(){
         //标题栏
-        listTitleView.get(3).setVisibility(View.GONE);
-        ((TextView)listTitleView.get(2)).setText("签到积分");
+        ((ImageView)listTitleView.get(3)).setImageResource(R.drawable.nav_icon_share);
+        ((TextView)listTitleView.get(2)).setText("签到领积分");
         ((ImageView)listTitleView.get(1)).setImageResource(R.drawable.nav_icon_back);
         listTitleView.get(0).setVisibility(View.GONE);
-
-        vp_sign_content.addOnPageChangeListener(this);
-
-        fragmentList   = new ArrayList<Fragment>();
-
-        fragmentList.add(new FragmentExechange_());
-//        fragmentList.add(new FragmentSign_());
-        fragmentList.add(new FragmentAward_());
-
-        this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
-        vp_sign_content.setAdapter(adapter);
-
-        selectPage(1);
+        wkYuanbaoTicket.setYbData(1,1000);
+        wkYuanbaoTicket2.setYbData(2,2000);
+        LogUtil.d("优惠券信息:" + wkYuanbaoTicket.getYbValue() + "," + wkYuanbaoTicket.getYbPrice());
+        crvSign.setImages(new int[]{R.drawable.sign_banner,R.drawable.sign_banner,R.drawable.sign_banner});
+        int[]prizesIcon={R.drawable.tmp_1,R.drawable.tmp_10,R.drawable.tmp_2,R.drawable.tmp_3,R.drawable.tmp_go,R.drawable.tmp_non,R.drawable.tmp_non,R.drawable.tmp_10rmb,R.drawable.tmp_50};
+        nineDrawView.setPrizeImage(prizesIcon);
+//        vp_sign_content.addOnPageChangeListener(this);
+//
+//        fragmentList   = new ArrayList<Fragment>();
+//
+//        fragmentList.add(new FragmentExechange_());
+////        fragmentList.add(new FragmentSign_());
+//        fragmentList.add(new FragmentAward_());
+//
+//        this.adapter = new MainViewPagerAdapter(getSupportFragmentManager(),fragmentList);
+//        vp_sign_content.setAdapter(adapter);
+//
+//        selectPage(1);
     }
 
-    @Click({R.id.ll_exchange,R.id.ll_award,R.id.toolbar_left_image})
+    @Click({R.id.toolbar_left_image})
     void clickEvent(View view){
-        resetView();
-        int tmpPosition = 0;
+//        resetView();
+//        int tmpPosition = 0;
         switch (view.getId()){
-            case R.id.ll_exchange:
-                tmpPosition = 0;
-                break;
+//            case R.id.ll_exchange:
+//                tmpPosition = 0;
+//                break;
 //            case R.id.ll_sign:
 //                tmpPosition = 1;
 //                break;
-            case R.id.ll_award:
-                tmpPosition = 1;
-                break;
+//            case R.id.ll_award:
+//                tmpPosition = 1;
+//                break;
             case R.id.toolbar_left_image:
                 MFGT.finish(this);
                 return;
         }
-        selectPage(tmpPosition);
+//        selectPage(tmpPosition);
     }
 
-    //重置界面
-    private void resetView() {
-        ((ImageView)list_sign_iv.get(0)).setImageResource(R.drawable.index_sign_btn_award_n);
-//        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_task_n);
-        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_n);
-        //
-        for (Object tv:list_sign_tv) {
-            ((TextView)tv).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-        }
-//        ((TextView)list_sign_tv.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-//        ((TextView)list_sign_tv.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-//        ((TextView)list_sign_tv.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
-    }
+//    //重置界面
+//    private void resetView() {
+//        ((ImageView)list_sign_iv.get(0)).setImageResource(R.drawable.index_sign_btn_award_n);
+////        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_task_n);
+//        ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_n);
+//        //
+//        for (Object tv:list_sign_tv) {
+//            ((TextView)tv).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
+//        }
+////        ((TextView)list_sign_tv.get(0)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
+////        ((TextView)list_sign_tv.get(1)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
+////        ((TextView)list_sign_tv.get(2)).setTextColor(ContextCompat.getColor(this, R.color.mainGrey));
+//    }
 
-    //设置选中页
-    private void selectPage(int position){
-        switch (position) {
-            case 0:
-                ((ImageView)list_sign_iv.get(0)).setImageResource(R.drawable.index_sign_reward_btn_expiry_s);
-                ((TextView)listTitleView.get(2)).setText("积分兑换");
-                vp_sign_content.setCurrentItem(0);
-                break;
+//    //设置选中页
+//    private void selectPage(int position){
+//        switch (position) {
+//            case 0:
+//                ((ImageView)list_sign_iv.get(0)).setImageResource(R.drawable.index_sign_reward_btn_expiry_s);
+//                ((TextView)listTitleView.get(2)).setText("积分兑换");
+//                vp_sign_content.setCurrentItem(0);
+//                break;
+////            case 1:
+////                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_reward_btn_task_s);
+////                ((TextView)listTitleView.get(2)).setText("签到积分");
+////                vp_sign_content.setCurrentItem(1);
+////                break;
 //            case 1:
-//                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_reward_btn_task_s);
-//                ((TextView)listTitleView.get(2)).setText("签到积分");
+//                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_s);
+//                ((TextView)listTitleView.get(2)).setText("悟空积分");
 //                vp_sign_content.setCurrentItem(1);
 //                break;
-            case 1:
-                ((ImageView)list_sign_iv.get(1)).setImageResource(R.drawable.index_sign_btn_integral_s);
-                ((TextView)listTitleView.get(2)).setText("悟空积分");
-                vp_sign_content.setCurrentItem(1);
-                break;
-               }
-        ((TextView)list_sign_tv.get(position)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
-    }
+//               }
+//        ((TextView)list_sign_tv.get(position)).setTextColor(ContextCompat.getColor(this, R.color.mainRed));
+//    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -138,9 +152,9 @@ public class SignActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        resetView();
-        //
-        selectPage(position);
+//        resetView();
+//        //
+//        selectPage(position);
     }
 
     @Override

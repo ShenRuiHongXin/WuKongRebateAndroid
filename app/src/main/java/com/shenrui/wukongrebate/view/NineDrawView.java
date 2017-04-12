@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
@@ -28,8 +27,8 @@ import java.util.Random;
 @EViewGroup(R.layout.nine_draw_view)
 public class NineDrawView extends PercentLinearLayout {
     //奖品
-    @ViewsById({R.id.iv_prize_1,R.id.iv_prize_2,R.id.iv_prize_3,R.id.iv_prize_4,R.id.iv_prize_5,R.id.iv_prize_6,R.id.iv_prize_7,R.id.iv_prize_8,R.id.iv_prize_9})
-    List<ImageView> imageViewList;
+    @ViewsById({R.id.iv_prize_1,R.id.iv_prize_2,R.id.iv_prize_3,R.id.iv_prize_4,R.id.tv_prize_5,R.id.iv_prize_6,R.id.iv_prize_7,R.id.iv_prize_8,R.id.iv_prize_9})
+    List<View> imageViewList;
     //背景
     @ViewsById({R.id.prl_1,R.id.prl_2,R.id.prl_3,R.id.prl_6,R.id.prl_9,R.id.prl_8,R.id.prl_7,R.id.prl_4})
     List<PercentRelativeLayout> percentRelativeLayoutList;
@@ -37,7 +36,7 @@ public class NineDrawView extends PercentLinearLayout {
     @ViewById(R.id.tv_draw_times)
     TextView tvTimes;
     //开始
-    ImageView ivStart;
+    TextView tvStart;
 
     //剩余抽奖次数
     private int drawTimes = 3;
@@ -58,10 +57,12 @@ public class NineDrawView extends PercentLinearLayout {
 
     public void setPrizeImage(int[] imgs){
         for(int i = 0; i<imgs.length; i++){
-            imageViewList.get(i).setBackgroundResource(imgs[i]);
+            if(i != 4){
+                imageViewList.get(i).setBackgroundResource(imgs[i]);
+            }
         }
 
-        ivStart = imageViewList.get(4);
+        tvStart = (TextView) imageViewList.get(4);
 
 //        views.add(imageViewList.get(0));
 //        views.add(imageViewList.get(1));
@@ -77,11 +78,11 @@ public class NineDrawView extends PercentLinearLayout {
         }
 
         try {
-            ivStart.setOnClickListener(new View.OnClickListener() {
+            tvStart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ivStart.setClickable(false);
-                    ivStart.setEnabled(false);
+                    tvStart.setClickable(false);
+                    tvStart.setEnabled(false);
                     tvTimes.setText("今日剩余" + drawTimes +"次");
                     runCount = 5;
                     timeC = 50;
@@ -161,8 +162,8 @@ public class NineDrawView extends PercentLinearLayout {
             }
             //如果是最后一圈且计时也已经结束
             if (runCount==0&&lightPosition==8){
-                ivStart.setClickable(true);
-                ivStart.setEnabled(true);
+                tvStart.setClickable(true);
+                tvStart.setEnabled(true);
                 tvTimes.setText("恭喜你抽中: "+ lunckyPosition);
                 if (lunckyPosition!=views.size())
                     ivLast.setBackgroundColor(Color.TRANSPARENT);

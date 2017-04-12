@@ -1,25 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sign_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/sign_layout">
+    android:orientation="vertical">
 
     <include
         layout="@layout/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_sign_content"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#ffffff"
-        android:transitionName="sharedView"/>
+        android:layout_height="match_parent">
 
-    <include
-        layout="@layout/sign_activity_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sign_home_background">
+
+                <com.shenrui.wukongrebate.view.CircleImageView
+                    android:id="@+id/civ_avatar"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/home_img_user"
+                    app:border_color="#00000000"
+                    app:border_width="0dp" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/civ_avatar">
+
+                    <TextView
+                        android:id="@+id/tv_jf_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_jf_count"
+                        android:layout_toRightOf="@+id/tv_jf_count"
+                        android:text="积分"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_jf_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_jf_count"
+                        android:layout_marginTop="3dp"
+                        android:text="积分明细  》"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/iv_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/home_btn_qiandao" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="可兑换元宝"
+                    android:textSize="18sp" />
+
+                <com.shenrui.wukongrebate.view.WkYuanbaoTicket_
+                    android:id="@+id/wyt_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_2" />
+
+                <com.shenrui.wukongrebate.view.WkYuanbaoTicket_
+                    android:id="@+id/wyt_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/wyt_1" />
+            </RelativeLayout>
+
+            <com.shenrui.wukongrebate.view.CycleRotationView
+                android:id="@+id/crv_sign"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="5dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EFEEEE">
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="积分抽奖"
+                    android:textSize="18sp" />
+
+                <com.shenrui.wukongrebate.view.NineDrawView_
+                    android:id="@+id/ndv_luck_draw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_below="@id/tv_3" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+    <!--<android.support.v4.view.ViewPager-->
+    <!--android:id="@+id/vp_sign_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:background="#ffffff"-->
+    <!--android:transitionName="sharedView"/>-->
+
+    <!--<include-->
+    <!--layout="@layout/sign_activity_bottom"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
 </LinearLayout>
