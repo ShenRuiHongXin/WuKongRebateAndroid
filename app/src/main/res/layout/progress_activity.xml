@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/download_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Download"
+        android:visibility="visible" />
+    <Button
+        android:id="@+id/download_btn_i"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="强制升级"
+        android:visibility="visible" />
+    <Button
+        android:id="@+id/download_btn_n"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="普通升级"
+        android:visibility="visible" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ProgressBar
+        android:id="@+id/download_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:maxHeight="20dp"
+        android:minHeight="20dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:progress="0"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:secondaryProgress="0" />
+
+    <TextView
+        android:id="@+id/download_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="下载进度:0%" />
+
+</LinearLayout>

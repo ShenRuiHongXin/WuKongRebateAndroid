@@ -17,6 +17,8 @@ import com.shenrui.wukongrebate.fragment.FragmentFood_;
 import com.shenrui.wukongrebate.fragment.FragmentMine_;
 import com.shenrui.wukongrebate.fragment.FragmentRebate_;
 import com.shenrui.wukongrebate.fragment.FragmentZhi_;
+import com.shenrui.wukongrebate.utils.LogUtil;
+import com.shenrui.wukongrebate.utils.Utils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -63,6 +65,11 @@ public class MainActivity extends BaseActivity{
         filter.addAction(Constants.GOTOZHI);
         receiver = new MyReceiver();
         registerReceiver(receiver,filter);
+        checkVersion();
+    }
+
+    private void checkVersion(){
+        LogUtil.d(Utils.getAppName(this)+" 当前版本号:" + Utils.getVersionCode(this) +",当前版本名:" + Utils.getVersionName(this));
     }
 
     class MyReceiver extends BroadcastReceiver{

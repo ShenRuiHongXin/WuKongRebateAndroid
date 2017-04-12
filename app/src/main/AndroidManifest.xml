@@ -234,6 +234,12 @@
         <activity android:name=".activity.ShopDetailActivity_"/>
         <activity android:name=".activity.CookbookDetailActivity_"/>
         <activity android:name=".activity.FoodMenuSearchActivity_"/>
+        <activity android:name=".activity.UpdateDownloatActivity_"/>
+        <receiver android:name=".utils.ApkInstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

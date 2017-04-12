@@ -74,6 +74,7 @@ public class FragmentRebate extends BaseFragment{
     //界面初始化
     @AfterViews
     void init() {
+        LogUtil.d("FragmentRebate created");
         context = getContext();
         showProgressBar();
         initView();

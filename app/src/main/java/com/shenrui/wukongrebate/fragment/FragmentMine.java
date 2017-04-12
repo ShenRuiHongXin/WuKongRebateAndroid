@@ -12,6 +12,7 @@ import com.shenrui.wukongrebate.activity.LoginActivity_;
 import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
 import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.activity.TestActivity_;
+import com.shenrui.wukongrebate.activity.UpdateDownloatActivity_;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
@@ -147,7 +148,7 @@ public class FragmentMine extends BaseFragment{
 
                 break;
             case R.id.tv_qita:
-
+                MFGT.startActivity(context, UpdateDownloatActivity_.class);
                 break;
         }
     }

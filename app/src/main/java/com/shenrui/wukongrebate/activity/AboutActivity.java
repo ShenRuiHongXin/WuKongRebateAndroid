@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.Utils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -22,6 +23,8 @@ public class AboutActivity extends BaseActivity {
     TextView toolbar_title;
     @ViewById(R.id.toolbar_right_image)
     ImageView toolbar_right_image;
+    @ViewById(R.id.tv_app_version_name)
+    TextView tvVersionName;
 
     @AfterViews
     void init(){
@@ -29,6 +32,7 @@ public class AboutActivity extends BaseActivity {
         toolbar_left_text.setVisibility(View.GONE);
         toolbar_title.setText("关于悟空返利");
         toolbar_right_image.setVisibility(View.GONE);
+        tvVersionName.setText("当前版本号: v"+ Utils.getVersionName(this));
     }
     @Click({R.id.toolbar_left_image,R.id.newVersion,R.id.appAgreement,R.id.copyRight,R.id.helpCenter})
     void clickEvent(View view){

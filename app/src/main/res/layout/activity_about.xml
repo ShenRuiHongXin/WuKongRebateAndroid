@@ -113,6 +113,7 @@
             android:layout_marginRight="10dp"/>
     </LinearLayout>
     <TextView
+        android:id="@+id/tv_app_version_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="当前版本号：1.1.1"
