@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.shenrui.wukongrebate.view.CycleRotationView
+        android:id="@+id/crv_duobao"
+        android:layout_width="match_parent"
+        android:layout_height="160dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_db_cats"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/duobao_cats"
+            android:gravity="center_horizontal"
+            android:text="分类" />
+
+        <TextView
+            android:id="@+id/tv_db_recode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/duobao_recode"
+            android:gravity="center_horizontal"
+            android:text="夺宝记录" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#5f6d6d6d" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs_duobao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="@color/f54949"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/f54949"
+        app:tabTextColor="@color/textcolor_primary" />
+</LinearLayout>

@@ -1,26 +1,16 @@
 package com.shenrui.wukongrebate.activity;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.graphics.Rect;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import com.shenrui.wukongrebate.R;
-import com.shenrui.wukongrebate.adapter.MyPageAdapter;
-import com.shenrui.wukongrebate.fragment.duo.DuoItemFragment;
-import com.shenrui.wukongrebate.fragment.duo.DuoItemFragment_;
-import com.shenrui.wukongrebate.fragment.duo.RenQiFragment_;
-import com.shenrui.wukongrebate.utils.MFGT;
 
-import net.lucode.hackware.magicindicator.MagicIndicator;
-import net.lucode.hackware.magicindicator.ViewPagerHelper;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
+import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.adapter.DuoBaoAdapter;
+import com.shenrui.wukongrebate.entities.DuobaoGood;
+import com.shenrui.wukongrebate.utils.FullyGridLayoutManager;
+import com.shenrui.wukongrebate.utils.MFGT;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -28,74 +18,131 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @EActivity(R.layout.activity_duo_bao)
 public class DuoBaoActivity extends BaseActivity {
-    @ViewById(R.id.magic_indicator)
-    MagicIndicator magic;
-    @ViewById(R.id.duo_vp)
-    ViewPager vp;
+//    @ViewById(R.id.magic_indicator)
+//    MagicIndicator magic;
+//    @ViewById(R.id.crv_duobao)
+//    CycleRotationView crvDuobao;
+//    @ViewById(R.id.tabs_duobao)
+//    TabLayout tabs;
+//    @ViewById(R.id.duo_vp)
+//    ViewPager vp;
+    @ViewById(R.id.rv_duobao)
+    RecyclerView rv;
+
     Context context;
+    DuoBaoAdapter adapter;
+    List<DuoBaoAdapter.DuobaoData> datas;
+    FullyGridLayoutManager layoutManager;
 
     @AfterViews
     void init(){
         context = this;
-        initTabs();
+//        initTabs();
+        initView();
     }
 
-    private void initTabs() {
-        final String[] titles = {"人气","最新","最快","价格"};
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new RenQiFragment_());
-        for(int i=1;i<titles.length;i++){
-            DuoItemFragment fragment = new DuoItemFragment_();
-            Bundle bundle = new Bundle();
-            bundle.putString("title",titles[i]);
-            fragment.setArguments(bundle);
-            fragments.add(fragment);
+    void initView(){
+        int[] images = {R.drawable.home_banner,R.drawable.home_banner,R.drawable.home_banner};
+        datas = new ArrayList<>();
+        //临时数据
+        datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.HEADMENU,images,null));
+        for (int i = 0; i<10; i++){
+            if (i == 1){
+                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,50)));
+            }else if(i == 2){
+                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,100)));
+            }else if(i == 3){
+                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,0)));
+            }else{
+                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,(100+i),(50-i))));
+            }
         }
-        vp.setOffscreenPageLimit(3);
-        MyPageAdapter adapter = new MyPageAdapter(this.getSupportFragmentManager(), fragments, Arrays.asList(titles));
-        vp.setAdapter(adapter);
-
-        CommonNavigator commonNavigator = new CommonNavigator(this);
-        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+        adapter = new DuoBaoAdapter(context,datas);
+        rv.setAdapter(adapter);
+        layoutManager = new FullyGridLayoutManager(context,2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
-            public int getCount() {
-                return titles == null ? 0 : titles.length;
-            }
-            @Override
-            public IPagerTitleView getTitleView(Context context, final int index) {
-                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
-                titleView.setNormalColor(Color.GRAY);
-                titleView.setSelectedColor(Color.RED);
-                titleView.setText(titles[index]);
-                titleView.setTextSize(15);
-                titleView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        vp.setCurrentItem(index);
-                    }
-                });
-                return titleView;
-            }
-
-            @Override
-            public IPagerIndicator getIndicator(Context context) {
-                LinePagerIndicator indicator = new LinePagerIndicator(context);
-                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
-                indicator.setLineWidth(45);
-                indicator.setLineHeight(5);
-                indicator.setRoundRadius(10);
-                indicator.setColors(Color.RED);
-                return indicator;
+            public int getSpanSize(int position) {
+                return position == 0 ? 2 : 1;
             }
         });
-        magic.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(magic,vp);
+        rv.setLayoutManager(layoutManager);
+        rv.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                if (parent.getChildPosition(view) == 0 ){
+                    return;
+                }
+                if (parent.getChildPosition(view)%2==0){
+                    outRect.set(10,5,5,5);
+                }else{
+                    outRect.set(5,5,10,5);
+                }
+            }
+        });
     }
+
+//    private void initTabs() {
+//        final String[] titles = {"人气","最新","最快","价格"};
+//        int[] images = {R.drawable.home_banner,R.drawable.home_banner,R.drawable.home_banner};
+//        crvDuobao.setImages(images);
+//        List<Fragment> fragments = new ArrayList<>();
+//        fragments.add(new RenQiFragment_());
+//        for(int i=1;i<titles.length;i++){
+//            DuoItemFragment fragment = new DuoItemFragment_();
+//            Bundle bundle = new Bundle();
+//            bundle.putString("title",titles[i]);
+//            fragment.setArguments(bundle);
+//            fragments.add(fragment);
+//            tabs.addTab(tabs.newTab().setText(titles[i]));
+//        }
+//        vp.setOffscreenPageLimit(3);
+//        MyPageAdapter adapter = new MyPageAdapter(this.getSupportFragmentManager(), fragments, Arrays.asList(titles));
+//        vp.setAdapter(adapter);
+//        tabs.setupWithViewPager(vp);
+//
+////        CommonNavigator commonNavigator = new CommonNavigator(this);
+////        commonNavigator.setAdjustMode(true);
+////        commonNavigator.setAdapter(new CommonNavigatorAdapter() {
+////            @Override
+////            public int getCount() {
+////                return titles == null ? 0 : titles.length;
+////            }
+////            @Override
+////            public IPagerTitleView getTitleView(Context context, final int index) {
+////                ColorTransitionPagerTitleView titleView = new ColorTransitionPagerTitleView(context);
+////                titleView.setNormalColor(Color.GRAY);
+////                titleView.setSelectedColor(Color.RED);
+////                titleView.setText(titles[index]);
+////                titleView.setTextSize(15);
+////                titleView.setOnClickListener(new View.OnClickListener() {
+////                    @Override
+////                    public void onClick(View view) {
+////                        vp.setCurrentItem(index);
+////                    }
+////                });
+////                return titleView;
+////            }
+////
+////            @Override
+////            public IPagerIndicator getIndicator(Context context) {
+////                LinePagerIndicator indicator = new LinePagerIndicator(context);
+////                indicator.setMode(LinePagerIndicator.MODE_EXACTLY);
+////                indicator.setLineWidth(45);
+////                indicator.setLineHeight(5);
+////                indicator.setRoundRadius(10);
+////                indicator.setColors(Color.RED);
+////                return indicator;
+////            }
+////        });
+////        magic.setNavigator(commonNavigator);
+////        ViewPagerHelper.bind(magic,vp);
+//    }
+
 
     @Click(R.id.iv_duo_back)
     void clickEvent(View view){

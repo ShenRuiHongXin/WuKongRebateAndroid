@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
@@ -19,13 +18,14 @@ import com.shenrui.wukongrebate.activity.SignActivity_;
 import com.shenrui.wukongrebate.activity.SuperActivity_;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.RebateMenuData;
-import com.shenrui.wukongrebate.entities.TbkItem;
 import com.shenrui.wukongrebate.entities.UatmTbkItem;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.view.CycleRotationView;
 import com.shenrui.wukongrebate.view.RebateItemView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -87,7 +87,36 @@ public class RebateAdapter extends RecyclerView.Adapter {
                 RebateMenuHolder rebateMenuHolder = (RebateMenuHolder) holder;
                 rebateMenuHolder.setIsRecyclable(false);
                 rebateMenuHolder.cyclerotationview.setUrls(menuData.getCycleList());
-                rebateMenuHolder.layoutThreeItem.setCountTime(12,30,30);
+                //获取当前时间
+                SimpleDateFormat formatHour = new SimpleDateFormat("HH");
+                SimpleDateFormat formatMins = new SimpleDateFormat("mm");
+                SimpleDateFormat formatSeco = new SimpleDateFormat("ss");
+                Date curDate = new Date(System.currentTimeMillis());//获取当前时间
+                String hour = formatHour.format(curDate);
+                String mins = formatMins.format(curDate);
+                String seco = formatSeco.format(curDate);
+                int curHour = Integer.parseInt(hour);
+                int curMin = Integer.parseInt(mins);
+                int curSec = Integer.parseInt(seco);
+
+                int secLeft = 0;
+                int minLeft = 0;
+                int hourLeft = 0;
+                if (curSec != 0 && curMin != 0){
+                    secLeft = 60 - curSec;
+                    minLeft = 59 - curMin;
+                    hourLeft = 23 - curHour;
+                }else if(curSec == 0 && curMin != 0){
+                    minLeft = 60 - curMin;
+                    hourLeft = 23 - curHour;
+                }else if(curSec != 0 && curMin == 0){
+                    secLeft = 60 - curSec;
+                    minLeft = 59;
+                    hourLeft = 23 - curHour;
+                }else{
+                    hourLeft = 24 - curHour;
+                }
+                rebateMenuHolder.layoutThreeItem.setCountTime(hourLeft,minLeft,secLeft);
                 break;
             case TYPE_NEW_GOODS:
                 NewGoodsHolder newGoodsHolder = (NewGoodsHolder) holder;

@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }*/
         //translucentStatusBar();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private void translucentStatusBar() {

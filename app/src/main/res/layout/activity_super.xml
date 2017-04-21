@@ -23,7 +23,7 @@
             android:id="@+id/tv_super_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="超级返利"
+            android:text="@string/super_fan"
             android:textColor="@color/mainRed"
             android:gravity="center"
             android:textSize="18sp"

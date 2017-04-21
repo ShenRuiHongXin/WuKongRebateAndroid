@@ -1,141 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context="com.shenrui.wukongrebate.activity.TimeLimitActivity">
-    <ImageView
-        android:id="@+id/iv_time_limit_back"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:src="@drawable/nav_icon_back"
-        android:layout_gravity="center_vertical"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:contentDescription="@null" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/mineGrey"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs_time_limit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabMode="fixed"
-        app:tabBackground="@drawable/time_tab_background"
-        app:tabIndicatorHeight="0dp"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/mineGrey"/>
-   <!-- <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/vp_time_limit" />-->
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:background="@color/mineGrey"
-        android:id="@+id/layout_vp_group">
-        <android.support.v4.view.ViewPager
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/vp_time_one_limit"
-            android:layout_centerInParent="true"/>
+        android:layout_height="50dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_time_limit_back"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:src="@drawable/nav_icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="限时秒"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_time_limit_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_vertical"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:src="@drawable/change_liner_grid" />
+
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/mineGrey"/>
-    <android.support.v7.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
-        android:layout_gravity="center_horizontal">
-        <RelativeLayout
-            android:layout_width="240dp"
-            android:layout_height="100dp"
-            android:padding="8dp"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_time_goods_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="2"
-                android:textSize="13sp"
-                android:text=""/>
-            <ImageView
-                android:id="@+id/iv_add_cart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/home_btn_addtoshopingcart"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"/>
-            <TextView
-                android:id="@+id/tv_sign1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="￥"
-                android:textSize="13sp"
-                android:layout_alignParentStart="true"
-                android:layout_alignBottom="@id/iv_add_cart"/>
-            <TextView
-                android:id="@+id/tv_time_price_old"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="13sp"
-                android:layout_toEndOf="@id/tv_sign1"
-                android:layout_alignBottom="@id/tv_sign1"/>
-            <View
-                android:layout_width="60dp"
-                android:layout_height="0.5dp"
-                android:background="@color/black"
-                android:layout_alignBottom="@id/tv_sign1"
-                android:layout_marginBottom="8dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_sign2"
-                android:text="￥"
-                android:textSize="15sp"
-                android:textColor="@color/mainRed"
-                android:layout_above="@id/tv_sign1"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_time_price_new"
-                android:text=""
-                android:textSize="15sp"
-                android:textColor="@color/mainRed"
-                android:layout_toEndOf="@id/tv_sign2"
-                android:layout_alignBottom="@id/tv_sign2"/>
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:gravity="start|center_vertical"
-        android:text="猜你喜欢"
-        android:layout_marginStart="10dp"
-        android:textColor="@color/black"/>
+        android:background="@color/mineGrey" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_time_limit_like"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs_time_limit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@drawable/time_tab_background"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@android:style/TextAppearance.Holo.Large"
+            app:tabTextColor="@color/textcolor_primary" />
+        <TextView
+            android:id="@+id/tv_time_counting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tabs_time_limit"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:text="@string/time_left"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/mineGrey" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_time_one_limit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
+
+
 </LinearLayout>

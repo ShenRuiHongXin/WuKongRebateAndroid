@@ -1,6 +1,7 @@
 package com.shenrui.wukongrebate.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,11 +9,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
+import com.shenrui.wukongrebate.activity.InvationAwardActivity_;
 import com.shenrui.wukongrebate.activity.LoginActivity_;
+import com.shenrui.wukongrebate.activity.MyVipActivity_;
 import com.shenrui.wukongrebate.activity.PersonalInfoActivity_;
 import com.shenrui.wukongrebate.activity.SettingsActivity_;
 import com.shenrui.wukongrebate.activity.TestActivity_;
 import com.shenrui.wukongrebate.activity.UpdateDownloatActivity_;
+import com.shenrui.wukongrebate.activity.YuanbaoActivity;
+import com.shenrui.wukongrebate.activity.YuanbaoActivity_;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
@@ -74,7 +79,7 @@ public class FragmentMine extends BaseFragment{
             isLogined = false;
             tv_user_name.setText("登录/注册");
             iv_avatar.setImageResource(R.drawable.home_img_user);
-            tv_money_yue.setText("xx");
+            tv_money_yue.setText("0");
         }
         srl.setColorSchemeColors(getResources().getColor(R.color.mainRed));
     }
@@ -109,7 +114,7 @@ public class FragmentMine extends BaseFragment{
 
     @Click({R.id.iv_mine_news,R.id.iv_mine_set,R.id.tv_see,R.id.tv_all_order,R.id.tv_yuanbao,
             R.id.tv_huiyuantong,R.id.tv_youhuiquan,R.id.tv_yaoqingyoujiang,R.id.tv_kefu,R.id.tv_qita,
-            R.id.iv_mine_avatar,R.id.tv_mine_userName})
+            R.id.iv_mine_avatar,R.id.tv_mine_userName,R.id.rl_yue})
     void clickEvent(View view){
         switch (view.getId()){
             case R.id.tv_mine_userName:
@@ -127,22 +132,28 @@ public class FragmentMine extends BaseFragment{
                 MFGT.startActivity(context,SettingsActivity_.class);
                 break;
             case R.id.tv_see:
-
+                break;
+            case R.id.rl_yue:
+                Intent intent1 = new Intent(context, YuanbaoActivity_.class);
+                intent1.putExtra("target", YuanbaoActivity.YUE);
+                MFGT.startActivity(context,intent1);
                 break;
             case R.id.tv_all_order:
                 MFGT.startActivity(context,AliSdkOrderActivity_.class);
                 break;
             case R.id.tv_yuanbao:
-
+                Intent intent = new Intent(context, YuanbaoActivity_.class);
+                intent.putExtra("target", YuanbaoActivity.YUANBAO);
+                MFGT.startActivity(context,intent);
                 break;
             case R.id.tv_huiyuantong:
-
+                MFGT.startActivity(context, MyVipActivity_.class);
                 break;
             case R.id.tv_youhuiquan:
 
                 break;
             case R.id.tv_yaoqingyoujiang:
-
+                MFGT.startActivity(context, InvationAwardActivity_.class);
                 break;
             case R.id.tv_kefu:
 

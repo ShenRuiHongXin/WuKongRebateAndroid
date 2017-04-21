@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D8D8D8"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp"
+        android:background="@color/f54949">
+
+        <RelativeLayout
+            android:id="@+id/rl_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/f54949">
+
+            <ImageView
+                android:id="@+id/iv_yb_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/nav_icon_back_white" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="0.5dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/iv_yb_back"
+                android:background="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_yb_yue_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/view"
+                android:text="元宝"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_yb_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="明细"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_yue_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#7fD8D8D8"
+            android:text="账户余额(元)"/>
+
+        <TextView
+            android:id="@+id/tv_yb_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:padding="0dp"
+            android:includeFontPadding="false"
+            android:text="233"
+            android:textColor="@color/white"
+            android:textSize="60sp" />
+        <TextView
+            android:id="@+id/tv_yuanbao_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_yb_count"
+            android:layout_alignBottom="@+id/tv_yb_count"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            android:text="元宝"/>
+        <TextView
+            android:id="@+id/tv_yuanbao_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#D8D8D8"
+            android:layout_below="@+id/tv_yb_count"
+            android:layout_alignLeft="@id/tv_yb_count"
+            android:text="100元宝 = 1元"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_cz_tx"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/tixian"/>
+        <TextView
+            android:id="@+id/tv_cz_tx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:text="提现"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/list_icon_back"/>
+    </RelativeLayout>
+
+</LinearLayout>

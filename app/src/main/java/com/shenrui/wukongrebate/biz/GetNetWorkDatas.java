@@ -82,8 +82,7 @@ public class GetNetWorkDatas {
             if(cidString.equals("")){
                 cidString += integer;
             }else{
-            cidString = cidString+","+integer;
-
+                cidString = cidString+","+integer;
             }
         }
         LogUtil.i("cidString: " + cidString);
@@ -134,7 +133,7 @@ public class GetNetWorkDatas {
         map.put("page_size",String.valueOf(pageSize));
         map.put("start_price","1");
         map.put("end_price","1000000");
-        map.put("start_tk_rate","3000");//淘宝客佣金比率10%-100%
+        map.put("start_tk_rate","3000");//淘宝客佣金比30%-100%
         map.put("end_tk_rate","10000");
         map.put("sort","total_sales_des");
 
@@ -167,6 +166,7 @@ public class GetNetWorkDatas {
         }catch (Exception e){
             e.printStackTrace();
         }
+        LogUtil.d("result map:" + result.toString());
         return result;
     }
 

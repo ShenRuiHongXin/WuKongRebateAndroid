@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/iv_vip_privilege_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/nav_icon_back" />
+
+        <TextView
+            android:id="@+id/tv_vip_privilege_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/iv_vip_privilege_back"
+            android:textSize="18sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#D8D8D8">
+        <TextView
+            android:id="@+id/tv_son_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/duobao_zhekou_large"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:drawablePadding="10dp"
+            android:text="夺宝折扣"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_cons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="夺宝折扣说明"/>
+    <TextView
+        android:id="@+id/tv_vip_privilege_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:text="内容"/>
+</LinearLayout>

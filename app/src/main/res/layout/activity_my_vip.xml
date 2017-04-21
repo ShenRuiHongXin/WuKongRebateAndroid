@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/iv_vip_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/nav_icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/iv_vip_back"
+            android:text="会员通"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:background="@color/f54949">
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <com.shenrui.wukongrebate.view.CircleImageView
+                android:id="@+id/iv_vip_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:src="@drawable/home_img_user"
+                app:border_color="#00000000"
+                app:border_width="0dp" />
+
+            <TextView
+                android:id="@+id/tv_vip_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:text="白滚滚"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_circles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_below="@+id/ll_1">
+
+            <RelativeLayout
+                android:id="@+id/crl_1"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:background="@drawable/circle_view">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableTop="@drawable/jifen_jiedu"
+                    android:textColor="@color/white"
+                    android:text="@string/jf_jiedu"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/crl_2"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/crl_1"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_border">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tv_vip_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/vip_v"
+                        android:gravity="bottom|right"
+                        android:text="0"
+                        android:textColor="#FEF204"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tv_vip_level"
+                        android:text="会员"
+                        android:textColor="#FEF204" />
+
+                    <TextView
+                        android:id="@+id/tv_vip_exp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_vip_level"
+                        android:layout_centerHorizontal="true"
+                        android:text="400"
+                        android:textColor="#FEF204"
+                        android:textSize="25sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/crl_3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/crl_2"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:background="@drawable/circle_view">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableTop="@drawable/tisheng_gonglue"
+                    android:textColor="@color/white"
+                    android:text="@string/ts_gonglue"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_circles"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/vip_ranking"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_2"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/circle_view_w">
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/f54949"
+                android:layout_centerHorizontal="true"
+                android:text="会员通专享权益"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_3"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_duobao_zhekou"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/f54949"
+                    android:drawableTop="@drawable/duobao_zhekou"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_horizontal"
+                    android:clickable="true"
+                    android:text="夺宝折扣"/>
+                <TextView
+                    android:id="@+id/tv_fanli_zengzhi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/f54949"
+                    android:drawableTop="@drawable/fanli_zengzhi"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_horizontal"
+                    android:clickable="true"
+                    android:text="返利增值"/>
+                <TextView
+                    android:id="@+id/tv_jifen_duihuan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/f54949"
+                    android:drawableTop="@drawable/jifen_duihuan"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_horizontal"
+                    android:clickable="true"
+                    android:text="积分兑换"/>
+                <TextView
+                    android:id="@+id/tv_tixian_edu"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/f54949"
+                    android:drawableTop="@drawable/tixian_edu"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_horizontal"
+                    android:clickable="true"
+                    android:text="提现额度"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

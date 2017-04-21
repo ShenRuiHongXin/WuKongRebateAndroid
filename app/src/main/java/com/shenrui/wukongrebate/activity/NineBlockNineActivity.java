@@ -20,7 +20,6 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.MyPageAdapter;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.CatsItemLocal;
-import com.shenrui.wukongrebate.fragment.FragmentHaitao;
 import com.shenrui.wukongrebate.fragment.FragmentNineAll;
 import com.shenrui.wukongrebate.fragment.FragmentNineItem;
 import com.shenrui.wukongrebate.utils.MFGT;
