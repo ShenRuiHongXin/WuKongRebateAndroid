@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,9 +20,12 @@ import com.shenrui.wukongrebate.activity.SuperActivity_;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.RebateMenuData;
 import com.shenrui.wukongrebate.entities.UatmTbkItem;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.ScreenUtils;
 import com.shenrui.wukongrebate.view.CycleRotationView;
 import com.shenrui.wukongrebate.view.RebateItemView;
+import com.sixth.adwoad.AdwoAdView;
 import com.taobao.api.AliSdkWebViewProxyActivity_;
 
 import java.text.SimpleDateFormat;
@@ -86,7 +90,74 @@ public class RebateAdapter extends RecyclerView.Adapter {
             case TYPE_MENU:
                 RebateMenuHolder rebateMenuHolder = (RebateMenuHolder) holder;
                 rebateMenuHolder.setIsRecyclable(false);
+                //广告banner
                 rebateMenuHolder.cyclerotationview.setUrls(menuData.getCycleList());
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) rebateMenuHolder.cyclerotationview.getLayoutParams();
+
+                LogUtil.d("广告尺寸:" + params.width + "-" + params.height);
+                int width = ScreenUtils.getScreenWidth(context);
+                int height = width * 3 / 7;
+                LogUtil.d("新尺寸:" + width + "-" + height);
+                params.width = width;
+                params.height = height;
+                rebateMenuHolder.cyclerotationview.setLayoutParams(params);
+                rebateMenuHolder.cyclerotationview.setVisibility(View.GONE);
+
+                /************** 百度SSP **************/
+//                rebateMenuHolder.rlBaiduAd.setLayoutParams(params);
+//
+//                //人群属性
+//                AdSettings.setKey(new String[]{"baidu","中国"});
+//                //创建广告view
+//                String adPlaceId = "3888712";// 重要：请填上你的 代码位ID, 否则 无法请求到广告
+//                AdView adView = new AdView(context,adPlaceId);
+//                //设置监听器
+//                // 设置监听器
+//                adView.setListener(new AdViewListener() {
+//                    public void onAdSwitch() {
+//                        Log.w("", "onAdSwitch");
+//                    }
+//
+//                    public void onAdShow(JSONObject info) {
+//                        // 广告已经渲染出来
+//                        Log.w("", "onAdShow " + info.toString());
+//                    }
+//
+//                    public void onAdReady(AdView adView) {
+//                        // 资源已经缓存完毕，还没有渲染出来
+//                        Log.w("", "onAdReady " + adView);
+//                    }
+//
+//                    public void onAdFailed(String reason) {
+//                        Log.w("", "onAdFailed " + reason);
+//                    }
+//
+//                    public void onAdClick(JSONObject info) {
+//                        // Log.w("", "onAdClick " + info.toString());
+//
+//                    }
+//
+//                    @Override
+//                    public void onAdClose(JSONObject arg0) {
+//                        Log.w("", "onAdClose");
+//                    }
+//                });
+//                // 将adView添加到父控件中(注：该父控件不一定为您的根控件，只要该控件能通过addView能添加广告视图即可)
+//                RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(width, height);
+//                rllp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//                rebateMenuHolder.rlBaiduAd.addView(adView,rllp);
+
+                /************** 安沃 **************/
+                AdwoAdView adView = new AdwoAdView(context, "1a2cc79c68e2480faa0b487cf67c4d18",true, 20);
+                RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(width, height);
+                //当不设置广告条充满屏幕宽时建议放置在父容器中间
+                params1.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                //设置广告条充满屏幕宽
+                adView.setBannerMatchScreenWidth(true);
+                // 设置广告监听回调
+//                adView.setListener(context);
+                rebateMenuHolder.rlBaiduAd.addView(adView,params1);
+
                 //获取当前时间
                 SimpleDateFormat formatHour = new SimpleDateFormat("HH");
                 SimpleDateFormat formatMins = new SimpleDateFormat("mm");
@@ -175,6 +246,7 @@ public class RebateAdapter extends RecyclerView.Adapter {
         CycleRotationView cyclerotationview;
         RebateItemView layoutThreeItem;
         TextView tvSuper,tvNine,tvGroup,tvDuo,tvSign;
+        RelativeLayout rlBaiduAd;
 
         RebateMenuHolder(View view) {
             super(view);
@@ -185,6 +257,7 @@ public class RebateAdapter extends RecyclerView.Adapter {
             tvGroup = (TextView) view.findViewById(R.id.tv_group);
             tvDuo = (TextView) view.findViewById(R.id.tv_duo);
             tvSign = (TextView) view.findViewById(R.id.tv_sign);
+            rlBaiduAd = (RelativeLayout) view.findViewById(R.id.rl_baidu_ssp_ad);
             tvDuo.setOnClickListener(this);
             tvNine.setOnClickListener(this);
             tvSign.setOnClickListener(this);

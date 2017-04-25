@@ -75,7 +75,7 @@ public class FragmentRebate extends BaseFragment{
     @AfterViews
     void init() {
         LogUtil.d("FragmentRebate created");
-        context = getContext();
+        context = getActivity();
         showProgressBar();
         initView();
         initDatas();

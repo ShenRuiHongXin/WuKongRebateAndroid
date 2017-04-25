@@ -197,3 +197,21 @@
     	-dontwarn com.mob.**
     	-dontwarn cn.sharesdk.**
     	-dontwarn **.R$*
+
+    #百度SSP
+    -keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+    }
+    -keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+    }
+    -keep class com.baidu.mobads.*.** { *; }
+
+    #安沃
+    -dontwarn com.immersion.hapticmedia.**
+    -dontwarn com.sixth.adwoad.**
+    -keep class com.sixth.adwoad.** {*;}
+    -keepclasseswithmembernames class * {
+    native <methods>;
+    }
