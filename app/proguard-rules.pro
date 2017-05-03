@@ -145,6 +145,7 @@
    #    public static int e(...);
    #}
 
+#百川电商
     -keep class sun.misc.Unsafe { *; }
     -keep class com.taobao.** {*;}
     -keep class com.alibaba.** {*;}
@@ -158,6 +159,7 @@
     -dontwarn com.ta.**
     -keep class org.json.** {*;}
     -keep class com.ali.auth.**  {*;}
+#mob短信验证
     -keepclassmembers class ** {
         public void onEvent*(**);
     }
@@ -170,11 +172,11 @@
 
     -dontwarn com.baidu.**
     -keep class com.baidu.**{*;}
-
+#okhttp3
     -dontwarn com.squareup.okhttp3.**
     -keep class com.squareup.okhttp3.** { *;}
     -dontwarn okio.**
-
+#glide
     -keep public class * implements com.bumptech.glide.module.GlideModule
     -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
       **[] $VALUES;
@@ -188,7 +190,7 @@
     -keep class com.google.gson.** { *;}
     #这句非常重要，主要是滤掉 com.bgb.scan.model包下的所有.class文件不进行混淆编译
     -keep class com.bgb.scan.model.** {*;}
-
+#share sdk
     -keep class cn.sharesdk.**{*;}
     	-keep class com.sina.**{*;}
     	-keep class **.R$* {*;}
@@ -215,3 +217,13 @@
     -keepclasseswithmembernames class * {
     native <methods>;
     }
+
+    #支付宝支付
+    -libraryjars libs/alipaySingle-20161222.jar
+
+    -keep class com.alipay.android.app.IAlixPay{*;}
+    -keep class com.alipay.android.app.IAlixPay$Stub{*;}
+    -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+    -keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+    -keep class com.alipay.sdk.app.PayTask{ public *;}
+    -keep class com.alipay.sdk.app.AuthTask{ public *;}

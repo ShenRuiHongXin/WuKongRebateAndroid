@@ -44,70 +44,9 @@ dependencies {
     //androidannotations配置
     compile "org.androidannotations:androidannotations-api:$AAVersion"
     //androidannotations配置
-
-    //EventBus配置
-
-    //轮播图
-
-    //百分比布局
-
-    /*
-                                        百川电商
-                                        */
-
-    //fastjson
-
-    //支付
-
-    //登陆
-
-    //    //【可选】仅供特殊合作伙伴使用
-
-    //    compile 'com.ali.auth.sdk:alibabauth_accountlink:1.1.4@jar'
-
-    //
-
-    //安全基础
-
-    //    //【可选】安全高级，如使用了发放红包、优惠券高级功能，则必须引入
-
-    //    compile 'com.taobao.android:securitybodyaar3:5.1.25@aar'
-
-    //Mtop网关
-
-    //applink
-
-    //UT
-
-    //电商SDK
-
-    /*
-                                        *okHttp
-                                        * */
-
-    //SMS
     compile name: 'SMSSDK-2.1.3', ext: 'aar'
     compile name: 'SMSSDKGUI-2.1.3', ext: 'aar'
     compile files('libs/BaiduLBS_Android.jar')
-    compile files('libs/MobCommons-2016.1201.1839.jar')
-    compile files('libs/MobTools-2016.1201.1839.jar')
-    compile files('libs/MobTools-2017.0216.1054.jar')
-    compile files('libs/ShareSDK-Alipay-2.8.1.jar')
-    compile files('libs/ShareSDK-Alipay-Core-2.8.1.jar')
-    compile files('libs/ShareSDK-Core-2.8.1.jar')
-    compile files('libs/ShareSDK-Dingding-2.8.1.jar')
-    compile files('libs/ShareSDK-Email-2.8.1.jar')
-    compile files('libs/ShareSDK-Facebook-2.8.1.jar')
-    compile files('libs/ShareSDK-Line-2.8.1.jar')
-    compile files('libs/ShareSDK-QQ-2.8.1.jar')
-    compile files('libs/ShareSDK-QZone-2.8.1.jar')
-    compile files('libs/ShareSDK-ShortMessage-2.8.1.jar')
-    compile files('libs/ShareSDK-SinaWeibo-2.8.1.jar')
-    compile files('libs/ShareSDK-TencentWeibo-2.8.1.jar')
-    compile files('libs/ShareSDK-Wechat-2.8.1.jar')
-    compile files('libs/ShareSDK-Wechat-Core-2.8.1.jar')
-    compile files('libs/ShareSDK-Wechat-Moments-2.8.1.jar')
-    compile files('libs/MobCommons-2017.0216.1054.jar')
     compile files('libs/DuoMaiADCPS.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:25.1.0'
@@ -117,19 +56,18 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.zhy:percent-support-extends:1.1.1'
-    compile 'com.alibaba:fastjson:1.2.9'
-    compile 'com.alibaba.alipay:alipaySingle:20160825@jar'
-    compile 'com.ali.auth.sdk:alibabauth_core:1.1.4@jar'
-    compile 'com.ali.auth.sdk:alibabauth_ui:1.1.4@aar'
-    compile 'com.ali.auth.sdk:alibabauth_ext:1.1.4@jar'
-    compile 'com.taobao.android:securityguardaar3:5.1.81@aar'
-    compile 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
-    compile 'com.taobao.android:alibc_applink:2.0.0.9@jar'
-    compile 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
-    compile 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
-    compile 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.alibaba:fastjson:1.2.9'                                    //百川SDK fastjson
+    compile 'com.ali.auth.sdk:alibabauth_core:1.1.4@jar'                    //百川SDK 登陆授权(必选)
+    compile 'com.ali.auth.sdk:alibabauth_ui:1.1.4@aar'                      //百川SDK 登陆授权(必选)
+    compile 'com.ali.auth.sdk:alibabauth_ext:1.1.4@jar'                     //百川SDK 登陆授权(必选)
+    compile 'com.taobao.android:securityguardaar3:5.1.81@aar'               //百川SDK 基础安全组件(必选)
+    compile 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'          //百川SDK mtop(必选)
+    compile 'com.taobao.android:alibc_applink:2.0.0.9@jar'                  //百川SDK applink(必选)
+    compile 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'             //百川SDK ut(必选)
+    compile 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'   //百川SDK ut(必选)
+    compile 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.11@aar'          //百川SDK 基础电商组件(必选)
+    compile 'com.squareup.okhttp3:okhttp:3.5.0'//okhttp3
+    compile 'com.google.code.gson:gson:2.8.0'//GSON
     compile 'com.github.hackware1993:MagicIndicator:1.5.0'
     compile 'com.jude:rollviewpager:1.3.4'
     testCompile 'junit:junit:4.12'
@@ -138,10 +76,17 @@ dependencies {
     compile files('libs/httpcore-4.4.6.jar')
     compile 'me.kaelaela:verticalviewpager:1.0.0@aar'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
-    compile files('libs/Baidu_MobAds_SDK.jar')
-    compile files('libs/Adwo_Android_SDK6.2.jar')
-    compile files('libs/HapticMediaSync-v1.4.10.jar')
     compile files('libs/alipaySingle-20161222.jar')
+    compile files('libs/MobCommons-2017.0412.1554.jar')
+    compile files('libs/MobTools-2017.0412.1554.jar')
+    compile files('libs/ShareSDK-Core-2.8.3.jar')
+    compile files('libs/ShareSDK-QQ-2.8.3.jar')
+    compile files('libs/ShareSDK-QZone-2.8.3.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.8.3.jar')
+    compile files('libs/ShareSDK-Wechat-2.8.3.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.8.3.jar')
+    compile files('libs/ShareSDK-Wechat-Favorite-2.8.3.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.8.3.jar')
 }
 
 /*

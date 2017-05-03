@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@drawable/vip_chongzhi_value_border"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_chongzhi_recharge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="50元"
+        android:textColor="#2598EA"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/tv_chongzhi_presenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:textColor="#6AC0FE"
+        android:textSize="12sp"
+        android:text="可获得:55元"/>
+
+</LinearLayout>

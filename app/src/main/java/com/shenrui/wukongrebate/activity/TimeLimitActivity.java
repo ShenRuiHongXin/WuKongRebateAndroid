@@ -112,6 +112,7 @@ public class TimeLimitActivity extends BaseActivity {
         String hour = formatHour.format(curDate);
         String mins = formatMins.format(curDate);
         String seco = formatSeco.format(curDate);
+//        LogUtil.d("当前时间:"+hour+":"+mins+":"+seco);
         curHour = Integer.parseInt(hour);
         subTimeLeft(curHour,Integer.parseInt(mins),Integer.parseInt(seco));
     }
