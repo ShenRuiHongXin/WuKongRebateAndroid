@@ -13,7 +13,7 @@ public class Constants {
 
     public static final boolean IS_DEBUG = true;
     //正式环境
-    public static final String ROOT_URL = "http://gw.api.taobao.com/router/rest?";
+    public static final String TAOBAO_API_ROOT_URL = "http://gw.api.taobao.com/router/rest?";
     //淘宝客app key
     //public static final String APP_KEY = "23585348";
     public static final String APP_KEY = "23665752";
@@ -93,10 +93,12 @@ public class Constants {
             new CatsItemLocal("床上用品",new int[]{BEDDING})
     };
 
-    //服务器根地址
-    public static final String SERVICE_URL = "http://192.168.0.4:8080/WukongServer/";
+    //服务器根地址    正式环境
+    public static final String SERVICE_ONLINE_URL = "http://106.14.156.4/WukongServer/";
+    public static final String SERVICE_ONLINE_HOST = "http://106.14.156.4/";
     //服务器根地址 测试
     public static final String SERVICE_DEBUG_URL = "http://192.168.0.6:8080/WukongServer/";
+    public static final String SERVICE_DEBUG_HOST = "http://192.168.0.6:8080/";
     //Host
     public static final String HOST = "http://192.168.0.4:8080/";
     //数据库路径

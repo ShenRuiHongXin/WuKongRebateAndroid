@@ -32,7 +32,7 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTOUT" />
     //通知
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <!--
     &lt;!&ndash; 蓝牙分享所需的权限 &ndash;&gt;
@@ -75,15 +75,13 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
 
         <!--
         <meta-data
@@ -156,8 +154,8 @@
 
         <activity
             android:name=".activity.MainActivity_"
-            android:launchMode="singleTask"
-            android:hardwareAccelerated="true">
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask">
 
             <!--
             <intent-filter>
@@ -225,28 +223,32 @@
             android:name=".activity.SearchResultActivity_"
             android:launchMode="singleInstance" />
         <activity android:name=".activity.TestActivity_" />
-        <activity android:name=".activity.FoodMenuActivity_"/>
-        <activity android:name=".activity.DuoBaoActivity_"/>
-        <activity android:name=".activity.TimeLimitActivity_"/>
+        <activity android:name=".activity.FoodMenuActivity_" />
+        <activity android:name=".activity.DuoBaoActivity_" />
+        <activity android:name=".activity.TimeLimitActivity_" />
         <activity android:name=".activity.FoodJCommonActivity_" />
-        <activity android:name=".activity.ShopDetailActivity_"/>
-        <activity android:name=".activity.CookbookDetailActivity_"/>
-        <activity android:name=".activity.FoodMenuSearchActivity_"/>
-        <activity android:name=".activity.UpdateDownloatActivity_"/>
-        <activity android:name=".activity.YuanbaoActivity_"/>
-        <activity android:name=".activity.MyVipActivity_"/>
-        <activity android:name=".activity.JfGlCommonActivity_"/>
-        <activity android:name=".activity.VipPrivilegeActivity_"/>
-        <activity android:name=".activity.InvationAwardActivity_"/>
+        <activity android:name=".activity.ShopDetailActivity_" />
+        <activity android:name=".activity.CookbookDetailActivity_" />
+        <activity android:name=".activity.FoodMenuSearchActivity_" />
+        <activity android:name=".activity.UpdateDownloatActivity_" />
+        <activity android:name=".activity.YuanbaoActivity_" />
+        <activity android:name=".activity.MyVipActivity_" />
+        <activity android:name=".activity.JfGlCommonActivity_" />
+        <activity android:name=".activity.VipPrivilegeActivity_" />
+        <activity android:name=".activity.InvationAwardActivity_" />
+
         <receiver android:name=".utils.ApkInstallReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
-        <service android:name=".service.TimeLimitRemindService"/>
-        <activity android:name=".activity.DuobaoCatsActivity_"/>
-        <activity android:name=".activity.DuobaoSearchActivity_"/>
-        <activity android:name=".activity.DuobaoRecodeActivity_"/>
+
+        <service android:name=".service.TimeLimitRemindService" />
+
+        <activity android:name=".activity.DuobaoCatsActivity_" />
+        <activity android:name=".activity.DuobaoSearchActivity_" />
+        <activity android:name=".activity.DuobaoRecodeActivity_" />
+        <activity android:name=".activity.DuobaoGoodDetailActivity_"/>
     </application>
 
 </manifest>

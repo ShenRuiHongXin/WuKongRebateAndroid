@@ -20,6 +20,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.MyToast;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
@@ -222,7 +223,7 @@ public class LoginActivity extends BaseActivity {
                 //输出所有授权信息
                 PlatformDb db = platform.getDb();
                 String s = db.exportData();
-                Log.e("DeDiWang", "输出所有授权信息" + s);
+                LogUtil.d("输出所有授权信息:" + s);
                 userId = db.getUserId();
                 userNick = db.getUserName();
                 userIcon = db.getUserIcon();
@@ -245,7 +246,7 @@ public class LoginActivity extends BaseActivity {
             }
         };
         //判断该平台是否已经授权
-        Log.e("DeDiWang",platform.isAuthValid()+"");
+        LogUtil.d("平台是否授权:"+platform.isAuthValid());
         platform.setPlatformActionListener(listener);
         if (platform.isAuthValid()){
             //已经授权，直接从数据库拿取用户信息登录
@@ -256,7 +257,7 @@ public class LoginActivity extends BaseActivity {
             userPassword = db.getToken();
             loginType = logintype;
             otherLogin();
-            Log.e("DeDiWang","已经授权，直接从数据库拿取用户信息登录");
+            LogUtil.d("已经授权，直接从数据库拿取用户信息登录");
         }else {
             //authorize与showUser单独调用一个即可
             //qq.authorize();//单独授权,OnComplete返回的hashmap是空的

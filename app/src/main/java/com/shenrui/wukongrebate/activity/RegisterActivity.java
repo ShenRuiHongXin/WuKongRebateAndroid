@@ -18,6 +18,7 @@ import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.ResponseResult;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.MyToast;
 import com.shenrui.wukongrebate.utils.OkHttpUtils;
@@ -210,6 +211,7 @@ public class RegisterActivity extends BaseActivity {
                 if(result.getResult()!=null){
                     if(result.getResult().getCode()== Constants.CODE_SUCCESS){
                         Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                        handler.removeCallbacksAndMessages(null);
                         //注册成功后跳到登录界面
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity_.class);
                         intent.putExtra("phoneNumber",result.getUserAuths().getIdentifier());
@@ -223,7 +225,8 @@ public class RegisterActivity extends BaseActivity {
 
             @Override
             public void onError(String error) {
-                Log.e("error",error);
+                MyToast.showToast(RegisterActivity.this,"注册失败，请稍后重试");
+                LogUtil.d("注册失败:"+error);
             }
         });
     }
@@ -290,8 +293,6 @@ public class RegisterActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterAllEventHandler();
-        handler = null;
-        timeHandler = null;
         OkHttpUtils.release();
     }
 

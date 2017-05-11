@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.DuoBaoAdapter;
-import com.shenrui.wukongrebate.entities.DuobaoGood;
 import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
 import com.shenrui.wukongrebate.utils.MyToast;
@@ -101,17 +100,17 @@ public class DuobaoSearchActivity extends BaseActivity {
         }else{
             datas.clear();
         }
-        for (int i = 0; i<10; i++){
-            if (i == 1){
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,50)));
-            }else if(i == 2){
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,100)));
-            }else if(i == 3){
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,0)));
-            }else{
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,(100+i),(50-i))));
-            }
-        }
+//        for (int i = 0; i<10; i++){
+//            if (i == 1){
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,50)));
+//            }else if(i == 2){
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,100)));
+//            }else if(i == 3){
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,0)));
+//            }else{
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,(100+i),(50-i))));
+//            }
+//        }
         llSearchHot.setVisibility(View.GONE);
         llResultCount.setVisibility(View.VISIBLE);
         rlSearchHint.setVisibility(View.GONE);

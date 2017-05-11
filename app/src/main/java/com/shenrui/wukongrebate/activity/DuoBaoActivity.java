@@ -5,12 +5,16 @@ import android.graphics.Rect;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.adapter.DuoBaoAdapter;
-import com.shenrui.wukongrebate.entities.DuobaoGood;
+import com.shenrui.wukongrebate.biz.NetDao;
+import com.shenrui.wukongrebate.entities.DuobaoResp;
 import com.shenrui.wukongrebate.utils.FullyGridLayoutManager;
+import com.shenrui.wukongrebate.utils.LogUtil;
 import com.shenrui.wukongrebate.utils.MFGT;
+import com.shenrui.wukongrebate.utils.OkHttpUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -32,6 +36,8 @@ public class DuoBaoActivity extends BaseActivity {
 //    ViewPager vp;
     @ViewById(R.id.rv_duobao)
     RecyclerView rv;
+    @ViewById(R.id.progressBar)
+    ProgressBar pb;
 
     Context context;
     DuoBaoAdapter adapter;
@@ -42,25 +48,40 @@ public class DuoBaoActivity extends BaseActivity {
     void init(){
         context = this;
 //        initTabs();
+        showProgressBar();
         initView();
     }
 
     void initView(){
         int[] images = {R.drawable.home_banner,R.drawable.home_banner,R.drawable.home_banner};
         datas = new ArrayList<>();
+        NetDao.getDuobaoGoods(this, new OkHttpUtils.OnCompleteListener<DuobaoResp>() {
+            @Override
+            public void onSuccess(DuobaoResp result) {
+                LogUtil.d("夺宝商品:"+result.getRespDate().length);
+                for (int i=0; i<result.getRespDate().length; i++){
+                    datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,(result.getRespDate())[i]));
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
         //临时数据
         datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.HEADMENU,images,null));
-        for (int i = 0; i<10; i++){
-            if (i == 1){
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,50)));
-            }else if(i == 2){
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,100)));
-            }else if(i == 3){
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,0)));
-            }else{
-                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,(100+i),(50-i))));
-            }
-        }
+//        for (int i = 0; i<10; i++){
+//            if (i == 1){
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,50)));
+//            }else if(i == 2){
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,100)));
+//            }else if(i == 3){
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,100,0)));
+//            }else{
+//                datas.add(new DuoBaoAdapter.DuobaoData(DuoBaoAdapter.GOOD,null,new DuobaoGood(i,"商品"+i,0,null,0,(100+i),(50-i))));
+//            }
+//        }
         adapter = new DuoBaoAdapter(context,datas);
         rv.setAdapter(adapter);
         layoutManager = new FullyGridLayoutManager(context,2);
@@ -84,6 +105,7 @@ public class DuoBaoActivity extends BaseActivity {
                 }
             }
         });
+        hideProgressBar();
     }
 
 //    private void initTabs() {
@@ -143,6 +165,15 @@ public class DuoBaoActivity extends BaseActivity {
 ////        ViewPagerHelper.bind(magic,vp);
 //    }
 
+
+    void showProgressBar(){
+        rv.setVisibility(View.INVISIBLE);
+        pb.setVisibility(View.VISIBLE);
+    }
+    void hideProgressBar(){
+        rv.setVisibility(View.VISIBLE);
+        pb.setVisibility(View.GONE);
+    }
 
     @Click(R.id.iv_duo_back)
     void clickEvent(View view){

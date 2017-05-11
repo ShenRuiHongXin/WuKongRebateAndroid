@@ -419,6 +419,7 @@ public class OkHttpUtils<T> {
                     mHandler.sendMessage(msg);
                 }else {
                     Gson gson = new Gson();
+                    LogUtil.d("返回数据:" + json);
                     T value = gson.fromJson(json, mClazz);
                     Message msg = Message.obtain();
                     msg.what = RESULT_SUCCESS;

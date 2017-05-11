@@ -82,9 +82,9 @@ public class PersonalInfoActivity extends BaseActivity {
         if(userInfo.getAvatar()!=null){
             //http://192.168.0.4:8080/WukongServer/resources/UserAvatar/26.jpg
             if (!userAuths.getIdentity_type().equals(Constants.TYPE_PHONE)){
-                Glide.with(this).load(userInfo.getAvatar()).into(avatar);
+                Glide.with(this).load(userInfo.getAvatar()).error(R.drawable.home_img_user).into(avatar);
             }else{
-                Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).into(avatar);
+                Glide.with(this).load(NetDao.getServerHost() + userInfo.getAvatar()).error(R.drawable.home_img_user).into(avatar);
             }
         }
     }
@@ -205,7 +205,7 @@ public class PersonalInfoActivity extends BaseActivity {
                 .addFormDataPart("avatar", file.getName(), requestBody)
                 .build();
         final Request request = new Request.Builder()
-                .url(Constants.SERVICE_URL + "user_update")
+                .url(NetDao.getServerUrl()+ "user_update")
                 .post(multipartBody)
                 .build();
         new OkHttpClient().newCall(request).enqueue(new Callback() {
@@ -231,7 +231,7 @@ public class PersonalInfoActivity extends BaseActivity {
         Toast.makeText(this, "修改头像成功", Toast.LENGTH_SHORT).show();
         userInfo.setAvatar(result.getUserInfo().getAvatar());
         SharedPreferenceUtils.getInstance(this).putUserInfo(userInfo);
-        Glide.with(this).load(Constants.HOST + result.getUserInfo().getAvatar()).into(avatar);
+        Glide.with(this).load(NetDao.getServerHost() + result.getUserInfo().getAvatar()).error(R.drawable.home_img_user).into(avatar);
     }
 
     @Override

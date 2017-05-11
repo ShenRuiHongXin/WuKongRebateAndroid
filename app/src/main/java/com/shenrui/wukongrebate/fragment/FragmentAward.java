@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.shenrui.wukongrebate.R;
 import com.shenrui.wukongrebate.activity.IntegralLuckDrawActivity_;
 import com.shenrui.wukongrebate.activity.LoginActivity_;
-import com.shenrui.wukongrebate.contents.Constants;
+import com.shenrui.wukongrebate.biz.NetDao;
 import com.shenrui.wukongrebate.entities.UserAuths;
 import com.shenrui.wukongrebate.entities.UserInfo;
 import com.shenrui.wukongrebate.utils.MFGT;
@@ -70,7 +70,7 @@ public class FragmentAward extends BaseFragment {
                 if (!userAuths.getIdentity_type().equals("phone")){
                     Glide.with(this).load(userInfo.getAvatar()).into(ivAvatar);
                 }else{
-                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).error(R.drawable.home_img_user).into(ivAvatar);
+                    Glide.with(this).load(NetDao.getServerHost() + userInfo.getAvatar()).error(R.drawable.home_img_user).into(ivAvatar);
                 }
             }else{
                 ivAvatar.setImageResource(R.drawable.home_img_user);

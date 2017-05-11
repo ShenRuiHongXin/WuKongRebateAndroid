@@ -10,6 +10,7 @@ import com.shenrui.wukongrebate.contents.Constants;
 import com.shenrui.wukongrebate.entities.CookbookCatRespBox;
 import com.shenrui.wukongrebate.entities.CookbookRecomResp;
 import com.shenrui.wukongrebate.entities.CookbookRespBox;
+import com.shenrui.wukongrebate.entities.DuobaoResp;
 import com.shenrui.wukongrebate.entities.LoginInfo;
 import com.shenrui.wukongrebate.entities.ResponseResult;
 import com.shenrui.wukongrebate.entities.SignResponseResult;
@@ -35,8 +36,42 @@ import static android.content.Context.TELEPHONY_SERVICE;
  */
 
 public class NetDao {
-    //http://192.168.0.4:8080/WukongServer/
-    //用户注册
+    /**
+     * 获取服务器路径
+     * @return
+     */
+    public static String getServerUrl(){
+        //XXX TODO
+//        if (Constants.IS_DEBUG){
+        if (false){
+            return Constants.SERVICE_DEBUG_URL;
+        }else{
+            return Constants.SERVICE_ONLINE_URL;
+        }
+    }
+
+    /**
+     * 获取服务器根地址
+     * @return
+     */
+    public static String getServerHost(){
+        //XXX TODO
+//        if (Constants.IS_DEBUG){
+        if (false){
+            return Constants.SERVICE_DEBUG_HOST;
+        }else{
+            return Constants.SERVICE_ONLINE_HOST;
+        }
+    }
+
+    /**
+     * 用户注册
+     * @param context
+     * @param nick
+     * @param phoneNumber
+     * @param password
+     * @param listener
+     */
     public static void register(Context context, String nick, String phoneNumber, String password, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         UserInfo userInfo = new UserInfo();
         userInfo.setNick_name(nick);
@@ -55,7 +90,7 @@ public class NetDao {
         String userAuthsJson = gson.toJson(userAuths);
 
         OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
-            utils.url(Constants.SERVICE_URL+"user_register")
+            utils.url(getServerUrl()+"user_register")
                     .post()
                     .addParam("userInfo",userInfoJson)
                     .addParam("userAuths",userAuthsJson)
@@ -63,7 +98,12 @@ public class NetDao {
                     .execute(listener);
     }
 
-    //判断用户是否已经注册
+    /**
+     * 判断用户是否已经注册
+     * @param context
+     * @param phoneNumber
+     * @param listener
+     */
     public static void phoneNumberRegistered(Context context, String phoneNumber, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         UserInfo userInfo = new UserInfo();
         final Gson gson = new Gson();
@@ -75,7 +115,7 @@ public class NetDao {
         String userAuthsJson = gson.toJson(userAuths);
 
         OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_URL+"user_register")
+        utils.url(getServerUrl()+"user_register")
                 .post()
                 .addParam("userInfo",userInfoJson)
                 .addParam("userAuths",userAuthsJson)
@@ -83,7 +123,13 @@ public class NetDao {
                 .execute(listener);
     }
 
-    //用户登录
+    /**
+     * 用户登录
+     * @param context
+     * @param phoneNumber
+     * @param password
+     * @param listener
+     */
     public static void login(Context context,String phoneNumber,String password,OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         UserInfo userInfo = new UserInfo();
         Gson gson = new Gson();
@@ -111,7 +157,7 @@ public class NetDao {
         Log.e("DeDiWang loginInfo",loginInfoJson);
 
         OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_URL+"user_login")
+        utils.url(getServerUrl()+"user_login")
                 .post()
                 .addParam("userInfo",userInfoJson)
                 .addParam("userAuths",userAuthsJson)
@@ -120,7 +166,16 @@ public class NetDao {
                 .execute(listener);
     }
 
-    //第三方登录
+    /**
+     * 第三方登录
+     * @param context
+     * @param loginType
+     * @param number
+     * @param nick
+     * @param icon
+     * @param password
+     * @param listener
+     */
     public static void otherLogin(Context context,String loginType,String number,String nick,String icon,String password,OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         UserInfo userInfo = new UserInfo();
         userInfo.setNick_name(nick);
@@ -151,7 +206,7 @@ public class NetDao {
         Log.e("DeDiWang loginInfo",loginInfoJson);
 
         OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_URL+"user_login")
+        utils.url(getServerUrl()+"user_login")
                 .post()
                 .addParam("userInfo",userInfoJson)
                 .addParam("userAuths",userAuthsJson)
@@ -160,7 +215,10 @@ public class NetDao {
                 .execute(listener);
     }
 
-    //获取登录ip地址
+    /**
+     * 获取登录ip地址
+     * @return
+     */
     public static String getIpAddressString() {
         try {
             for (Enumeration<NetworkInterface> enNetI = NetworkInterface
@@ -180,24 +238,34 @@ public class NetDao {
         return "";
     }
 
-    //修改用户基本信息
+    /**
+     * 修改用户基本信息
+     * @param context
+     * @param userInfo
+     * @param listener
+     */
     public static void updateUserInfo(Context context, UserInfo userInfo, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         Gson gson = new Gson();
         String userInfoJson = gson.toJson(userInfo);
         OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_URL+"user_update")
+        utils.url(getServerUrl()+"user_update")
                 .post()
                 .addParam("userInfo",userInfoJson)
                 .targetClass(ResponseResult.class)
                 .execute(listener);
     }
 
-    //修改用户认证信息
+    /**
+     * 修改用户认证信息
+     * @param context
+     * @param userAuths
+     * @param listener
+     */
     public static void updateUserAuths(Context context, UserAuths userAuths, OkHttpUtils.OnCompleteListener<ResponseResult> listener){
         Gson gson = new Gson();
         String userAuthsJson = gson.toJson(userAuths);
         OkHttpUtils<ResponseResult> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_URL+"user_update")
+        utils.url(getServerUrl()+"user_update")
                 .post()
                 .addParam("userAuths",userAuthsJson)
                 .targetClass(ResponseResult.class)
@@ -217,22 +285,33 @@ public class NetDao {
                 .execute(listener);
     }*/
 
-    //用户签到
+    /**
+     * 用户签到
+     * @param context
+     * @param userInfo
+     * @param listener
+     */
     public static void sign(Context context,UserInfo userInfo,OkHttpUtils.OnCompleteListener<SignResponseResult> listener){
         Gson gson = new Gson();
         String userInfoJson = gson.toJson(userInfo);
         OkHttpUtils<SignResponseResult> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_URL+"user_sign")
+        utils.url(getServerUrl()+"user_sign")
                 .post()
                 .addParam("userInfo",userInfoJson)
                 .targetClass(SignResponseResult.class)
                 .execute(listener);
     }
 
-    //下载九块九商品
     //"http://gw.api.taobao.com/router/rest?app_key=23585348&cat=16&end_price=39&fields=num_iid,pict_url,title,zk_final_price" +
     //"&format=json&method=taobao.tbk.item.get&page_no=1&page_size=10&sign=7A11E96A7A4F4FF061C468295D9F05DF" +
     //        "&sign_method=md5&start_price=1&timestamp=2017-01-23 16:21:20&v=2.0"
+    /**
+     * 下载九块九商品
+     * @param context
+     * @param cids
+     * @param pageNo
+     * @param listener
+     */
     public static void downloadNineGoods(Context context,int[] cids,int pageNo,OkHttpUtils.OnCompleteListener<String> listener){
         Map<String, String> map = new HashMap<String, String>();
         map.put("fields", "num_iid,title,pict_url,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick");
@@ -255,7 +334,7 @@ public class NetDao {
         map.put("end_price","49");
         map.put("start_tk_rate","2000");//淘宝客佣金比率20%-90%
         map.put("end_tk_rate","9000");
-        String url = Constants.ROOT_URL + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
+        String url = Constants.TAOBAO_API_ROOT_URL + TaobaoReqUtil.GenerateTaobaoReqStr("taobao.tbk.item.get", map);
         OkHttpUtils<String> utils = new OkHttpUtils<>(context);
         utils.url(url)
                 .targetClass(String.class)
@@ -271,7 +350,7 @@ public class NetDao {
      */
     public static void getFoodMenuDataByCat(Context context,String keyword,int num,OkHttpUtils.OnCompleteListener<CookbookRespBox> listener){
         OkHttpUtils<CookbookRespBox> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_search")
+        utils.url(getServerUrl()+"get_cookbook_search")
                 .post()
                 .addParam("keyword",keyword)
                 .addParam("num",String.valueOf(num))
@@ -280,10 +359,18 @@ public class NetDao {
                 .execute(listener);
     }
 
+    /**
+     * 搜索获取菜谱
+     * @param context
+     * @param keyword
+     * @param classid
+     * @param num
+     * @param listener
+     */
     public static void getFoodMenuDataBySearch(Context context,String keyword,String classid,int num,OkHttpUtils.OnCompleteListener<CookbookRespBox> listener){
         OkHttpUtils<CookbookRespBox> utils = new OkHttpUtils<>(context);
         if (keyword != null){
-            utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_search")
+            utils.url(getServerUrl()+"get_cookbook_search")
                     .post()
                     .addParam("keyword",keyword)
                     .addParam("num",String.valueOf(num))
@@ -291,7 +378,7 @@ public class NetDao {
                     .targetClass(CookbookRespBox.class)
                     .execute(listener);
         }else if (classid != null){
-            utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_byclass")
+            utils.url(getServerUrl()+"get_cookbook_byclass")
                     .post()
                     .addParam("classid",classid)
                     .addParam("num",String.valueOf(num))
@@ -309,7 +396,7 @@ public class NetDao {
      */
     public static void getCookbookRecommend(Context context,OkHttpUtils.OnCompleteListener<CookbookRecomResp> listener){
         OkHttpUtils<CookbookRecomResp> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_recommend")
+        utils.url(getServerUrl()+"get_cookbook_recommend")
                 .post()
                 .transfromRecomJson(true)
                 .targetClass(CookbookRecomResp.class)
@@ -323,10 +410,23 @@ public class NetDao {
      */
     public static void getCookbookAllCats(Context context,OkHttpUtils.OnCompleteListener<CookbookCatRespBox> listener){
         OkHttpUtils<CookbookCatRespBox> utils = new OkHttpUtils<>(context);
-        utils.url(Constants.SERVICE_DEBUG_URL+"get_cookbook_class")
+        utils.url(getServerUrl()+"get_cookbook_class")
                 .post()
                 .transfromJson(true)
                 .targetClass(CookbookCatRespBox.class)
+                .execute(listener);
+    }
+
+    /**
+     * 获取夺宝商品
+     * @param context
+     * @param listener
+     */
+    public static void getDuobaoGoods(Context context,OkHttpUtils.OnCompleteListener<DuobaoResp> listener){
+        OkHttpUtils<DuobaoResp> utils = new OkHttpUtils<>(context);
+        utils.url(getServerUrl()+"indiana")
+                .post()
+                .targetClass(DuobaoResp.class)
                 .execute(listener);
     }
 }

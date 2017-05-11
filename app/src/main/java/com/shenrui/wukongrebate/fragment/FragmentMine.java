@@ -68,9 +68,9 @@ public class FragmentMine extends BaseFragment{
             tv_money_yue.setText(String.valueOf(userInfo.getBalance()));
             if(userInfo.getAvatar()!=null){
                 if (!userAuths.getIdentity_type().equals("phone")){
-                    Glide.with(this).load(userInfo.getAvatar()).into(iv_avatar);
+                    Glide.with(this).load(userInfo.getAvatar()).error(R.drawable.home_img_user).into(iv_avatar);
                 }else{
-                    Glide.with(this).load(Constants.HOST + userInfo.getAvatar()).error(R.drawable.home_img_user).into(iv_avatar);
+                    Glide.with(this).load(NetDao.getServerHost()+ userInfo.getAvatar()).error(R.drawable.home_img_user).into(iv_avatar);
                 }
             }else{
                 iv_avatar.setImageResource(R.drawable.home_img_user);

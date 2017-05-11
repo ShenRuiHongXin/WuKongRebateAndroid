@@ -32,7 +32,7 @@
             android:layout_height="60dp"
             app:border_color="#00000000"
             app:border_width="0dp"
-            android:src="@drawable/mine_avatar"
+            android:src="@drawable/home_img_user"
             android:layout_gravity="center_vertical"/>
         <ImageView
             android:layout_width="wrap_content"
